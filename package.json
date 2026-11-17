@@ -23,7 +23,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "dev": "node --experimental-strip-types src/cli.ts",
-    "test": "npm run build && node --test \"test/**/*.test.mjs\"",
+    "test": "npm run build && node scripts/run-tests.mjs",
     "sync:e18e": "node scripts/sync-e18e.mjs",
     "prepublishOnly": "npm test",
     "version": "node scripts/sync-version.mjs && git add src/version.ts .claude-plugin/plugin.json skills/package-guidance/SKILL.md",

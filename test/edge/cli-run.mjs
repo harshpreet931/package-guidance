@@ -3,7 +3,7 @@ import { spawnSync } from 'node:child_process';
 import { mkdirSync, mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 export const BIN = join(HERE, '..', '..', 'bin', 'package-guidance.js');
@@ -22,7 +22,7 @@ export function repo(files = {}) {
 export function cli(args, { fake = {}, env = {}, input } = {}) {
   const fx = join(mkdtempSync(join(tmpdir(), 'pg-fx-')), 'fake.json');
   writeFileSync(fx, JSON.stringify(fake));
-  const r = spawnSync(process.execPath, ['--import', join(HERE, 'cli-fake-fetch.mjs'), BIN, ...args], {
+  const r = spawnSync(process.execPath, ['--import', pathToFileURL(join(HERE, 'cli-fake-fetch.mjs')).href, BIN, ...args], {
     encoding: 'utf8', timeout: 30_000, input,
     env: { ...process.env, NO_COLOR: '1', FORCE_COLOR: '0', PACKAGE_GUIDANCE_NO_CACHE: '1', PACKAGE_GUIDANCE_COOLDOWN: '', PG_FAKE: fx, ...env },
   });
