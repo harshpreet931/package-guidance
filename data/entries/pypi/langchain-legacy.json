@@ -1,0 +1,30 @@
+{
+  "id": "langchain-legacy",
+  "ecosystem": "pypi",
+  "packages": [
+    "langchain"
+  ],
+  "versions": "<1",
+  "status": "outdated-major",
+  "severity": "warn",
+  "summary": "LangChain 1.x is current (1.0 on 2025-10-17). Legacy chains (LLMChain, ConversationChain), retrievers, hub and the langchain-community re-exports moved to langchain-classic, and agents use langchain.agents.create_agent. Install provider packages (langchain-openai, ...) directly.",
+  "replacements": [
+    {
+      "name": "langchain>=1",
+      "kind": "package",
+      "install": "uv add langchain langchain-openai"
+    },
+    {
+      "name": "langchain-classic",
+      "kind": "package",
+      "install": "uv add langchain-classic",
+      "when": "temporary home for legacy chains and imports"
+    }
+  ],
+  "tags": [
+    "ai",
+    "llm"
+  ],
+  "source": "https://docs.langchain.com/oss/python/migrate/langchain-v1",
+  "last_verified": "2026-11-16"
+}

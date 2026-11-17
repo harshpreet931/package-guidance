@@ -1,0 +1,24 @@
+{
+  "id": "rimraf",
+  "ecosystem": "npm",
+  "packages": [
+    "rimraf"
+  ],
+  "versions": "*",
+  "status": "prefer-native",
+  "severity": "info",
+  "summary": "In code, fs.rm(path, { recursive: true, force: true }) (Node 14.14+) replaces rimraf. rimraf <4 is flagged unsupported on npm. rimraf 6 is fine as a cross-platform CLI in package.json scripts.",
+  "replacements": [
+    {
+      "name": "fs.rm",
+      "kind": "native",
+      "when": "await fs.promises.rm(dir, { recursive: true, force: true })"
+    }
+  ],
+  "tags": [
+    "fs",
+    "native"
+  ],
+  "source": "https://nodejs.org/api/fs.html#fspromisesrmpath-options",
+  "last_verified": "2026-11-16"
+}

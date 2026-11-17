@@ -1,0 +1,24 @@
+{
+  "id": "body-parser-with-express",
+  "ecosystem": "npm",
+  "packages": [
+    "body-parser"
+  ],
+  "versions": "*",
+  "status": "prefer-native",
+  "severity": "info",
+  "summary": "Express 4.16+ and 5 include express.json(), express.urlencoded(), express.text() and express.raw(). You don't need a separate body-parser dependency. In Express 5, urlencoded defaults to extended: false.",
+  "replacements": [
+    {
+      "name": "express.json",
+      "kind": "native",
+      "when": "app.use(express.json())"
+    }
+  ],
+  "tags": [
+    "express",
+    "http"
+  ],
+  "source": "https://expressjs.com/en/guide/migrating-5.html",
+  "last_verified": "2026-11-16"
+}

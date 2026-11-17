@@ -1,0 +1,30 @@
+{
+  "id": "uuid-legacy",
+  "ecosystem": "npm",
+  "packages": [
+    "uuid"
+  ],
+  "versions": "<11",
+  "status": "deprecated",
+  "severity": "block",
+  "summary": "npm flags uuid 10 and below: 'uuid@10 and below is no longer supported.' Use the latest uuid in ESM code or uuid@11 in CommonJS, or the native crypto.randomUUID() for v4.",
+  "replacements": [
+    {
+      "name": "crypto.randomUUID",
+      "kind": "native",
+      "when": "random v4 IDs (Node 14.17+, browsers in secure contexts)"
+    },
+    {
+      "name": "uuid@latest",
+      "kind": "package",
+      "install": "npm install uuid",
+      "when": "v1/v6/v7 or other non-v4 UUIDs"
+    }
+  ],
+  "tags": [
+    "id",
+    "native"
+  ],
+  "source": "https://www.npmjs.com/package/uuid",
+  "last_verified": "2026-11-16"
+}

@@ -1,0 +1,23 @@
+{
+  "id": "tensorflow-gpu",
+  "ecosystem": "pypi",
+  "packages": [
+    "tensorflow-gpu"
+  ],
+  "versions": "*",
+  "status": "deprecated",
+  "severity": "block",
+  "summary": "tensorflow-gpu has been removed ('Removed: please install \"tensorflow\" instead'). GPU support is in the main package.",
+  "replacements": [
+    {
+      "name": "tensorflow",
+      "kind": "package",
+      "install": "uv add tensorflow"
+    }
+  ],
+  "tags": [
+    "ml"
+  ],
+  "source": "https://pypi.org/project/tensorflow-gpu/",
+  "last_verified": "2026-11-16"
+}

@@ -1,0 +1,26 @@
+{
+  "id": "event-stream",
+  "ecosystem": "npm",
+  "packages": [
+    "event-stream",
+    "flatmap-stream"
+  ],
+  "versions": "*",
+  "status": "caution",
+  "severity": "warn",
+  "summary": "event-stream 3.3.6 (Sept 2018) pulled in malicious flatmap-stream that targeted a bitcoin wallet (GHSA-mh6f-8j2x-4483). The repository is archived. Do not add it.",
+  "replacements": [
+    {
+      "name": "node:stream",
+      "kind": "native",
+      "when": "stream.pipeline, Readable.from, async iterators"
+    }
+  ],
+  "guide": "supply-chain-cooldown",
+  "tags": [
+    "stream",
+    "malware"
+  ],
+  "source": "https://github.com/advisories/GHSA-mh6f-8j2x-4483",
+  "last_verified": "2026-11-16"
+}

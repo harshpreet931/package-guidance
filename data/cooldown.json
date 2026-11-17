@@ -1,0 +1,226 @@
+{
+  "schema_version": 1,
+  "last_verified": "2026-11-16",
+  "default_cooldown_days": 7,
+  "notes": "Units differ per manager: npm and poetry use days, pnpm and yarn use minutes, bun uses seconds, uv and pip use a timestamp or an ISO 8601 / friendly duration. Always convert from days before writing config. Never lower a value the repo already sets.",
+  "managers": {
+    "npm": {
+      "supported": true,
+      "config_file": ".npmrc",
+      "config_format": "ini",
+      "key": "min-release-age",
+      "unit": "days",
+      "value_type": "integer",
+      "min_version": "11.10.0",
+      "default_enabled": false,
+      "default_value": null,
+      "example": "min-release-age=7",
+      "cli_flag": "--min-release-age=7",
+      "env": "npm_config_min_release_age",
+      "alternative": {
+        "key": "before",
+        "value_type": "date",
+        "note": "Absolute date cutoff. If `before` and `min-release-age` are set in the same config source, `before` wins."
+      },
+      "exclude": {
+        "key": "min-release-age-exclude",
+        "min_version": "11.17.0",
+        "value_type": "string, may be set multiple times; package names or minimatch globs",
+        "example": "min-release-age-exclude[]=@myorg/*",
+        "note": "Exempts only the named package; its own dependencies still follow the policy. Also exempts from `before`."
+      },
+      "notes": [
+        "Internally converted to a `before` date, so `npm config get min-release-age` can print null even when it is set (npm/cli#9199).",
+        "If the cooldown blocks `npm audit fix` from installing a patched version, npm keeps the vulnerable version, warns, and exits non-zero (11.18.0+).",
+        "npm 12 (12.0.0, 2026-07-08) blocks dependency lifecycle scripts by default unless allowed by the root package.json `allowScripts` field (manage with `npm approve-scripts`). It did not turn min-release-age on by default."
+      ],
+      "source": "https://docs.npmjs.com/cli/v12/using-npm/config#min-release-age",
+      "changelog": "https://docs.npmjs.com/cli/v11/using-npm/changelog"
+    },
+    "pnpm": {
+      "supported": true,
+      "config_file": "pnpm-workspace.yaml",
+      "config_format": "yaml",
+      "key": "minimumReleaseAge",
+      "unit": "minutes",
+      "value_type": "integer",
+      "min_version": "10.16.0",
+      "default_enabled": true,
+      "default_enabled_since": "11.0.0",
+      "default_value": 1440,
+      "default_value_before_11": 0,
+      "example": "minimumReleaseAge: 10080",
+      "cli_flag": null,
+      "env": null,
+      "exclude": {
+        "key": "minimumReleaseAgeExclude",
+        "min_version": "10.16.0",
+        "patterns_min_version": "10.17.0",
+        "value_type": "string[]; names, globs ('@myorg/*'), or name@version specs ('nx@21.6.5', 'webpack@4.47.0 || 5.102.1')",
+        "example": "minimumReleaseAgeExclude:\n  - '@myorg/*'",
+        "note": "`pnpm audit --fix` (11.0.0+) adds the minimum patched version of each advisory here so a security fix is not held back by the cooldown."
+      },
+      "related_settings": {
+        "minimumReleaseAgeStrict": "true when minimumReleaseAge is explicitly configured, false otherwise. When false, pnpm falls back to a too-young version if nothing in range is old enough.",
+        "minimumReleaseAgeIgnoreMissingTime": "default true (11.0.0+): skip the check when registry metadata lacks `time`.",
+        "minimumReleaseAgeExcludePrune": "default false: prune exclude entries the lockfile no longer resolves.",
+        "trustPolicy": "'no-downgrade' fails install when a package's trust level drops versus earlier releases. Default 'off'.",
+        "blockExoticSubdeps": "default true since 11.0.0: only direct deps may come from git/tarball URLs.",
+        "allowBuilds": "11.0.0+: map of package pattern -> boolean for install scripts; replaces onlyBuiltDependencies/neverBuiltDependencies."
+      },
+      "notes": [
+        "In pnpm 11, .npmrc is auth/registry only; pnpm settings live in pnpm-workspace.yaml (works for single-package repos too) or the global config.yaml.",
+        "pnpm 11 requires Node.js 22+.",
+        "To opt out (not recommended): minimumReleaseAge: 0."
+      ],
+      "source": "https://pnpm.io/settings/dependency-resolution",
+      "changelog": "https://github.com/pnpm/pnpm/releases/tag/v10.16.0"
+    },
+    "yarn": {
+      "supported": true,
+      "variant": "berry (2+); classic 1.x has no equivalent",
+      "config_file": ".yarnrc.yml",
+      "config_format": "yaml",
+      "key": "npmMinimalAgeGate",
+      "unit": "minutes",
+      "value_type": "integer minutes (4.10.0+) or duration string such as \"7d\" (4.11.0+); bare numbers are minutes",
+      "min_version": "4.10.0",
+      "duration_string_min_version": "4.11.0",
+      "default_enabled": true,
+      "default_enabled_since": "4.15.0",
+      "default_value": "1d",
+      "default_value_before_4_15": 0,
+      "example": "npmMinimalAgeGate: 10080",
+      "example_duration": "npmMinimalAgeGate: \"7d\"",
+      "cli_flag": null,
+      "env": "YARN_NPM_MINIMAL_AGE_GATE",
+      "exclude": {
+        "key": "npmPreapprovedPackages",
+        "min_version": "4.10.0",
+        "value_type": "string[]; package descriptors or name globs",
+        "example": "npmPreapprovedPackages:\n  - \"@myorg/*\"",
+        "note": "Global-only setting (not per scope)."
+      },
+      "notes": [
+        "Per-scope gate via npmScopes.<scope>.npmMinimalAgeGate since 4.17.0.",
+        "Use the integer-minutes form (10080 = 7 days) when the repo may run Yarn 4.10.x.",
+        "Yarn berry does not run third-party postinstall scripts unless enableScripts allows it."
+      ],
+      "source": "https://yarnpkg.com/configuration/yarnrc#npmMinimalAgeGate",
+      "changelog": "https://github.com/yarnpkg/berry/pull/6901"
+    },
+    "bun": {
+      "supported": true,
+      "config_file": "bunfig.toml",
+      "config_format": "toml",
+      "section": "[install]",
+      "key": "minimumReleaseAge",
+      "unit": "seconds",
+      "value_type": "integer",
+      "min_version": "1.3.0",
+      "default_enabled": false,
+      "default_value": null,
+      "example": "[install]\nminimumReleaseAge = 604800",
+      "cli_flag": "--minimum-release-age 604800",
+      "env": null,
+      "exclude": {
+        "key": "minimumReleaseAgeExcludes",
+        "min_version": "1.3.0",
+        "value_type": "string[]; bare name exempts all versions, name@version exempts that exact version",
+        "example": "[install]\nminimumReleaseAge = 604800\nminimumReleaseAgeExcludes = [\"@types/bun\", \"typescript@5.4.5\"]",
+        "note": "CLI --minimum-release-age-excludes replaces the list."
+      },
+      "notes": [
+        "install.ignoreScripts = true disables preinstall/install/postinstall/prepare scripts, including for packages listed in trustedDependencies."
+      ],
+      "source": "https://bun.com/docs/runtime/bunfig",
+      "changelog": "https://github.com/oven-sh/bun/pull/22801"
+    },
+    "uv": {
+      "supported": true,
+      "config_file": "pyproject.toml",
+      "config_format": "toml",
+      "section": "[tool.uv]",
+      "alt_config_file": "uv.toml (top-level keys, no [tool.uv] header)",
+      "key": "exclude-newer",
+      "unit": "duration",
+      "value_type": "RFC 3339 timestamp, friendly duration (\"7 days\", \"1 week\", \"24 hours\"), or ISO 8601 duration (\"P7D\"); false disables",
+      "min_version": "0.9.17",
+      "min_version_note": "0.9.17 is the minimum for relative durations (the cooldown form). Absolute timestamps are older.",
+      "default_enabled": false,
+      "default_value": null,
+      "example": "[tool.uv]\nexclude-newer = \"7 days\"",
+      "cli_flag": "--exclude-newer \"7 days\"",
+      "env": "UV_EXCLUDE_NEWER",
+      "exclude": {
+        "key": "exclude-newer-package",
+        "min_version": "0.8.4",
+        "opt_out_false_min_version": "0.9.25",
+        "value_type": "table of PACKAGE = timestamp | duration | false",
+        "example": "[tool.uv]\nexclude-newer = \"7 days\"\nexclude-newer-package = { my-internal-lib = false }",
+        "note": "Setting a package to false exempts it entirely; a date/duration gives it its own cutoff."
+      },
+      "notes": [
+        "Compared against the upload time of each distribution file, not the version's first release.",
+        "Calendar units (months, years) are not allowed in durations.",
+        "Relative values are recorded in uv.lock with a sentinel so the lock does not churn daily (0.11.x)."
+      ],
+      "source": "https://docs.astral.sh/uv/reference/settings/#exclude-newer",
+      "changelog": "https://github.com/astral-sh/uv/blob/main/changelogs/0.9.x.md"
+    },
+    "pip": {
+      "supported": true,
+      "config_file": "pip.conf (pip.ini on Windows); user, global or per-virtualenv. pip has no project-level config file.",
+      "config_format": "ini",
+      "section": "[install]",
+      "key": "uploaded-prior-to",
+      "unit": "days (ISO 8601 P<n>D) or absolute datetime",
+      "value_type": "ISO 8601 datetime, or integer-day duration P<n>D",
+      "min_version": "26.0",
+      "duration_min_version": "26.1",
+      "default_enabled": false,
+      "default_value": null,
+      "example": "[install]\nuploaded-prior-to = P7D",
+      "cli_flag": "--uploaded-prior-to P7D",
+      "env": "PIP_UPLOADED_PRIOR_TO",
+      "exclude": null,
+      "notes": [
+        "Only effective with indexes that provide upload-time metadata (PyPI does).",
+        "Only whole days are accepted in the duration form.",
+        "For per-repo enforcement put `--uploaded-prior-to P7D` in the install command or a requirements file workflow, or prefer uv."
+      ],
+      "source": "https://pip.pypa.io/en/stable/cli/pip_install/#cmdoption-uploaded-prior-to",
+      "changelog": "https://pip.pypa.io/en/stable/news/"
+    },
+    "poetry": {
+      "supported": true,
+      "config_file": "poetry.toml",
+      "config_format": "toml",
+      "section": "[solver]",
+      "key": "min-release-age",
+      "unit": "days",
+      "value_type": "integer",
+      "min_version": "2.4.0",
+      "default_enabled": false,
+      "default_value": 0,
+      "example": "[solver]\nmin-release-age = 7",
+      "cli_flag": "poetry config --local solver.min-release-age 7",
+      "env": "POETRY_SOLVER_MIN_RELEASE_AGE",
+      "exclude": {
+        "key": "min-release-age-exclude",
+        "min_version": "2.4.0",
+        "value_type": "comma-separated string of package names",
+        "example": "[solver]\nmin-release-age = 7\nmin-release-age-exclude = \"my-package,other-package\"",
+        "env": "POETRY_SOLVER_MIN_RELEASE_AGE_EXCLUDE",
+        "source_exclude_key": "min-release-age-exclude-source",
+        "source_exclude_note": "Exempts every package from the named sources/index URLs (POETRY_SOLVER_MIN_RELEASE_AGE_EXCLUDE_SOURCE)."
+      },
+      "notes": [
+        "A version counts only when all of its known distribution files are at least N days old.",
+        "Sources without upload timestamps are not filtered."
+      ],
+      "source": "https://python-poetry.org/docs/configuration/#solvermin-release-age",
+      "changelog": "https://python-poetry.org/blog/announcing-poetry-2.4.0/"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+name: Bug
+description: Something in the CLI, hook or skill is broken.
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      render: shell
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: Environment
+      placeholder: package-guidance 0.1.0, Node 22.12, macOS, Claude Code 2.1.x
+    validations:
+      required: true

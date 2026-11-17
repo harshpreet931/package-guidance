@@ -1,0 +1,29 @@
+{
+  "id": "platform-polyfills",
+  "ecosystem": "npm",
+  "packages": [
+    "abab",
+    "domexception",
+    "node-domexception",
+    "w3c-hr-time",
+    "stable",
+    "q"
+  ],
+  "versions": "*",
+  "status": "deprecated",
+  "severity": "block",
+  "summary": "All of these are deprecated on npm because the platform has the feature built in: atob/btoa, DOMException, performance.now(), stable Array#sort and native Promise.",
+  "replacements": [
+    {
+      "name": "built-in Web APIs",
+      "kind": "native",
+      "when": "atob/btoa, DOMException, performance.now, Array.prototype.sort, Promise"
+    }
+  ],
+  "tags": [
+    "polyfill",
+    "native"
+  ],
+  "source": "https://www.npmjs.com/package/abab",
+  "last_verified": "2026-11-16"
+}

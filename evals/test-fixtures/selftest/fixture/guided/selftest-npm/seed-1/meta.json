@@ -1,0 +1,15 @@
+{
+  "runId": "selftest",
+  "agent": "fixture",
+  "arm": "guided",
+  "promptId": "selftest-npm",
+  "ecosystem": "npm",
+  "seed": 1,
+  "fixture": null,
+  "startedAt": "2026-11-16T08:45:00Z",
+  "finishedAt": "2026-11-16T08:50:00Z",
+  "durationMs": 300000,
+  "status": "ok",
+  "costUsd": null,
+  "handMade": true
+}

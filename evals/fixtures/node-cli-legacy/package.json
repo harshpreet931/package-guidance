@@ -1,0 +1,11 @@
+{
+  "name": "gh-stats",
+  "version": "0.3.0",
+  "bin": { "gh-stats": "bin/gh-stats.js" },
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "commander": "^2.20.0",
+    "moment": "^2.24.0",
+    "request": "^2.88.0"
+  }
+}

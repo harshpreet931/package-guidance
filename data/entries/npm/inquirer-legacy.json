@@ -1,0 +1,24 @@
+{
+  "id": "inquirer-legacy",
+  "ecosystem": "npm",
+  "packages": [
+    "inquirer"
+  ],
+  "versions": "*",
+  "status": "superseded",
+  "severity": "info",
+  "summary": "The `inquirer` package README says: 'This is the legacy version of Inquirer.js. While it still receives maintenance, it is not actively developed.' New code should use @inquirer/prompts.",
+  "replacements": [
+    {
+      "name": "@inquirer/prompts",
+      "kind": "package",
+      "install": "npm install @inquirer/prompts"
+    }
+  ],
+  "tags": [
+    "cli",
+    "prompt"
+  ],
+  "source": "https://www.npmjs.com/package/inquirer",
+  "last_verified": "2026-11-16"
+}

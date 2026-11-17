@@ -1,0 +1,28 @@
+{
+  "id": "supabase-auth-helpers",
+  "ecosystem": "npm",
+  "packages": [
+    "@supabase/auth-helpers-nextjs",
+    "@supabase/auth-helpers-react",
+    "@supabase/auth-helpers-sveltekit",
+    "@supabase/auth-helpers-remix",
+    "@supabase/auth-helpers-shared"
+  ],
+  "versions": "*",
+  "status": "deprecated",
+  "severity": "block",
+  "summary": "All @supabase/auth-helpers-* packages are deprecated on npm. Supabase's server-side auth now uses @supabase/ssr, with createServerClient/createBrowserClient and cookie getAll/setAll.",
+  "replacements": [
+    {
+      "name": "@supabase/ssr",
+      "kind": "package",
+      "install": "npm install @supabase/supabase-js @supabase/ssr"
+    }
+  ],
+  "tags": [
+    "auth",
+    "supabase"
+  ],
+  "source": "https://supabase.com/docs/guides/auth/server-side/creating-a-client",
+  "last_verified": "2026-11-16"
+}

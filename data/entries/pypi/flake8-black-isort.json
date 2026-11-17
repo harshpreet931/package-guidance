@@ -1,0 +1,29 @@
+{
+  "id": "flake8-black-isort",
+  "ecosystem": "pypi",
+  "packages": [
+    "flake8",
+    "black",
+    "isort",
+    "pyupgrade"
+  ],
+  "versions": "*",
+  "status": "caution",
+  "severity": "info",
+  "summary": "All still maintained, but Ruff offers drop-in parity with Flake8, isort and Black (plus pyupgrade rules) in one fast tool. Prefer Ruff in new projects. Do not churn an existing, working setup without a reason.",
+  "replacements": [
+    {
+      "name": "ruff",
+      "kind": "tool",
+      "install": "uv add --dev ruff",
+      "when": "ruff check --fix && ruff format"
+    }
+  ],
+  "guide": "ruff",
+  "tags": [
+    "lint",
+    "format"
+  ],
+  "source": "https://docs.astral.sh/ruff/",
+  "last_verified": "2026-11-16"
+}

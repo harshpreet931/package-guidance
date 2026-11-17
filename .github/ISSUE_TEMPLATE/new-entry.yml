@@ -1,0 +1,30 @@
+name: New curated entry
+description: Propose a package agents keep getting wrong (deprecated, superseded, outdated major, native replacement).
+labels: [data]
+body:
+  - type: input
+    id: packages
+    attributes:
+      label: Package(s) and ecosystem
+      placeholder: "npm: node-fetch"
+    validations:
+      required: true
+  - type: textarea
+    id: claim
+    attributes:
+      label: What should agents do instead?
+      placeholder: Use native fetch (Node 18+); node-fetch is unnecessary in new code.
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Primary source
+      description: Maintainer announcement, docs, registry deprecation, or advisory. Entries without one are not merged.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence that agents get this wrong (optional)
+      description: A transcript or example where an agent picked the old package helps prioritise.

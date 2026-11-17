@@ -1,0 +1,28 @@
+# Publishes to npm when a version tag (v1.2.3) is pushed.
+# Uses npm trusted publishing (OIDC): no long-lived NPM_TOKEN, and every release carries a provenance attestation
+# linking the tarball to this workflow run. Configure it once at npmjs.com → package → Settings → Trusted publishing.
+name: release
+on:
+  push:
+    tags: ['v*.*.*']
+permissions:
+  contents: read
+  id-token: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: npm
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+      - run: npm ci --ignore-scripts
+      - name: tag matches package.json
+        run: test "v$(node -p "require('./package.json').version")" = "$GITHUB_REF_NAME"
+      - run: npm test
+      - run: node scripts/validate-data.mjs
+      - run: npm publish --provenance --access public

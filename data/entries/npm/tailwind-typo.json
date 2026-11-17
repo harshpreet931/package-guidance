@@ -1,0 +1,26 @@
+{
+  "id": "tailwind-typo",
+  "ecosystem": "npm",
+  "packages": [
+    "tailwind"
+  ],
+  "versions": "*",
+  "status": "deprecated",
+  "severity": "block",
+  "summary": "The npm package `tailwind` is not Tailwind CSS. npm has flagged it 'Package no longer supported'. The real package is `tailwindcss`.",
+  "replacements": [
+    {
+      "name": "tailwindcss",
+      "kind": "package",
+      "install": "npm install tailwindcss @tailwindcss/vite"
+    }
+  ],
+  "guide": "tailwind-v4",
+  "tags": [
+    "css",
+    "tailwind",
+    "typosquat"
+  ],
+  "source": "https://www.npmjs.com/package/tailwind",
+  "last_verified": "2026-11-16"
+}

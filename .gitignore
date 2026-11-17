@@ -1,0 +1,11 @@
+node_modules
+dist
+.cache
+evals/results
+*.tgz
+.DS_Store
+*.log
+.env
+.env.*
+coverage
+launch/

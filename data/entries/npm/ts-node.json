@@ -1,0 +1,32 @@
+{
+  "id": "ts-node",
+  "ecosystem": "npm",
+  "packages": [
+    "ts-node"
+  ],
+  "versions": "*",
+  "status": "caution",
+  "severity": "warn",
+  "summary": "ts-node has had no release since 10.9.2 (Dec 2023) and handles ESM poorly. Node runs erasable TypeScript natively (type stripping on by default since 22.18 / 23.6, stable since 24.12 / 25.2). For enums, namespaces, parameter properties, decorators or tsconfig paths, use tsx.",
+  "replacements": [
+    {
+      "name": "node",
+      "kind": "native",
+      "install": "node src/index.ts",
+      "when": "erasable-syntax TS on Node 22.18+ (no type-check)"
+    },
+    {
+      "name": "tsx",
+      "kind": "package",
+      "install": "npm install -D tsx",
+      "when": "full TS syntax, tsconfig paths, watch mode"
+    }
+  ],
+  "guide": "ts-node-to-tsx",
+  "tags": [
+    "typescript",
+    "runtime"
+  ],
+  "source": "https://nodejs.org/api/typescript.html",
+  "last_verified": "2026-11-16"
+}

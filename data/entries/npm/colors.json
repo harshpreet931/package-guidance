@@ -1,0 +1,32 @@
+{
+  "id": "colors",
+  "ecosystem": "npm",
+  "packages": [
+    "colors"
+  ],
+  "versions": "*",
+  "status": "superseded",
+  "severity": "warn",
+  "summary": "Protestware: in Jan 2022 the maintainer published colors 1.4.1 and 1.4.2 (and 1.4.44-liberty-2) with an infinite loop that printed garbage (GHSA-5rqg-jm4f-cqx7). Those versions are gone and latest is 1.4.0, but the same maintainer controls publishing. Avoid it.",
+  "replacements": [
+    {
+      "name": "util.styleText",
+      "kind": "native",
+      "when": "Node 20.12+ (stable in 22.13 / 23.5)"
+    },
+    {
+      "name": "picocolors",
+      "kind": "package",
+      "install": "npm install picocolors",
+      "when": "tiny, zero-dependency"
+    }
+  ],
+  "guide": "supply-chain-cooldown",
+  "tags": [
+    "cli",
+    "color",
+    "protestware"
+  ],
+  "source": "https://github.com/advisories/GHSA-5rqg-jm4f-cqx7",
+  "last_verified": "2026-11-16"
+}

@@ -1,0 +1,25 @@
+{
+  "id": "faker",
+  "ecosystem": "npm",
+  "packages": [
+    "faker"
+  ],
+  "versions": "*",
+  "status": "sunset",
+  "severity": "block",
+  "summary": "Protestware: the maintainer published faker 6.6.6 on 2022-01-05 with its functional code removed (GHSA-5w9c-rv96-fr7g). The package is dead. The community fork @faker-js/faker is the maintained successor.",
+  "replacements": [
+    {
+      "name": "@faker-js/faker",
+      "kind": "package",
+      "install": "npm install -D @faker-js/faker"
+    }
+  ],
+  "guide": "supply-chain-cooldown",
+  "tags": [
+    "test",
+    "protestware"
+  ],
+  "source": "https://github.com/advisories/GHSA-5w9c-rv96-fr7g",
+  "last_verified": "2026-11-16"
+}

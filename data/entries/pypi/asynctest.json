@@ -1,0 +1,28 @@
+{
+  "id": "asynctest",
+  "ecosystem": "pypi",
+  "packages": [
+    "asynctest"
+  ],
+  "versions": "*",
+  "status": "sunset",
+  "severity": "warn",
+  "summary": "asynctest has had no release since 0.13.0 (2019) and is marked Alpha. The standard library covers it: unittest.IsolatedAsyncioTestCase and unittest.mock.AsyncMock (3.8+), or pytest-asyncio.",
+  "replacements": [
+    {
+      "name": "unittest.IsolatedAsyncioTestCase",
+      "kind": "native"
+    },
+    {
+      "name": "pytest-asyncio",
+      "kind": "package",
+      "install": "uv add --dev pytest-asyncio"
+    }
+  ],
+  "tags": [
+    "test",
+    "asyncio"
+  ],
+  "source": "https://docs.python.org/3/library/unittest.html#unittest.IsolatedAsyncioTestCase",
+  "last_verified": "2026-11-16"
+}

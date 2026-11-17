@@ -1,0 +1,6 @@
+# deliberately bad choices
+requests==2.19.1
+flask==0.12.2
+pycrypto==2.6.1
+fastapi-jwt-settings-helperz==0.3.0
+fastapi==0.163.1

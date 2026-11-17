@@ -1,0 +1,24 @@
+{
+  "id": "inflight",
+  "ecosystem": "npm",
+  "packages": [
+    "inflight"
+  ],
+  "versions": "*",
+  "status": "deprecated",
+  "severity": "block",
+  "summary": "Deprecated: 'This module is not supported, and leaks memory. Do not use it.' It usually arrives transitively through old glob or rimraf. Upgrade those.",
+  "replacements": [
+    {
+      "name": "lru-cache",
+      "kind": "package",
+      "install": "npm install lru-cache",
+      "when": "coalescing async requests by key"
+    }
+  ],
+  "tags": [
+    "transitive"
+  ],
+  "source": "https://www.npmjs.com/package/inflight",
+  "last_verified": "2026-11-16"
+}

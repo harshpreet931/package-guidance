@@ -1,0 +1,26 @@
+{
+  "id": "babel-proposal-plugins",
+  "ecosystem": "npm",
+  "packages": [
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-object-rest-spread",
+    "@babel/plugin-proposal-optional-chaining",
+    "@babel/plugin-proposal-nullish-coalescing-operator"
+  ],
+  "versions": "*",
+  "status": "deprecated",
+  "severity": "block",
+  "summary": "These proposals are now standard ECMAScript, and the plugins are deprecated. Use the matching @babel/plugin-transform-* package, or simply @babel/preset-env, which already includes them.",
+  "replacements": [
+    {
+      "name": "@babel/preset-env",
+      "kind": "package",
+      "install": "npm install -D @babel/preset-env"
+    }
+  ],
+  "tags": [
+    "babel"
+  ],
+  "source": "https://www.npmjs.com/package/@babel/plugin-proposal-class-properties",
+  "last_verified": "2026-11-16"
+}

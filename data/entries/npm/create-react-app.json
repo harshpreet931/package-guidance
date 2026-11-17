@@ -1,0 +1,40 @@
+{
+  "id": "create-react-app",
+  "ecosystem": "npm",
+  "packages": [
+    "create-react-app",
+    "react-scripts"
+  ],
+  "versions": "*",
+  "status": "sunset",
+  "severity": "block",
+  "summary": "The React team deprecated Create React App for new apps on 2025-02-14. It has no active maintainers, and installing it prints a deprecation error. react-scripts' last release is 5.0.1 (2022).",
+  "replacements": [
+    {
+      "name": "vite",
+      "kind": "package",
+      "install": "npm create vite@latest my-app -- --template react-ts",
+      "when": "client-side SPA"
+    },
+    {
+      "name": "next",
+      "kind": "package",
+      "install": "npx create-next-app@latest",
+      "when": "full-stack / SSR / RSC"
+    },
+    {
+      "name": "react-router",
+      "kind": "package",
+      "install": "npx create-react-router@latest",
+      "when": "framework mode with routing and data loading"
+    }
+  ],
+  "guide": "cra-to-vite",
+  "tags": [
+    "react",
+    "scaffold",
+    "build"
+  ],
+  "source": "https://react.dev/blog/2025/02/14/sunsetting-create-react-app",
+  "last_verified": "2026-11-16"
+}

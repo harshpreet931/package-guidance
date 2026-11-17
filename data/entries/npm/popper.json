@@ -1,0 +1,32 @@
+{
+  "id": "popper",
+  "ecosystem": "npm",
+  "packages": [
+    "popper.js",
+    "@popperjs/core"
+  ],
+  "versions": "*",
+  "status": "superseded",
+  "severity": "warn",
+  "summary": "popper.js (v1) is deprecated on npm. 'Popper is now Floating UI.' @popperjs/core (v2) is legacy and has had no release since 2023.",
+  "replacements": [
+    {
+      "name": "@floating-ui/dom",
+      "kind": "package",
+      "install": "npm install @floating-ui/dom",
+      "when": "vanilla"
+    },
+    {
+      "name": "@floating-ui/react",
+      "kind": "package",
+      "install": "npm install @floating-ui/react",
+      "when": "React"
+    }
+  ],
+  "tags": [
+    "ui",
+    "positioning"
+  ],
+  "source": "https://github.com/floating-ui/floating-ui",
+  "last_verified": "2026-11-16"
+}

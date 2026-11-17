@@ -1,0 +1,38 @@
+{
+  "id": "request",
+  "ecosystem": "npm",
+  "packages": [
+    "request",
+    "request-promise",
+    "request-promise-native"
+  ],
+  "versions": "*",
+  "status": "deprecated",
+  "severity": "block",
+  "summary": "request has been deprecated since Feb 2020 (request/request#3142), and the request-promise wrappers are deprecated with it. They get no fixes.",
+  "replacements": [
+    {
+      "name": "fetch",
+      "kind": "native",
+      "when": "Node 18+ and browsers: global fetch (stable since Node 21)"
+    },
+    {
+      "name": "ky",
+      "kind": "package",
+      "install": "npm install ky",
+      "when": "a small fetch wrapper with retries and hooks"
+    },
+    {
+      "name": "ofetch",
+      "kind": "package",
+      "install": "npm install ofetch",
+      "when": "universal fetch with JSON helpers"
+    }
+  ],
+  "guide": "request-to-fetch",
+  "tags": [
+    "http"
+  ],
+  "source": "https://github.com/request/request/issues/3142",
+  "last_verified": "2026-11-16"
+}

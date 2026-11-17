@@ -1,0 +1,31 @@
+{
+  "id": "python-jose",
+  "ecosystem": "pypi",
+  "packages": [
+    "python-jose"
+  ],
+  "versions": "*",
+  "status": "caution",
+  "severity": "warn",
+  "summary": "python-jose has unfixed advisories on its latest release (3.5.0, May 2025), for example GHSA-3qf3-8w2g-rqmx (algorithm-confusion guard bypass with DER keys). Releases are infrequent. Use PyJWT for JWTs or joserfc for full JOSE.",
+  "replacements": [
+    {
+      "name": "pyjwt",
+      "kind": "package",
+      "install": "uv add pyjwt",
+      "when": "JWT encode/decode"
+    },
+    {
+      "name": "joserfc",
+      "kind": "package",
+      "install": "uv add joserfc",
+      "when": "JWS/JWE/JWK/JWT"
+    }
+  ],
+  "tags": [
+    "security",
+    "jwt"
+  ],
+  "source": "https://github.com/advisories/GHSA-3qf3-8w2g-rqmx",
+  "last_verified": "2026-11-16"
+}

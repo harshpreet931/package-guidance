@@ -1,0 +1,60 @@
+{
+  "name": "package-guidance",
+  "version": "0.1.0",
+  "description": "Stop your coding agent from installing 2023. Picks the right package, the newest settled version, and blocks hallucinated, deprecated and vulnerable dependencies.",
+  "type": "module",
+  "bin": {
+    "package-guidance": "bin/package-guidance.js"
+  },
+  "files": [
+    "bin",
+    "dist",
+    "data",
+    "guides",
+    "skills",
+    "hooks",
+    ".claude-plugin",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "node --experimental-strip-types src/cli.ts",
+    "test": "npm run build && node --test \"test/**/*.test.mjs\"",
+    "sync:e18e": "node scripts/sync-e18e.mjs",
+    "prepublishOnly": "npm test",
+    "version": "node scripts/sync-version.mjs && git add src/version.ts .claude-plugin/plugin.json skills/package-guidance/SKILL.md",
+    "validate": "node scripts/validate-data.mjs"
+  },
+  "keywords": [
+    "ai",
+    "agents",
+    "claude-code",
+    "cursor",
+    "codex",
+    "skills",
+    "dependencies",
+    "supply-chain",
+    "slopsquatting",
+    "npm",
+    "pypi",
+    "cooldown"
+  ],
+  "homepage": "https://harshpreet931.github.io/package-guidance/",
+  "bugs": {
+    "url": "https://github.com/harshpreet931/package-guidance/issues"
+  },
+  "author": "Harshpreet Singh (https://github.com/harshpreet931)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harshpreet931/package-guidance.git"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.6",
+    "typescript": "7.0.2"
+  }
+}

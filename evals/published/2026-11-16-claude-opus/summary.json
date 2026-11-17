@@ -1,0 +1,2526 @@
+{
+  "schema": "package-guidance-evals/summary@1",
+  "runDir": "evals/results/eval-opus",
+  "scoredAt": "2026-11-17T05:46:00.061Z",
+  "registryFetchedAt": "2026-11-16T12:47:10.367Z",
+  "cooldownDays": 7,
+  "runStartedAt": "2026-11-16T12:07:25.755Z",
+  "runEndedAt": "2026-11-16T12:25:07.782Z",
+  "agents": [
+    "claude"
+  ],
+  "arms": [
+    "baseline",
+    "guided-hook"
+  ],
+  "prompts": 15,
+  "results": 30,
+  "bootstrap": {
+    "B": 2000,
+    "resampling": "prompt clusters",
+    "interval": "percentile 95%"
+  },
+  "metricsCatalogue": [
+    {
+      "key": "issueDeps",
+      "label": "Direct deps with any issue",
+      "unit": "deps/run",
+      "headline": true
+    },
+    {
+      "key": "clean",
+      "label": "Runs with zero dependency issues",
+      "unit": "% of runs",
+      "better": "higher",
+      "rate": true,
+      "headline": true
+    },
+    {
+      "key": "notFound",
+      "label": "Hallucinated packages (registry 404)",
+      "unit": "deps/run",
+      "headline": true
+    },
+    {
+      "key": "deprecated",
+      "label": "Deprecated deps (registry flag / yanked / inactive)",
+      "unit": "deps/run",
+      "headline": true
+    },
+    {
+      "key": "outdated",
+      "label": "Deps behind the current major",
+      "unit": "deps/run",
+      "headline": true
+    },
+    {
+      "key": "fresh",
+      "label": "Fresh-version exposure (<7d old at run time)",
+      "unit": "deps/run",
+      "headline": true
+    },
+    {
+      "key": "vulnerable",
+      "label": "Deps with a known advisory (OSV)",
+      "unit": "deps/run",
+      "headline": true
+    },
+    {
+      "key": "highCrit",
+      "label": "Deps with a high/critical advisory",
+      "unit": "deps/run"
+    },
+    {
+      "key": "advisories",
+      "label": "Unique advisories",
+      "unit": "advisories/run"
+    },
+    {
+      "key": "issueRate",
+      "label": "Share of direct deps with any issue",
+      "unit": "% of deps",
+      "rate": true
+    },
+    {
+      "key": "deps",
+      "label": "Direct deps (count)",
+      "unit": "deps/run",
+      "neutral": true
+    },
+    {
+      "key": "e18e",
+      "label": "Deps listed in e18e module-replacements (secondary)",
+      "unit": "deps/run"
+    },
+    {
+      "key": "youngPkg",
+      "label": "Packages created <30d before run (slopsquat risk, secondary)",
+      "unit": "deps/run"
+    },
+    {
+      "key": "exactPinRate",
+      "label": "Direct deps pinned exactly",
+      "unit": "% of deps",
+      "better": "higher",
+      "rate": true
+    },
+    {
+      "key": "hasLockfile",
+      "label": "Runs that left a lockfile",
+      "unit": "% of runs",
+      "better": "higher",
+      "rate": true
+    },
+    {
+      "key": "buildOk",
+      "label": "Project still builds (--build)",
+      "unit": "% of runs",
+      "better": "higher",
+      "rate": true
+    },
+    {
+      "key": "agentOk",
+      "label": "Agent finished without error/timeout",
+      "unit": "% of runs",
+      "better": "higher",
+      "rate": true
+    },
+    {
+      "key": "skillTriggered",
+      "label": "package-guidance used in transcript (manipulation check)",
+      "unit": "% of runs",
+      "neutral": true,
+      "rate": true
+    },
+    {
+      "key": "costUsd",
+      "label": "Agent cost",
+      "unit": "USD/run",
+      "neutral": true
+    },
+    {
+      "key": "durationMin",
+      "label": "Agent wall time",
+      "unit": "min/run",
+      "neutral": true
+    }
+  ],
+  "groups": {
+    "claude/baseline": {
+      "agent": "claude",
+      "arm": "baseline",
+      "n": 15,
+      "prompts": 15,
+      "metrics": {
+        "issueDeps": {
+          "n": 15,
+          "mean": 4.2667,
+          "median": 4,
+          "ciMean": [
+            2.9333,
+            5.7333
+          ],
+          "ciMedian": [
+            3,
+            6
+          ]
+        },
+        "clean": {
+          "n": 15,
+          "mean": 0.1333,
+          "median": 0,
+          "ciMean": [
+            0,
+            0.3333
+          ],
+          "ciMedian": [
+            0,
+            0
+          ]
+        },
+        "notFound": {
+          "n": 15,
+          "mean": 0,
+          "median": 0,
+          "ciMean": [
+            0,
+            0
+          ],
+          "ciMedian": [
+            0,
+            0
+          ]
+        },
+        "deprecated": {
+          "n": 15,
+          "mean": 0.4667,
+          "median": 0,
+          "ciMean": [
+            0.2,
+            0.8
+          ],
+          "ciMedian": [
+            0,
+            1
+          ]
+        },
+        "outdated": {
+          "n": 15,
+          "mean": 3.2667,
+          "median": 3,
+          "ciMean": [
+            1.9317,
+            4.8667
+          ],
+          "ciMedian": [
+            1,
+            5
+          ]
+        },
+        "fresh": {
+          "n": 15,
+          "mean": 0.8,
+          "median": 0,
+          "ciMean": [
+            0.2667,
+            1.4
+          ],
+          "ciMedian": [
+            0,
+            1
+          ]
+        },
+        "vulnerable": {
+          "n": 15,
+          "mean": 0.4667,
+          "median": 0,
+          "ciMean": [
+            0,
+            1.0667
+          ],
+          "ciMedian": [
+            0,
+            0
+          ]
+        },
+        "highCrit": {
+          "n": 15,
+          "mean": 0.2,
+          "median": 0,
+          "ciMean": [
+            0,
+            0.5333
+          ],
+          "ciMedian": [
+            0,
+            0
+          ]
+        },
+        "advisories": {
+          "n": 15,
+          "mean": 3.8,
+          "median": 0,
+          "ciMean": [
+            0,
+            10.1333
+          ],
+          "ciMedian": [
+            0,
+            0
+          ]
+        },
+        "issueRate": {
+          "n": 15,
+          "mean": 0.5709,
+          "median": 0.6667,
+          "ciMean": [
+            0.4025,
+            0.7325
+          ],
+          "ciMedian": [
+            0.4,
+            0.8
+          ]
+        },
+        "deps": {
+          "n": 15,
+          "mean": 7.8,
+          "median": 8,
+          "ciMean": [
+            6.1333,
+            9.6
+          ],
+          "ciMedian": [
+            5,
+            10
+          ]
+        },
+        "e18e": {
+          "n": 15,
+          "mean": 0.8,
+          "median": 0,
+          "ciMean": [
+            0.3317,
+            1.3333
+          ],
+          "ciMedian": [
+            0,
+            1
+          ]
+        },
+        "youngPkg": {
+          "n": 15,
+          "mean": 0,
+          "median": 0,
+          "ciMean": [
+            0,
+            0
+          ],
+          "ciMedian": [
+            0,
+            0
+          ]
+        },
+        "exactPinRate": {
+          "n": 15,
+          "mean": 0.0996,
+          "median": 0,
+          "ciMean": [
+            0,
+            0.2357
+          ],
+          "ciMedian": [
+            0,
+            0
+          ]
+        },
+        "hasLockfile": {
+          "n": 15,
+          "mean": 0.9333,
+          "median": 1,
+          "ciMean": [
+            0.8,
+            1
+          ],
+          "ciMedian": [
+            1,
+            1
+          ]
+        },
+        "agentOk": {
+          "n": 15,
+          "mean": 1,
+          "median": 1,
+          "ciMean": [
+            1,
+            1
+          ],
+          "ciMedian": [
+            1,
+            1
+          ]
+        },
+        "skillTriggered": {
+          "n": 15,
+          "mean": 0,
+          "median": 0,
+          "ciMean": [
+            0,
+            0
+          ],
+          "ciMedian": [
+            0,
+            0
+          ]
+        },
+        "costUsd": {
+          "n": 15,
+          "mean": 0.3293,
+          "median": 0.3326,
+          "ciMean": [
+            0.2875,
+            0.3712
+          ],
+          "ciMedian": [
+            0.2546,
+            0.3627
+          ]
+        },
+        "durationMin": {
+          "n": 15,
+          "mean": 1.6489,
+          "median": 1.5603,
+          "ciMean": [
+            1.3804,
+            1.9384
+          ],
+          "ciMedian": [
+            1.287,
+            1.8744
+          ]
+        }
+      },
+      "touched": {
+        "issueDeps": {
+          "n": 15,
+          "mean": 1.6667,
+          "median": 1,
+          "ciMean": [
+            0.8667,
+            2.5333
+          ],
+          "ciMedian": [
+            0,
+            3
+          ]
+        },
+        "clean": {
+          "n": 15,
+          "mean": 0.2667,
+          "median": 0,
+          "ciMean": [
+            0.0667,
+            0.5333
+          ],
+          "ciMedian": [
+            0,
+            1
+          ]
+        },
+        "notFound": {
+          "n": 15,
+          "mean": 0,
+          "median": 0,
+          "ciMean": [
+            0,
+            0
+          ],
+          "ciMedian": [
+            0,
+            0
+          ]
+        },
+        "deprecated": {
+          "n": 15,
+          "mean": 0.2,
+          "median": 0,
+          "ciMean": [
+            0,
+            0.4
+          ],
+          "ciMedian": [
+            0,
+            0
+          ]
+        },
+        "outdated": {
+          "n": 15,
+          "mean": 0.8,
+          "median": 0,
+          "ciMean": [
+            0.3333,
+            1.2667
+          ],
+          "ciMedian": [
+            0,
+            1
+          ]
+        },
+        "fresh": {
+          "n": 15,
+          "mean": 0.8,
+          "median": 0,
+          "ciMean": [
+            0.2667,
+            1.4
+          ],
+          "ciMedian": [
+            0,
+            1
+          ]
+        },
+        "vulnerable": {
+          "n": 15,
+          "mean": 0.2,
+          "median": 0,
+          "ciMean": [
+            0,
+            0.5333
+          ],
+          "ciMedian": [
+            0,
+            0
+          ]
+        },
+        "highCrit": {
+          "n": 15,
+          "mean": 0.1333,
+          "median": 0,
+          "ciMean": [
+            0,
+            0.3333
+          ],
+          "ciMedian": [
+            0,
+            0
+          ]
+        },
+        "advisories": {
+          "n": 15,
+          "mean": 0.8667,
+          "median": 0,
+          "ciMean": [
+            0,
+            2.5333
+          ],
+          "ciMedian": [
+            0,
+            0
+          ]
+        },
+        "issueRate": {
+          "n": 14,
+          "mean": 0.4565,
+          "median": 0.45,
+          "ciMean": [
+            0.2714,
+            0.647
+          ],
+          "ciMedian": [
+            0.0909,
+            0.6667
+          ]
+        },
+        "deps": {
+          "n": 15,
+          "mean": 5.0667,
+          "median": 3,
+          "ciMean": [
+            3,
+            7.4
+          ],
+          "ciMedian": [
+            2,
+            10
+          ]
+        },
+        "e18e": {
+          "n": 15,
+          "mean": 0.2,
+          "median": 0,
+          "ciMean": [
+            0,
+            0.4
+          ],
+          "ciMedian": [
+            0,
+            0
+          ]
+        },
+        "youngPkg": {
+          "n": 15,
+          "mean": 0,
+          "median": 0,
+          "ciMean": [
+            0,
+            0
+          ],
+          "ciMedian": [
+            0,
+            0
+          ]
+        },
+        "exactPinRate": {
+          "n": 14,
+          "mean": 0.0619,
+          "median": 0,
+          "ciMean": [
+            0,
+            0.1857
+          ],
+          "ciMedian": [
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "claude/guided-hook": {
+      "agent": "claude",
+      "arm": "guided-hook",
+      "n": 15,
+      "prompts": 15,
+      "metrics": {
+        "issueDeps": {
+          "n": 15,
+          "mean": 2.2,
+          "median": 2,
+          "ciMean": [
+            1.1333,
+            3.5333
+          ],
+          "ciMedian": [
+            0,
+            3
+          ]
+        },
+        "clean": {
+          "n": 15,
+          "mean": 0.4,
+          "median": 0,
+          "ciMean": [
+            0.1333,
+            0.6667
+          ],
+          "ciMedian": [
+            0,
+            1
+          ]
+        },
+        "notFound": {
+          "n": 15,
+          "mean": 0,
+          "median": 0,
+          "ciMean": [
+            0,
+            0
+          ],
+          "ciMedian": [
+            0,
+            0
+          ]
+        },
+        "deprecated": {
+          "n": 15,
+          "mean": 0.2667,
+          "median": 0,
+          "ciMean": [
+            0,
+            0.6
+          ],
+          "ciMedian": [
+            0,
+            0
+          ]
+        },
+        "outdated": {
+          "n": 15,
+          "mean": 2.0667,
+          "median": 2,
+          "ciMean": [
+            1,
+            3.4
+          ],
+          "ciMedian": [
+            0,
+            3
+          ]
+        },
+        "fresh": {
+          "n": 15,
+          "mean": 0,
+          "median": 0,
+          "ciMean": [
+            0,
+            0
+          ],
+          "ciMedian": [
+            0,
+            0
+          ]
+        },
+        "vulnerable": {
+          "n": 15,
+          "mean": 0.2667,
+          "median": 0,
+          "ciMean": [
+            0,
+            0.6
+          ],
+          "ciMedian": [
+            0,
+            0
+          ]
+        },
+        "highCrit": {
+          "n": 15,
+          "mean": 0.0667,
+          "median": 0,
+          "ciMean": [
+            0,
+            0.2
+          ],
+          "ciMedian": [
+            0,
+            0
+          ]
+        },
+        "advisories": {
+          "n": 15,
+          "mean": 2.9333,
+          "median": 0,
+          "ciMean": [
+            0,
+            8.3333
+          ],
+          "ciMedian": [
+            0,
+            0
+          ]
+        },
+        "issueRate": {
+          "n": 15,
+          "mean": 0.3648,
+          "median": 0.5,
+          "ciMean": [
+            0.2054,
+            0.5352
+          ],
+          "ciMedian": [
+            0,
+            0.75
+          ]
+        },
+        "deps": {
+          "n": 15,
+          "mean": 6.4667,
+          "median": 6,
+          "ciMean": [
+            5.2,
+            7.6667
+          ],
+          "ciMedian": [
+            4,
+            9
+          ]
+        },
+        "e18e": {
+          "n": 15,
+          "mean": 0.5333,
+          "median": 0,
+          "ciMean": [
+            0.1333,
+            1.0667
+          ],
+          "ciMedian": [
+            0,
+            0
+          ]
+        },
+        "youngPkg": {
+          "n": 15,
+          "mean": 0,
+          "median": 0,
+          "ciMean": [
+            0,
+            0
+          ],
+          "ciMedian": [
+            0,
+            0
+          ]
+        },
+        "exactPinRate": {
+          "n": 15,
+          "mean": 0.6593,
+          "median": 0.6667,
+          "ciMean": [
+            0.4722,
+            0.8389
+          ],
+          "ciMedian": [
+            0.4938,
+            1
+          ]
+        },
+        "hasLockfile": {
+          "n": 15,
+          "mean": 0.8667,
+          "median": 1,
+          "ciMean": [
+            0.6667,
+            1
+          ],
+          "ciMedian": [
+            1,
+            1
+          ]
+        },
+        "agentOk": {
+          "n": 15,
+          "mean": 0.9333,
+          "median": 1,
+          "ciMean": [
+            0.8,
+            1
+          ],
+          "ciMedian": [
+            1,
+            1
+          ]
+        },
+        "skillTriggered": {
+          "n": 14,
+          "mean": 1,
+          "median": 1,
+          "ciMean": [
+            1,
+            1
+          ],
+          "ciMedian": [
+            1,
+            1
+          ]
+        },
+        "costUsd": {
+          "n": 14,
+          "mean": 0.3981,
+          "median": 0.4105,
+          "ciMean": [
+            0.3563,
+            0.4391
+          ],
+          "ciMedian": [
+            0.3261,
+            0.4577
+          ]
+        },
+        "durationMin": {
+          "n": 15,
+          "mean": 4.5488,
+          "median": 1.7811,
+          "ciMean": [
+            1.6909,
+            8.6638
+          ],
+          "ciMedian": [
+            1.5742,
+            1.9802
+          ]
+        }
+      },
+      "touched": {
+        "issueDeps": {
+          "n": 15,
+          "mean": 0,
+          "median": 0,
+          "ciMean": [
+            0,
+            0
+          ],
+          "ciMedian": [
+            0,
+            0
+          ]
+        },
+        "clean": {
+          "n": 15,
+          "mean": 1,
+          "median": 1,
+          "ciMean": [
+            1,
+            1
+          ],
+          "ciMedian": [
+            1,
+            1
+          ]
+        },
+        "notFound": {
+          "n": 15,
+          "mean": 0,
+          "median": 0,
+          "ciMean": [
+            0,
+            0
+          ],
+          "ciMedian": [
+            0,
+            0
+          ]
+        },
+        "deprecated": {
+          "n": 15,
+          "mean": 0,
+          "median": 0,
+          "ciMean": [
+            0,
+            0
+          ],
+          "ciMedian": [
+            0,
+            0
+          ]
+        },
+        "outdated": {
+          "n": 15,
+          "mean": 0,
+          "median": 0,
+          "ciMean": [
+            0,
+            0
+          ],
+          "ciMedian": [
+            0,
+            0
+          ]
+        },
+        "fresh": {
+          "n": 15,
+          "mean": 0,
+          "median": 0,
+          "ciMean": [
+            0,
+            0
+          ],
+          "ciMedian": [
+            0,
+            0
+          ]
+        },
+        "vulnerable": {
+          "n": 15,
+          "mean": 0,
+          "median": 0,
+          "ciMean": [
+            0,
+            0
+          ],
+          "ciMedian": [
+            0,
+            0
+          ]
+        },
+        "highCrit": {
+          "n": 15,
+          "mean": 0,
+          "median": 0,
+          "ciMean": [
+            0,
+            0
+          ],
+          "ciMedian": [
+            0,
+            0
+          ]
+        },
+        "advisories": {
+          "n": 15,
+          "mean": 0,
+          "median": 0,
+          "ciMean": [
+            0,
+            0
+          ],
+          "ciMedian": [
+            0,
+            0
+          ]
+        },
+        "issueRate": {
+          "n": 14,
+          "mean": 0,
+          "median": 0,
+          "ciMean": [
+            0,
+            0
+          ],
+          "ciMedian": [
+            0,
+            0
+          ]
+        },
+        "deps": {
+          "n": 15,
+          "mean": 4.1333,
+          "median": 2,
+          "ciMean": [
+            2.5333,
+            5.9333
+          ],
+          "ciMedian": [
+            2,
+            6
+          ]
+        },
+        "e18e": {
+          "n": 15,
+          "mean": 0,
+          "median": 0,
+          "ciMean": [
+            0,
+            0
+          ],
+          "ciMedian": [
+            0,
+            0
+          ]
+        },
+        "youngPkg": {
+          "n": 15,
+          "mean": 0,
+          "median": 0,
+          "ciMean": [
+            0,
+            0
+          ],
+          "ciMedian": [
+            0,
+            0
+          ]
+        },
+        "exactPinRate": {
+          "n": 14,
+          "mean": 0.9286,
+          "median": 1,
+          "ciMean": [
+            0.7857,
+            1
+          ],
+          "ciMedian": [
+            1,
+            1
+          ]
+        }
+      }
+    }
+  },
+  "deltas": {
+    "claude/guided-hook": {
+      "agent": "claude",
+      "arm": "guided-hook",
+      "vs": "baseline",
+      "metrics": {
+        "issueDeps": {
+          "baseline": 4.2667,
+          "guided": 2.2,
+          "delta": -2.0667,
+          "relative": -0.4844,
+          "ci": [
+            -3.0667,
+            -1.2
+          ],
+          "medianBaseline": 4,
+          "medianGuided": 2,
+          "pairedPrompts": 15
+        },
+        "clean": {
+          "baseline": 0.1333,
+          "guided": 0.4,
+          "delta": 0.2667,
+          "relative": 2,
+          "ci": [
+            0.0667,
+            0.5333
+          ],
+          "medianBaseline": 0,
+          "medianGuided": 0,
+          "pairedPrompts": 15
+        },
+        "notFound": {
+          "baseline": 0,
+          "guided": 0,
+          "delta": 0,
+          "relative": null,
+          "ci": [
+            0,
+            0
+          ],
+          "medianBaseline": 0,
+          "medianGuided": 0,
+          "pairedPrompts": 15
+        },
+        "deprecated": {
+          "baseline": 0.4667,
+          "guided": 0.2667,
+          "delta": -0.2,
+          "relative": -0.4286,
+          "ci": [
+            -0.4,
+            0
+          ],
+          "medianBaseline": 0,
+          "medianGuided": 0,
+          "pairedPrompts": 15
+        },
+        "outdated": {
+          "baseline": 3.2667,
+          "guided": 2.0667,
+          "delta": -1.2,
+          "relative": -0.3673,
+          "ci": [
+            -2,
+            -0.5333
+          ],
+          "medianBaseline": 3,
+          "medianGuided": 2,
+          "pairedPrompts": 15
+        },
+        "fresh": {
+          "baseline": 0.8,
+          "guided": 0,
+          "delta": -0.8,
+          "relative": -1,
+          "ci": [
+            -1.4,
+            -0.2667
+          ],
+          "medianBaseline": 0,
+          "medianGuided": 0,
+          "pairedPrompts": 15
+        },
+        "vulnerable": {
+          "baseline": 0.4667,
+          "guided": 0.2667,
+          "delta": -0.2,
+          "relative": -0.4286,
+          "ci": [
+            -0.5333,
+            0
+          ],
+          "medianBaseline": 0,
+          "medianGuided": 0,
+          "pairedPrompts": 15
+        },
+        "highCrit": {
+          "baseline": 0.2,
+          "guided": 0.0667,
+          "delta": -0.1333,
+          "relative": -0.6667,
+          "ci": [
+            -0.3333,
+            0
+          ],
+          "medianBaseline": 0,
+          "medianGuided": 0,
+          "pairedPrompts": 15
+        },
+        "advisories": {
+          "baseline": 3.8,
+          "guided": 2.9333,
+          "delta": -0.8667,
+          "relative": -0.2281,
+          "ci": [
+            -2.5333,
+            0
+          ],
+          "medianBaseline": 0,
+          "medianGuided": 0,
+          "pairedPrompts": 15
+        },
+        "issueRate": {
+          "baseline": 0.5709,
+          "guided": 0.3648,
+          "delta": -0.206,
+          "relative": -0.3609,
+          "ci": [
+            -0.3379,
+            -0.0755
+          ],
+          "medianBaseline": 0.6667,
+          "medianGuided": 0.5,
+          "pairedPrompts": 15
+        },
+        "deps": {
+          "baseline": 7.8,
+          "guided": 6.4667,
+          "delta": -1.3333,
+          "relative": -0.1709,
+          "ci": [
+            -3.0667,
+            -0.3333
+          ],
+          "medianBaseline": 8,
+          "medianGuided": 6,
+          "pairedPrompts": 15
+        },
+        "e18e": {
+          "baseline": 0.8,
+          "guided": 0.5333,
+          "delta": -0.2667,
+          "relative": -0.3333,
+          "ci": [
+            -0.4667,
+            -0.0667
+          ],
+          "medianBaseline": 0,
+          "medianGuided": 0,
+          "pairedPrompts": 15
+        },
+        "youngPkg": {
+          "baseline": 0,
+          "guided": 0,
+          "delta": 0,
+          "relative": null,
+          "ci": [
+            0,
+            0
+          ],
+          "medianBaseline": 0,
+          "medianGuided": 0,
+          "pairedPrompts": 15
+        },
+        "exactPinRate": {
+          "baseline": 0.0996,
+          "guided": 0.6593,
+          "delta": 0.5597,
+          "relative": 5.6214,
+          "ci": [
+            0.3597,
+            0.7574
+          ],
+          "medianBaseline": 0,
+          "medianGuided": 0.6667,
+          "pairedPrompts": 15
+        },
+        "hasLockfile": {
+          "baseline": 0.9333,
+          "guided": 0.8667,
+          "delta": -0.0667,
+          "relative": -0.0714,
+          "ci": [
+            -0.2,
+            0
+          ],
+          "medianBaseline": 1,
+          "medianGuided": 1,
+          "pairedPrompts": 15
+        },
+        "agentOk": {
+          "baseline": 1,
+          "guided": 0.9333,
+          "delta": -0.0667,
+          "relative": -0.0667,
+          "ci": [
+            -0.2,
+            0
+          ],
+          "medianBaseline": 1,
+          "medianGuided": 1,
+          "pairedPrompts": 15
+        },
+        "skillTriggered": {
+          "baseline": 0,
+          "guided": 1,
+          "delta": 1,
+          "relative": null,
+          "ci": [
+            1,
+            1
+          ],
+          "medianBaseline": 0,
+          "medianGuided": 1,
+          "pairedPrompts": 14
+        },
+        "costUsd": {
+          "baseline": 0.3293,
+          "guided": 0.3981,
+          "delta": 0.0688,
+          "relative": 0.2091,
+          "ci": [
+            0.0244,
+            0.1049
+          ],
+          "medianBaseline": 0.3326,
+          "medianGuided": 0.4105,
+          "pairedPrompts": 14
+        },
+        "durationMin": {
+          "baseline": 1.6489,
+          "guided": 4.5488,
+          "delta": 2.8999,
+          "relative": 1.7586,
+          "ci": [
+            0.0614,
+            6.9921
+          ],
+          "medianBaseline": 1.5603,
+          "medianGuided": 1.7811,
+          "pairedPrompts": 15
+        }
+      },
+      "touched": {
+        "issueDeps": {
+          "baseline": 1.6667,
+          "guided": 0,
+          "delta": -1.6667,
+          "relative": -1,
+          "ci": [
+            -2.535,
+            -0.9333
+          ],
+          "medianBaseline": 1,
+          "medianGuided": 0,
+          "pairedPrompts": 15
+        },
+        "clean": {
+          "baseline": 0.2667,
+          "guided": 1,
+          "delta": 0.7333,
+          "relative": 2.75,
+          "ci": [
+            0.5333,
+            0.9333
+          ],
+          "medianBaseline": 0,
+          "medianGuided": 1,
+          "pairedPrompts": 15
+        },
+        "notFound": {
+          "baseline": 0,
+          "guided": 0,
+          "delta": 0,
+          "relative": null,
+          "ci": [
+            0,
+            0
+          ],
+          "medianBaseline": 0,
+          "medianGuided": 0,
+          "pairedPrompts": 15
+        },
+        "deprecated": {
+          "baseline": 0.2,
+          "guided": 0,
+          "delta": -0.2,
+          "relative": -1,
+          "ci": [
+            -0.4,
+            0
+          ],
+          "medianBaseline": 0,
+          "medianGuided": 0,
+          "pairedPrompts": 15
+        },
+        "outdated": {
+          "baseline": 0.8,
+          "guided": 0,
+          "delta": -0.8,
+          "relative": -1,
+          "ci": [
+            -1.2667,
+            -0.3333
+          ],
+          "medianBaseline": 0,
+          "medianGuided": 0,
+          "pairedPrompts": 15
+        },
+        "fresh": {
+          "baseline": 0.8,
+          "guided": 0,
+          "delta": -0.8,
+          "relative": -1,
+          "ci": [
+            -1.4,
+            -0.2667
+          ],
+          "medianBaseline": 0,
+          "medianGuided": 0,
+          "pairedPrompts": 15
+        },
+        "vulnerable": {
+          "baseline": 0.2,
+          "guided": 0,
+          "delta": -0.2,
+          "relative": -1,
+          "ci": [
+            -0.5333,
+            0
+          ],
+          "medianBaseline": 0,
+          "medianGuided": 0,
+          "pairedPrompts": 15
+        },
+        "highCrit": {
+          "baseline": 0.1333,
+          "guided": 0,
+          "delta": -0.1333,
+          "relative": -1,
+          "ci": [
+            -0.3333,
+            0
+          ],
+          "medianBaseline": 0,
+          "medianGuided": 0,
+          "pairedPrompts": 15
+        },
+        "advisories": {
+          "baseline": 0.8667,
+          "guided": 0,
+          "delta": -0.8667,
+          "relative": -1,
+          "ci": [
+            -2.5333,
+            0
+          ],
+          "medianBaseline": 0,
+          "medianGuided": 0,
+          "pairedPrompts": 15
+        },
+        "issueRate": {
+          "baseline": 0.4565,
+          "guided": 0,
+          "delta": -0.4565,
+          "relative": -1,
+          "ci": [
+            -0.6453,
+            -0.2732
+          ],
+          "medianBaseline": 0.45,
+          "medianGuided": 0,
+          "pairedPrompts": 14
+        },
+        "deps": {
+          "baseline": 5.0667,
+          "guided": 4.1333,
+          "delta": -0.9333,
+          "relative": -0.1842,
+          "ci": [
+            -2.8,
+            0.2667
+          ],
+          "medianBaseline": 3,
+          "medianGuided": 2,
+          "pairedPrompts": 15
+        },
+        "e18e": {
+          "baseline": 0.2,
+          "guided": 0,
+          "delta": -0.2,
+          "relative": -1,
+          "ci": [
+            -0.4,
+            0
+          ],
+          "medianBaseline": 0,
+          "medianGuided": 0,
+          "pairedPrompts": 15
+        },
+        "youngPkg": {
+          "baseline": 0,
+          "guided": 0,
+          "delta": 0,
+          "relative": null,
+          "ci": [
+            0,
+            0
+          ],
+          "medianBaseline": 0,
+          "medianGuided": 0,
+          "pairedPrompts": 15
+        },
+        "exactPinRate": {
+          "baseline": 0.0619,
+          "guided": 0.9286,
+          "delta": 0.8667,
+          "relative": 13.9994,
+          "ci": [
+            0.6714,
+            1
+          ],
+          "medianBaseline": 0,
+          "medianGuided": 1,
+          "pairedPrompts": 14
+        }
+      }
+    }
+  },
+  "perPrompt": [
+    {
+      "promptId": "cli-parallel-download",
+      "claude/baseline": 0,
+      "claude/guided-hook": 0
+    },
+    {
+      "promptId": "cra-add-routing",
+      "claude/baseline": 5,
+      "claude/guided-hook": 3
+    },
+    {
+      "promptId": "cra-modernize-build",
+      "claude/baseline": 6,
+      "claude/guided-hook": 0
+    },
+    {
+      "promptId": "express-jwt",
+      "claude/baseline": 3,
+      "claude/guided-hook": 3
+    },
+    {
+      "promptId": "express-uploads-s3",
+      "claude/baseline": 4,
+      "claude/guided-hook": 3
+    },
+    {
+      "promptId": "express-validation-ratelimit",
+      "claude/baseline": 4,
+      "claude/guided-hook": 2
+    },
+    {
+      "promptId": "fastapi-orm-settings",
+      "claude/baseline": 2,
+      "claude/guided-hook": 0
+    },
+    {
+      "promptId": "flask-jwt",
+      "claude/baseline": 5,
+      "claude/guided-hook": 2
+    },
+    {
+      "promptId": "nextjs-form-validation",
+      "claude/baseline": 9,
+      "claude/guided-hook": 8
+    },
+    {
+      "promptId": "node-cli-report",
+      "claude/baseline": 3,
+      "claude/guided-hook": 3
+    },
+    {
+      "promptId": "node-postgres-orm",
+      "claude/baseline": 0,
+      "claude/guided-hook": 0
+    },
+    {
+      "promptId": "react-dashboard",
+      "claude/baseline": 1,
+      "claude/guided-hook": 0
+    },
+    {
+      "promptId": "ts-lint-format",
+      "claude/baseline": 7,
+      "claude/guided-hook": 3
+    },
+    {
+      "promptId": "ts-tests-coverage",
+      "claude/baseline": 9,
+      "claude/guided-hook": 6
+    },
+    {
+      "promptId": "vue-app-store",
+      "claude/baseline": 6,
+      "claude/guided-hook": 0
+    }
+  ],
+  "offenders": {
+    "claude/baseline": {
+      "outdated": {
+        "npm:react@18.3.1": 2,
+        "npm:react-dom@18.3.1": 2,
+        "npm:react-router-dom@6.30.6": 1,
+        "npm:recharts@2.15.4": 1,
+        "npm:web-vitals@2.1.4": 2,
+        "npm:@types/react@18.3.31": 2,
+        "npm:@types/react-dom@18.3.7": 1,
+        "npm:body-parser@1.20.9": 3,
+        "npm:express@4.22.3": 3,
+        "npm:nodemon@2.0.22": 3,
+        "pypi:python-dotenv@0.15.0": 1,
+        "pypi:chardet@3.0.4": 1,
+        "pypi:idna@2.8": 1,
+        "pypi:urllib3@1.25.11": 1,
+        "npm:next@13.4.19": 1,
+        "npm:react@18.2.0": 1,
+        "npm:react-dom@18.2.0": 1,
+        "npm:zod@3.25.76": 1,
+        "npm:@types/node@18.19.130": 1,
+        "npm:eslint@8.57.1": 2,
+        "npm:eslint-config-next@13.4.19": 1,
+        "npm:typescript@5.9.3": 1,
+        "npm:chalk@2.4.2": 1,
+        "npm:commander@2.20.3": 1,
+        "npm:@eslint/js@9.39.5": 1,
+        "npm:eslint@9.39.5": 1,
+        "npm:jest@27.5.1": 2,
+        "npm:ts-jest@27.1.5": 2,
+        "npm:typescript@4.9.5": 2,
+        "npm:@types/jest@27.5.2": 1,
+        "npm:@typescript-eslint/eslint-plugin@5.62.0": 1,
+        "npm:@typescript-eslint/parser@5.62.0": 1,
+        "npm:eslint-config-prettier@8.10.2": 1,
+        "npm:prettier@2.8.8": 1,
+        "npm:typescript@6.0.3": 1
+      },
+      "deprecated": {
+        "npm:recharts@2.15.4": 1,
+        "npm:next@13.4.19": 1,
+        "npm:eslint@8.57.1": 2,
+        "npm:request@2.88.2": 1,
+        "npm:eslint@9.39.5": 1,
+        "npm:axios-retry@4.5.0": 1
+      },
+      "fresh": {
+        "npm:vite@8.3.8": 3,
+        "npm:@aws-sdk/client-s3@3.1169.0": 1,
+        "npm:express-rate-limit@8.7.4": 1,
+        "pypi:fastapi@0.163.1": 1,
+        "pypi:pydantic-settings@2.16.3": 1,
+        "npm:prettier@3.10.1": 1,
+        "npm:typescript-eslint@8.72.2": 1,
+        "npm:axios@1.21.1": 1,
+        "npm:vue-router@5.5.1": 1,
+        "npm:@vitejs/plugin-vue@6.0.11": 1
+      },
+      "vulnerable": {
+        "pypi:requests@2.22.0": 1,
+        "pypi:python-dotenv@0.15.0": 1,
+        "pypi:idna@2.8": 1,
+        "pypi:urllib3@1.25.11": 1,
+        "npm:next@13.4.19": 1,
+        "npm:zod@3.25.76": 1,
+        "npm:request@2.88.2": 1
+      }
+    },
+    "claude/guided-hook": {
+      "outdated": {
+        "npm:react@18.3.1": 1,
+        "npm:react-dom@18.3.1": 1,
+        "npm:web-vitals@2.1.4": 1,
+        "npm:body-parser@1.20.9": 2,
+        "npm:express@4.22.3": 3,
+        "npm:nodemon@2.0.22": 3,
+        "pypi:python-dotenv@0.15.0": 1,
+        "npm:next@13.4.19": 1,
+        "npm:react@18.2.0": 1,
+        "npm:react-dom@18.2.0": 1,
+        "npm:@types/node@18.19.130": 1,
+        "npm:@types/react@18.3.31": 1,
+        "npm:eslint@8.57.1": 2,
+        "npm:eslint-config-next@13.4.19": 1,
+        "npm:typescript@5.9.3": 1,
+        "npm:chalk@2.4.2": 1,
+        "npm:commander@2.20.3": 1,
+        "npm:jest@27.5.1": 1,
+        "npm:ts-jest@27.1.5": 1,
+        "npm:typescript@4.9.5": 2,
+        "npm:@typescript-eslint/eslint-plugin@5.62.0": 1,
+        "npm:@typescript-eslint/parser@5.62.0": 1,
+        "npm:eslint-config-prettier@8.10.2": 1,
+        "npm:prettier@2.8.8": 1
+      },
+      "vulnerable": {
+        "pypi:requests@2.22.0": 1,
+        "pypi:python-dotenv@0.15.0": 1,
+        "npm:next@13.4.19": 1,
+        "npm:request@2.88.2": 1
+      },
+      "deprecated": {
+        "npm:next@13.4.19": 1,
+        "npm:eslint@8.57.1": 2,
+        "npm:request@2.88.2": 1
+      }
+    }
+  },
+  "results_index": [
+    {
+      "result": "claude/baseline/cli-parallel-download/seed-1",
+      "agent": "claude",
+      "arm": "baseline",
+      "promptId": "cli-parallel-download",
+      "seed": 1,
+      "agentStatus": "ok",
+      "deps": 3,
+      "outdated": 0,
+      "deprecated": 0,
+      "notFound": 0,
+      "fresh": 0,
+      "vulnerable": 0,
+      "highCrit": 0,
+      "advisories": 0,
+      "issueDeps": 0,
+      "issueRate": 0,
+      "clean": 1,
+      "e18e": 0,
+      "youngPkg": 0,
+      "exactPinRate": 0,
+      "errors": 0,
+      "hasLockfile": 1,
+      "agentOk": 1,
+      "costUsd": 0.3627,
+      "durationMin": 3.0907,
+      "skillTriggered": 0,
+      "buildOk": null
+    },
+    {
+      "result": "claude/baseline/cra-add-routing/seed-1",
+      "agent": "claude",
+      "arm": "baseline",
+      "promptId": "cra-add-routing",
+      "seed": 1,
+      "agentStatus": "ok",
+      "deps": 6,
+      "outdated": 5,
+      "deprecated": 1,
+      "notFound": 0,
+      "fresh": 0,
+      "vulnerable": 0,
+      "highCrit": 0,
+      "advisories": 0,
+      "issueDeps": 5,
+      "issueRate": 0.8333,
+      "clean": 0,
+      "e18e": 0,
+      "youngPkg": 0,
+      "exactPinRate": 0.1667,
+      "errors": 0,
+      "hasLockfile": 1,
+      "agentOk": 1,
+      "costUsd": 0.4306,
+      "durationMin": 2.2539,
+      "skillTriggered": 0,
+      "buildOk": null
+    },
+    {
+      "result": "claude/baseline/cra-modernize-build/seed-1",
+      "agent": "claude",
+      "arm": "baseline",
+      "promptId": "cra-modernize-build",
+      "seed": 1,
+      "agentStatus": "ok",
+      "deps": 8,
+      "outdated": 5,
+      "deprecated": 0,
+      "notFound": 0,
+      "fresh": 1,
+      "vulnerable": 0,
+      "highCrit": 0,
+      "advisories": 0,
+      "issueDeps": 6,
+      "issueRate": 0.75,
+      "clean": 0,
+      "e18e": 0,
+      "youngPkg": 0,
+      "exactPinRate": 0,
+      "errors": 0,
+      "hasLockfile": 1,
+      "agentOk": 1,
+      "costUsd": 0.3136,
+      "durationMin": 1.7753,
+      "skillTriggered": 0,
+      "buildOk": null
+    },
+    {
+      "result": "claude/baseline/express-jwt/seed-1",
+      "agent": "claude",
+      "arm": "baseline",
+      "promptId": "express-jwt",
+      "seed": 1,
+      "agentStatus": "ok",
+      "deps": 5,
+      "outdated": 3,
+      "deprecated": 0,
+      "notFound": 0,
+      "fresh": 0,
+      "vulnerable": 0,
+      "highCrit": 0,
+      "advisories": 0,
+      "issueDeps": 3,
+      "issueRate": 0.6,
+      "clean": 0,
+      "e18e": 3,
+      "youngPkg": 0,
+      "exactPinRate": 0,
+      "errors": 0,
+      "hasLockfile": 1,
+      "agentOk": 1,
+      "costUsd": 0.3474,
+      "durationMin": 1.587,
+      "skillTriggered": 0,
+      "buildOk": null
+    },
+    {
+      "result": "claude/baseline/express-uploads-s3/seed-1",
+      "agent": "claude",
+      "arm": "baseline",
+      "promptId": "express-uploads-s3",
+      "seed": 1,
+      "agentStatus": "ok",
+      "deps": 6,
+      "outdated": 3,
+      "deprecated": 0,
+      "notFound": 0,
+      "fresh": 1,
+      "vulnerable": 0,
+      "highCrit": 0,
+      "advisories": 0,
+      "issueDeps": 4,
+      "issueRate": 0.6667,
+      "clean": 0,
+      "e18e": 2,
+      "youngPkg": 0,
+      "exactPinRate": 0,
+      "errors": 0,
+      "hasLockfile": 1,
+      "agentOk": 1,
+      "costUsd": 0.3056,
+      "durationMin": 1.4564,
+      "skillTriggered": 0,
+      "buildOk": null
+    },
+    {
+      "result": "claude/baseline/express-validation-ratelimit/seed-1",
+      "agent": "claude",
+      "arm": "baseline",
+      "promptId": "express-validation-ratelimit",
+      "seed": 1,
+      "agentStatus": "ok",
+      "deps": 5,
+      "outdated": 3,
+      "deprecated": 0,
+      "notFound": 0,
+      "fresh": 1,
+      "vulnerable": 0,
+      "highCrit": 0,
+      "advisories": 0,
+      "issueDeps": 4,
+      "issueRate": 0.8,
+      "clean": 0,
+      "e18e": 2,
+      "youngPkg": 0,
+      "exactPinRate": 0,
+      "errors": 0,
+      "hasLockfile": 1,
+      "agentOk": 1,
+      "costUsd": 0.2433,
+      "durationMin": 1.0904,
+      "skillTriggered": 0,
+      "buildOk": null
+    },
+    {
+      "result": "claude/baseline/fastapi-orm-settings/seed-1",
+      "agent": "claude",
+      "arm": "baseline",
+      "promptId": "fastapi-orm-settings",
+      "seed": 1,
+      "agentStatus": "ok",
+      "deps": 5,
+      "outdated": 0,
+      "deprecated": 0,
+      "notFound": 0,
+      "fresh": 2,
+      "vulnerable": 0,
+      "highCrit": 0,
+      "advisories": 0,
+      "issueDeps": 2,
+      "issueRate": 0.4,
+      "clean": 0,
+      "e18e": 0,
+      "youngPkg": 0,
+      "exactPinRate": 0,
+      "errors": 0,
+      "hasLockfile": 1,
+      "agentOk": 1,
+      "costUsd": 0.3501,
+      "durationMin": 1.4945,
+      "skillTriggered": 0,
+      "buildOk": null
+    },
+    {
+      "result": "claude/baseline/flask-jwt/seed-1",
+      "agent": "claude",
+      "arm": "baseline",
+      "promptId": "flask-jwt",
+      "seed": 1,
+      "agentStatus": "ok",
+      "deps": 17,
+      "outdated": 4,
+      "deprecated": 0,
+      "notFound": 0,
+      "fresh": 0,
+      "vulnerable": 4,
+      "highCrit": 1,
+      "advisories": 17,
+      "issueDeps": 5,
+      "issueRate": 0.2941,
+      "clean": 0,
+      "e18e": 0,
+      "youngPkg": 0,
+      "exactPinRate": 0.8824,
+      "errors": 0,
+      "hasLockfile": 0,
+      "agentOk": 1,
+      "costUsd": 0.2744,
+      "durationMin": 1.0954,
+      "skillTriggered": 0,
+      "buildOk": null
+    },
+    {
+      "result": "claude/baseline/nextjs-form-validation/seed-1",
+      "agent": "claude",
+      "arm": "baseline",
+      "promptId": "nextjs-form-validation",
+      "seed": 1,
+      "agentStatus": "ok",
+      "deps": 9,
+      "outdated": 9,
+      "deprecated": 2,
+      "notFound": 0,
+      "fresh": 0,
+      "vulnerable": 2,
+      "highCrit": 2,
+      "advisories": 39,
+      "issueDeps": 9,
+      "issueRate": 1,
+      "clean": 0,
+      "e18e": 0,
+      "youngPkg": 0,
+      "exactPinRate": 0.4444,
+      "errors": 0,
+      "hasLockfile": 1,
+      "agentOk": 1,
+      "costUsd": 0.3326,
+      "durationMin": 1.5603,
+      "skillTriggered": 0,
+      "buildOk": null
+    },
+    {
+      "result": "claude/baseline/node-cli-report/seed-1",
+      "agent": "claude",
+      "arm": "baseline",
+      "promptId": "node-cli-report",
+      "seed": 1,
+      "agentStatus": "ok",
+      "deps": 4,
+      "outdated": 2,
+      "deprecated": 1,
+      "notFound": 0,
+      "fresh": 0,
+      "vulnerable": 1,
+      "highCrit": 0,
+      "advisories": 1,
+      "issueDeps": 3,
+      "issueRate": 0.75,
+      "clean": 0,
+      "e18e": 3,
+      "youngPkg": 0,
+      "exactPinRate": 0,
+      "errors": 0,
+      "hasLockfile": 1,
+      "agentOk": 1,
+      "costUsd": 0.1634,
+      "durationMin": 0.7078,
+      "skillTriggered": 0,
+      "buildOk": null
+    },
+    {
+      "result": "claude/baseline/node-postgres-orm/seed-1",
+      "agent": "claude",
+      "arm": "baseline",
+      "promptId": "node-postgres-orm",
+      "seed": 1,
+      "agentStatus": "ok",
+      "deps": 10,
+      "outdated": 0,
+      "deprecated": 0,
+      "notFound": 0,
+      "fresh": 0,
+      "vulnerable": 0,
+      "highCrit": 0,
+      "advisories": 0,
+      "issueDeps": 0,
+      "issueRate": 0,
+      "clean": 1,
+      "e18e": 1,
+      "youngPkg": 0,
+      "exactPinRate": 0,
+      "errors": 0,
+      "hasLockfile": 1,
+      "agentOk": 1,
+      "costUsd": 0.4083,
+      "durationMin": 2.0481,
+      "skillTriggered": 0,
+      "buildOk": null
+    },
+    {
+      "result": "claude/baseline/react-dashboard/seed-1",
+      "agent": "claude",
+      "arm": "baseline",
+      "promptId": "react-dashboard",
+      "seed": 1,
+      "agentStatus": "ok",
+      "deps": 11,
+      "outdated": 0,
+      "deprecated": 0,
+      "notFound": 0,
+      "fresh": 1,
+      "vulnerable": 0,
+      "highCrit": 0,
+      "advisories": 0,
+      "issueDeps": 1,
+      "issueRate": 0.0909,
+      "clean": 0,
+      "e18e": 0,
+      "youngPkg": 0,
+      "exactPinRate": 0,
+      "errors": 0,
+      "hasLockfile": 1,
+      "agentOk": 1,
+      "costUsd": 0.4611,
+      "durationMin": 1.8744,
+      "skillTriggered": 0,
+      "buildOk": null
+    },
+    {
+      "result": "claude/baseline/ts-lint-format/seed-1",
+      "agent": "claude",
+      "arm": "baseline",
+      "promptId": "ts-lint-format",
+      "seed": 1,
+      "agentStatus": "ok",
+      "deps": 9,
+      "outdated": 5,
+      "deprecated": 1,
+      "notFound": 0,
+      "fresh": 2,
+      "vulnerable": 0,
+      "highCrit": 0,
+      "advisories": 0,
+      "issueDeps": 7,
+      "issueRate": 0.7778,
+      "clean": 0,
+      "e18e": 0,
+      "youngPkg": 0,
+      "exactPinRate": 0,
+      "errors": 0,
+      "hasLockfile": 1,
+      "agentOk": 1,
+      "costUsd": 0.2546,
+      "durationMin": 1.287,
+      "skillTriggered": 0,
+      "buildOk": null
+    },
+    {
+      "result": "claude/baseline/ts-tests-coverage/seed-1",
+      "agent": "claude",
+      "arm": "baseline",
+      "promptId": "ts-tests-coverage",
+      "seed": 1,
+      "agentStatus": "ok",
+      "deps": 9,
+      "outdated": 9,
+      "deprecated": 1,
+      "notFound": 0,
+      "fresh": 0,
+      "vulnerable": 0,
+      "highCrit": 0,
+      "advisories": 0,
+      "issueDeps": 9,
+      "issueRate": 1,
+      "clean": 0,
+      "e18e": 0,
+      "youngPkg": 0,
+      "exactPinRate": 0,
+      "errors": 0,
+      "hasLockfile": 1,
+      "agentOk": 1,
+      "costUsd": 0.2412,
+      "durationMin": 1.2558,
+      "skillTriggered": 0,
+      "buildOk": null
+    },
+    {
+      "result": "claude/baseline/vue-app-store/seed-1",
+      "agent": "claude",
+      "arm": "baseline",
+      "promptId": "vue-app-store",
+      "seed": 1,
+      "agentStatus": "ok",
+      "deps": 10,
+      "outdated": 1,
+      "deprecated": 1,
+      "notFound": 0,
+      "fresh": 4,
+      "vulnerable": 0,
+      "highCrit": 0,
+      "advisories": 0,
+      "issueDeps": 6,
+      "issueRate": 0.6,
+      "clean": 0,
+      "e18e": 1,
+      "youngPkg": 0,
+      "exactPinRate": 0,
+      "errors": 0,
+      "hasLockfile": 1,
+      "agentOk": 1,
+      "costUsd": 0.45,
+      "durationMin": 2.1567,
+      "skillTriggered": 0,
+      "buildOk": null
+    },
+    {
+      "result": "claude/guided-hook/cli-parallel-download/seed-1",
+      "agent": "claude",
+      "arm": "guided-hook",
+      "promptId": "cli-parallel-download",
+      "seed": 1,
+      "agentStatus": "ok",
+      "deps": 2,
+      "outdated": 0,
+      "deprecated": 0,
+      "notFound": 0,
+      "fresh": 0,
+      "vulnerable": 0,
+      "highCrit": 0,
+      "advisories": 0,
+      "issueDeps": 0,
+      "issueRate": 0,
+      "clean": 1,
+      "e18e": 0,
+      "youngPkg": 0,
+      "exactPinRate": 1,
+      "errors": 0,
+      "hasLockfile": 1,
+      "agentOk": 1,
+      "costUsd": 0.3859,
+      "durationMin": 3.2228,
+      "skillTriggered": 1,
+      "buildOk": null
+    },
+    {
+      "result": "claude/guided-hook/cra-add-routing/seed-1",
+      "agent": "claude",
+      "arm": "guided-hook",
+      "promptId": "cra-add-routing",
+      "seed": 1,
+      "agentStatus": "ok",
+      "deps": 6,
+      "outdated": 3,
+      "deprecated": 0,
+      "notFound": 0,
+      "fresh": 0,
+      "vulnerable": 0,
+      "highCrit": 0,
+      "advisories": 0,
+      "issueDeps": 3,
+      "issueRate": 0.5,
+      "clean": 0,
+      "e18e": 0,
+      "youngPkg": 0,
+      "exactPinRate": 0.1667,
+      "errors": 0,
+      "hasLockfile": 1,
+      "agentOk": 1,
+      "costUsd": 0.4407,
+      "durationMin": 1.9377,
+      "skillTriggered": 1,
+      "buildOk": null
+    },
+    {
+      "result": "claude/guided-hook/cra-modernize-build/seed-1",
+      "agent": "claude",
+      "arm": "guided-hook",
+      "promptId": "cra-modernize-build",
+      "seed": 1,
+      "agentStatus": "ok",
+      "deps": 7,
+      "outdated": 0,
+      "deprecated": 0,
+      "notFound": 0,
+      "fresh": 0,
+      "vulnerable": 0,
+      "highCrit": 0,
+      "advisories": 0,
+      "issueDeps": 0,
+      "issueRate": 0,
+      "clean": 1,
+      "e18e": 0,
+      "youngPkg": 0,
+      "exactPinRate": 1,
+      "errors": 0,
+      "hasLockfile": 1,
+      "agentOk": 1,
+      "costUsd": 0.435,
+      "durationMin": 1.915,
+      "skillTriggered": 1,
+      "buildOk": null
+    },
+    {
+      "result": "claude/guided-hook/express-jwt/seed-1",
+      "agent": "claude",
+      "arm": "guided-hook",
+      "promptId": "express-jwt",
+      "seed": 1,
+      "agentStatus": "ok",
+      "deps": 4,
+      "outdated": 3,
+      "deprecated": 0,
+      "notFound": 0,
+      "fresh": 0,
+      "vulnerable": 0,
+      "highCrit": 0,
+      "advisories": 0,
+      "issueDeps": 3,
+      "issueRate": 0.75,
+      "clean": 0,
+      "e18e": 2,
+      "youngPkg": 0,
+      "exactPinRate": 0.25,
+      "errors": 0,
+      "hasLockfile": 1,
+      "agentOk": 1,
+      "costUsd": 0.3121,
+      "durationMin": 1.1886,
+      "skillTriggered": 1,
+      "buildOk": null
+    },
+    {
+      "result": "claude/guided-hook/express-uploads-s3/seed-1",
+      "agent": "claude",
+      "arm": "guided-hook",
+      "promptId": "express-uploads-s3",
+      "seed": 1,
+      "agentStatus": "ok",
+      "deps": 6,
+      "outdated": 3,
+      "deprecated": 0,
+      "notFound": 0,
+      "fresh": 0,
+      "vulnerable": 0,
+      "highCrit": 0,
+      "advisories": 0,
+      "issueDeps": 3,
+      "issueRate": 0.5,
+      "clean": 0,
+      "e18e": 2,
+      "youngPkg": 0,
+      "exactPinRate": 0.5,
+      "errors": 0,
+      "hasLockfile": 1,
+      "agentOk": 1,
+      "costUsd": 0.2982,
+      "durationMin": 1.2115,
+      "skillTriggered": 1,
+      "buildOk": null
+    },
+    {
+      "result": "claude/guided-hook/express-validation-ratelimit/seed-1",
+      "agent": "claude",
+      "arm": "guided-hook",
+      "promptId": "express-validation-ratelimit",
+      "seed": 1,
+      "agentStatus": "ok",
+      "deps": 4,
+      "outdated": 2,
+      "deprecated": 0,
+      "notFound": 0,
+      "fresh": 0,
+      "vulnerable": 0,
+      "highCrit": 0,
+      "advisories": 0,
+      "issueDeps": 2,
+      "issueRate": 0.5,
+      "clean": 0,
+      "e18e": 1,
+      "youngPkg": 0,
+      "exactPinRate": 0.5,
+      "errors": 0,
+      "hasLockfile": 1,
+      "agentOk": 1,
+      "costUsd": 0.3437,
+      "durationMin": 1.5742,
+      "skillTriggered": 1,
+      "buildOk": null
+    },
+    {
+      "result": "claude/guided-hook/fastapi-orm-settings/seed-1",
+      "agent": "claude",
+      "arm": "guided-hook",
+      "promptId": "fastapi-orm-settings",
+      "seed": 1,
+      "agentStatus": "ok",
+      "deps": 5,
+      "outdated": 0,
+      "deprecated": 0,
+      "notFound": 0,
+      "fresh": 0,
+      "vulnerable": 0,
+      "highCrit": 0,
+      "advisories": 0,
+      "issueDeps": 0,
+      "issueRate": 0,
+      "clean": 1,
+      "e18e": 0,
+      "youngPkg": 0,
+      "exactPinRate": 1,
+      "errors": 0,
+      "hasLockfile": 1,
+      "agentOk": 1,
+      "costUsd": 0.4577,
+      "durationMin": 1.7448,
+      "skillTriggered": 1,
+      "buildOk": null
+    },
+    {
+      "result": "claude/guided-hook/flask-jwt/seed-1",
+      "agent": "claude",
+      "arm": "guided-hook",
+      "promptId": "flask-jwt",
+      "seed": 1,
+      "agentStatus": "ok",
+      "deps": 4,
+      "outdated": 1,
+      "deprecated": 0,
+      "notFound": 0,
+      "fresh": 0,
+      "vulnerable": 2,
+      "highCrit": 0,
+      "advisories": 5,
+      "issueDeps": 2,
+      "issueRate": 0.5,
+      "clean": 0,
+      "e18e": 0,
+      "youngPkg": 0,
+      "exactPinRate": 1,
+      "errors": 0,
+      "hasLockfile": 0,
+      "agentOk": 1,
+      "costUsd": 0.2816,
+      "durationMin": 2.7186,
+      "skillTriggered": 1,
+      "buildOk": null
+    },
+    {
+      "result": "claude/guided-hook/nextjs-form-validation/seed-1",
+      "agent": "claude",
+      "arm": "guided-hook",
+      "promptId": "nextjs-form-validation",
+      "seed": 1,
+      "agentStatus": "ok",
+      "deps": 9,
+      "outdated": 8,
+      "deprecated": 2,
+      "notFound": 0,
+      "fresh": 0,
+      "vulnerable": 1,
+      "highCrit": 1,
+      "advisories": 38,
+      "issueDeps": 8,
+      "issueRate": 0.8889,
+      "clean": 0,
+      "e18e": 0,
+      "youngPkg": 0,
+      "exactPinRate": 0.5556,
+      "errors": 0,
+      "hasLockfile": 1,
+      "agentOk": 1,
+      "costUsd": 0.3084,
+      "durationMin": 1.2803,
+      "skillTriggered": 1,
+      "buildOk": null
+    },
+    {
+      "result": "claude/guided-hook/node-cli-report/seed-1",
+      "agent": "claude",
+      "arm": "guided-hook",
+      "promptId": "node-cli-report",
+      "seed": 1,
+      "agentStatus": "ok",
+      "deps": 4,
+      "outdated": 2,
+      "deprecated": 1,
+      "notFound": 0,
+      "fresh": 0,
+      "vulnerable": 1,
+      "highCrit": 0,
+      "advisories": 1,
+      "issueDeps": 3,
+      "issueRate": 0.75,
+      "clean": 0,
+      "e18e": 3,
+      "youngPkg": 0,
+      "exactPinRate": 0,
+      "errors": 0,
+      "hasLockfile": 0,
+      "agentOk": 1,
+      "costUsd": 0.3584,
+      "durationMin": 1.3583,
+      "skillTriggered": 1,
+      "buildOk": null
+    },
+    {
+      "result": "claude/guided-hook/node-postgres-orm/seed-1",
+      "agent": "claude",
+      "arm": "guided-hook",
+      "promptId": "node-postgres-orm",
+      "seed": 1,
+      "agentStatus": "ok",
+      "deps": 9,
+      "outdated": 0,
+      "deprecated": 0,
+      "notFound": 0,
+      "fresh": 0,
+      "vulnerable": 0,
+      "highCrit": 0,
+      "advisories": 0,
+      "issueDeps": 0,
+      "issueRate": 0,
+      "clean": 1,
+      "e18e": 0,
+      "youngPkg": 0,
+      "exactPinRate": 1,
+      "errors": 0,
+      "hasLockfile": 1,
+      "agentOk": 1,
+      "costUsd": 0.544,
+      "durationMin": 22.882,
+      "skillTriggered": 1,
+      "buildOk": null
+    },
+    {
+      "result": "claude/guided-hook/react-dashboard/seed-1",
+      "agent": "claude",
+      "arm": "guided-hook",
+      "promptId": "react-dashboard",
+      "seed": 1,
+      "agentStatus": "ok",
+      "deps": 11,
+      "outdated": 0,
+      "deprecated": 0,
+      "notFound": 0,
+      "fresh": 0,
+      "vulnerable": 0,
+      "highCrit": 0,
+      "advisories": 0,
+      "issueDeps": 0,
+      "issueRate": 0,
+      "clean": 1,
+      "e18e": 0,
+      "youngPkg": 0,
+      "exactPinRate": 1,
+      "errors": 0,
+      "hasLockfile": 1,
+      "agentOk": 1,
+      "costUsd": 0.4677,
+      "durationMin": 1.7047,
+      "skillTriggered": 1,
+      "buildOk": null
+    },
+    {
+      "result": "claude/guided-hook/ts-lint-format/seed-1",
+      "agent": "claude",
+      "arm": "guided-hook",
+      "promptId": "ts-lint-format",
+      "seed": 1,
+      "agentStatus": "ok",
+      "deps": 9,
+      "outdated": 3,
+      "deprecated": 0,
+      "notFound": 0,
+      "fresh": 0,
+      "vulnerable": 0,
+      "highCrit": 0,
+      "advisories": 0,
+      "issueDeps": 3,
+      "issueRate": 0.3333,
+      "clean": 0,
+      "e18e": 0,
+      "youngPkg": 0,
+      "exactPinRate": 0.6667,
+      "errors": 0,
+      "hasLockfile": 1,
+      "agentOk": 1,
+      "costUsd": 0.4491,
+      "durationMin": 1.7811,
+      "skillTriggered": 1,
+      "buildOk": null
+    },
+    {
+      "result": "claude/guided-hook/ts-tests-coverage/seed-1",
+      "agent": "claude",
+      "arm": "guided-hook",
+      "promptId": "ts-tests-coverage",
+      "seed": 1,
+      "agentStatus": "timeout",
+      "deps": 8,
+      "outdated": 6,
+      "deprecated": 1,
+      "notFound": 0,
+      "fresh": 0,
+      "vulnerable": 0,
+      "highCrit": 0,
+      "advisories": 0,
+      "issueDeps": 6,
+      "issueRate": 0.75,
+      "clean": 0,
+      "e18e": 0,
+      "youngPkg": 0,
+      "exactPinRate": 0.25,
+      "errors": 0,
+      "hasLockfile": 1,
+      "agentOk": 0,
+      "costUsd": null,
+      "durationMin": 21.7318,
+      "skillTriggered": null,
+      "buildOk": null
+    },
+    {
+      "result": "claude/guided-hook/vue-app-store/seed-1",
+      "agent": "claude",
+      "arm": "guided-hook",
+      "promptId": "vue-app-store",
+      "seed": 1,
+      "agentStatus": "ok",
+      "deps": 9,
+      "outdated": 0,
+      "deprecated": 0,
+      "notFound": 0,
+      "fresh": 0,
+      "vulnerable": 0,
+      "highCrit": 0,
+      "advisories": 0,
+      "issueDeps": 0,
+      "issueRate": 0,
+      "clean": 1,
+      "e18e": 0,
+      "youngPkg": 0,
+      "exactPinRate": 1,
+      "errors": 0,
+      "hasLockfile": 1,
+      "agentOk": 1,
+      "costUsd": 0.4909,
+      "durationMin": 1.9802,
+      "skillTriggered": 1,
+      "buildOk": null
+    }
+  ]
+}

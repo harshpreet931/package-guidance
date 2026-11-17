@@ -1,0 +1,25 @@
+{
+  "id": "openai-node-legacy",
+  "ecosystem": "npm",
+  "packages": [
+    "openai"
+  ],
+  "versions": "<4",
+  "status": "outdated-major",
+  "severity": "warn",
+  "summary": "openai v3 (Configuration/OpenAIApi, createChatCompletion) is long obsolete. The current SDK is 7.x: `new OpenAI()`, client.responses.create / client.chat.completions.create. v5+ uses built-in fetch, and v7 requires Node 22.",
+  "replacements": [
+    {
+      "name": "openai@latest",
+      "kind": "package",
+      "install": "npm install openai"
+    }
+  ],
+  "guide": "openai-sdk",
+  "tags": [
+    "ai",
+    "sdk"
+  ],
+  "source": "https://github.com/openai/openai-node/blob/master/MIGRATION.md",
+  "last_verified": "2026-11-16"
+}

@@ -1,0 +1,130 @@
+{
+  "schema": "package-guidance-evals/chart-data@1",
+  "runId": "eval-opus",
+  "runDate": "2026-11-16",
+  "scoredAt": "2026-11-17T05:46:00.061Z",
+  "cooldownDays": 7,
+  "results": 30,
+  "prompts": 15,
+  "comparisons": [
+    {
+      "agent": "claude",
+      "arm": "guided-hook",
+      "vs": "baseline",
+      "metrics": [
+        {
+          "key": "issueDeps",
+          "label": "Direct deps with any issue",
+          "unit": "deps/run",
+          "better": "lower",
+          "isRate": false,
+          "baseline": 4.2667,
+          "guided": 2.2,
+          "delta": -2.0667,
+          "relative": -0.4844,
+          "ci95": [
+            -3.0667,
+            -1.2
+          ],
+          "significant": true
+        },
+        {
+          "key": "clean",
+          "label": "Runs with zero dependency issues",
+          "unit": "% of runs",
+          "better": "higher",
+          "isRate": true,
+          "baseline": 0.1333,
+          "guided": 0.4,
+          "delta": 0.2667,
+          "relative": 2,
+          "ci95": [
+            0.0667,
+            0.5333
+          ],
+          "significant": true
+        },
+        {
+          "key": "notFound",
+          "label": "Hallucinated packages (registry 404)",
+          "unit": "deps/run",
+          "better": "lower",
+          "isRate": false,
+          "baseline": 0,
+          "guided": 0,
+          "delta": 0,
+          "relative": null,
+          "ci95": [
+            0,
+            0
+          ],
+          "significant": false
+        },
+        {
+          "key": "deprecated",
+          "label": "Deprecated deps (registry flag / yanked / inactive)",
+          "unit": "deps/run",
+          "better": "lower",
+          "isRate": false,
+          "baseline": 0.4667,
+          "guided": 0.2667,
+          "delta": -0.2,
+          "relative": -0.4286,
+          "ci95": [
+            -0.4,
+            0
+          ],
+          "significant": false
+        },
+        {
+          "key": "outdated",
+          "label": "Deps behind the current major",
+          "unit": "deps/run",
+          "better": "lower",
+          "isRate": false,
+          "baseline": 3.2667,
+          "guided": 2.0667,
+          "delta": -1.2,
+          "relative": -0.3673,
+          "ci95": [
+            -2,
+            -0.5333
+          ],
+          "significant": true
+        },
+        {
+          "key": "fresh",
+          "label": "Fresh-version exposure (<7d old at run time)",
+          "unit": "deps/run",
+          "better": "lower",
+          "isRate": false,
+          "baseline": 0.8,
+          "guided": 0,
+          "delta": -0.8,
+          "relative": -1,
+          "ci95": [
+            -1.4,
+            -0.2667
+          ],
+          "significant": true
+        },
+        {
+          "key": "vulnerable",
+          "label": "Deps with a known advisory (OSV)",
+          "unit": "deps/run",
+          "better": "lower",
+          "isRate": false,
+          "baseline": 0.4667,
+          "guided": 0.2667,
+          "delta": -0.2,
+          "relative": -0.4286,
+          "ci95": [
+            -0.5333,
+            0
+          ],
+          "significant": false
+        }
+      ]
+    }
+  ]
+}

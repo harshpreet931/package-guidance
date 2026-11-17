@@ -1,0 +1,24 @@
+{
+  "id": "express-4",
+  "ecosystem": "npm",
+  "packages": [
+    "express"
+  ],
+  "versions": "<5",
+  "status": "outdated-major",
+  "severity": "info",
+  "summary": "Express 5 is `latest` (5.x; v4 lives on the latest-4 tag). v5 needs Node 18+, forwards rejected promises to error handlers, uses the new path syntax (/*splat, {optional}) and removes app.del, req.param and res.send(status). Codemod: npx codemod@latest @expressjs/v5-migration-recipe.",
+  "replacements": [
+    {
+      "name": "express@5",
+      "kind": "package",
+      "install": "npm install express@5"
+    }
+  ],
+  "tags": [
+    "express",
+    "http"
+  ],
+  "source": "https://expressjs.com/en/guide/migrating-5.html",
+  "last_verified": "2026-11-16"
+}

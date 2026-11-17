@@ -1,0 +1,23 @@
+{
+  "id": "pypdf2",
+  "ecosystem": "pypi",
+  "packages": [
+    "PyPDF2"
+  ],
+  "versions": "*",
+  "status": "superseded",
+  "severity": "warn",
+  "summary": "PyPDF2 was merged back into pypdf, and its last release is 3.0.1 (Dec 2022). pypdf (7.x) is the maintained project with the same lineage.",
+  "replacements": [
+    {
+      "name": "pypdf",
+      "kind": "package",
+      "install": "uv add pypdf"
+    }
+  ],
+  "tags": [
+    "pdf"
+  ],
+  "source": "https://pypdf.readthedocs.io/en/latest/meta/history.html",
+  "last_verified": "2026-11-16"
+}

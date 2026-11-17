@@ -1,0 +1,31 @@
+{
+  "id": "pycrypto",
+  "ecosystem": "pypi",
+  "packages": [
+    "pycrypto"
+  ],
+  "versions": "*",
+  "status": "deprecated",
+  "severity": "block",
+  "summary": "PyCrypto has been dead since 2.6.1 (2014). The repository is archived, and it has known unfixed CVEs (e.g. CVE-2018-6594, CVE-2013-7459).",
+  "replacements": [
+    {
+      "name": "cryptography",
+      "kind": "package",
+      "install": "uv add cryptography",
+      "when": "default choice"
+    },
+    {
+      "name": "pycryptodome",
+      "kind": "package",
+      "install": "uv add pycryptodome",
+      "when": "drop-in Crypto.* API"
+    }
+  ],
+  "tags": [
+    "security",
+    "crypto"
+  ],
+  "source": "https://github.com/pycrypto/pycrypto",
+  "last_verified": "2026-11-16"
+}

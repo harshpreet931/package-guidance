@@ -1,0 +1,25 @@
+{
+  "id": "imp",
+  "ecosystem": "pypi",
+  "packages": [
+    "imp"
+  ],
+  "not_on_registry": true,
+  "versions": "*",
+  "status": "deprecated",
+  "severity": "block",
+  "summary": "The imp module was removed in Python 3.12, and no `imp` PyPI project exists, so installing it is a hallucination. Use importlib.",
+  "replacements": [
+    {
+      "name": "importlib",
+      "kind": "native",
+      "when": "importlib.import_module, importlib.util.spec_from_file_location"
+    }
+  ],
+  "tags": [
+    "stdlib",
+    "hallucination"
+  ],
+  "source": "https://docs.python.org/3/whatsnew/3.12.html",
+  "last_verified": "2026-11-16"
+}

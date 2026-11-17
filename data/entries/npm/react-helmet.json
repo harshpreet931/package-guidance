@@ -1,0 +1,35 @@
+{
+  "id": "react-helmet",
+  "ecosystem": "npm",
+  "packages": [
+    "react-helmet"
+  ],
+  "versions": "*",
+  "status": "sunset",
+  "severity": "warn",
+  "summary": "react-helmet's last release was 6.1.0 (June 2020). React 19 renders <title>, <meta> and <link> from any component and hoists them to <head>.",
+  "replacements": [
+    {
+      "name": "React 19 metadata",
+      "kind": "native",
+      "when": "render <title>/<meta> directly in components"
+    },
+    {
+      "name": "react-helmet-async",
+      "kind": "package",
+      "install": "npm install react-helmet-async",
+      "when": "React < 19 or SSR streaming setups that need it"
+    },
+    {
+      "name": "next metadata API",
+      "kind": "native",
+      "when": "Next.js: export metadata / generateMetadata"
+    }
+  ],
+  "tags": [
+    "react",
+    "seo"
+  ],
+  "source": "https://react.dev/reference/react-dom/components/title",
+  "last_verified": "2026-11-16"
+}

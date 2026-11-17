@@ -1,0 +1,31 @@
+{
+  "id": "next-legacy",
+  "ecosystem": "npm",
+  "packages": [
+    "next"
+  ],
+  "versions": "<13",
+  "status": "outdated-major",
+  "severity": "info",
+  "summary": "Next.js 16 is current. Versions before 13 have no App Router. New code should follow App Router conventions (app/, Server Components, route handlers) rather than getInitialProps or pages/api patterns. The Pages Router is still supported for existing apps.",
+  "replacements": [
+    {
+      "name": "next@latest",
+      "kind": "package",
+      "install": "npx create-next-app@latest",
+      "when": "new apps"
+    },
+    {
+      "name": "@next/codemod",
+      "kind": "tool",
+      "install": "npx @next/codemod upgrade latest",
+      "when": "upgrading existing apps"
+    }
+  ],
+  "tags": [
+    "next",
+    "react"
+  ],
+  "source": "https://nextjs.org/docs/app/guides/upgrading",
+  "last_verified": "2026-11-16"
+}

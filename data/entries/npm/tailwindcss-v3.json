@@ -1,0 +1,38 @@
+{
+  "id": "tailwindcss-v3",
+  "ecosystem": "npm",
+  "packages": [
+    "tailwindcss"
+  ],
+  "versions": "<4",
+  "status": "outdated-major",
+  "severity": "warn",
+  "summary": "Tailwind v4 is current (4.3.x). It uses CSS-first config (@import \"tailwindcss\" plus @theme), and tailwind.config.js and the @tailwind directives are v3 patterns. Stay on v3.4 (dist-tag v3-lts) only if you must support browsers older than Safari 16.4, Chrome 111 or Firefox 128.",
+  "replacements": [
+    {
+      "name": "tailwindcss@4",
+      "kind": "package",
+      "install": "npm install tailwindcss @tailwindcss/vite",
+      "when": "Vite projects"
+    },
+    {
+      "name": "@tailwindcss/postcss",
+      "kind": "package",
+      "install": "npm install tailwindcss @tailwindcss/postcss",
+      "when": "PostCSS / Next.js"
+    },
+    {
+      "name": "@tailwindcss/upgrade",
+      "kind": "tool",
+      "install": "npx @tailwindcss/upgrade",
+      "when": "migrating an existing v3 project (Node 20+)"
+    }
+  ],
+  "guide": "tailwind-v4",
+  "tags": [
+    "css",
+    "tailwind"
+  ],
+  "source": "https://tailwindcss.com/docs/upgrade-guide",
+  "last_verified": "2026-11-16"
+}

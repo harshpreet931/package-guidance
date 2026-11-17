@@ -1,0 +1,28 @@
+{
+  "id": "legacy-py-tooling",
+  "ecosystem": "pypi",
+  "packages": [
+    "pip-tools",
+    "pipenv",
+    "virtualenv"
+  ],
+  "versions": "*",
+  "status": "caution",
+  "severity": "info",
+  "summary": "These tools still work, but for new projects uv replaces pip, pip-tools, virtualenv and pipenv with one tool: a pyproject.toml project, a cross-platform uv.lock, managed Python versions, and an exclude-newer cooldown.",
+  "replacements": [
+    {
+      "name": "uv",
+      "kind": "tool",
+      "install": "curl -LsSf https://astral.sh/uv/install.sh | sh",
+      "when": "new projects / migrations"
+    }
+  ],
+  "guide": "uv",
+  "tags": [
+    "packaging",
+    "tooling"
+  ],
+  "source": "https://docs.astral.sh/uv/",
+  "last_verified": "2026-11-16"
+}

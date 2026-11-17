@@ -1,0 +1,24 @@
+{
+  "id": "mkdirp",
+  "ecosystem": "npm",
+  "packages": [
+    "mkdirp"
+  ],
+  "versions": "*",
+  "status": "prefer-native",
+  "severity": "info",
+  "summary": "fs.mkdir(path, { recursive: true }) has been built in since Node 10.12. mkdirp has had no release since 2023.",
+  "replacements": [
+    {
+      "name": "fs.mkdir",
+      "kind": "native",
+      "when": "await fs.promises.mkdir(dir, { recursive: true })"
+    }
+  ],
+  "tags": [
+    "fs",
+    "native"
+  ],
+  "source": "https://nodejs.org/api/fs.html#fspromisesmkdirpath-options",
+  "last_verified": "2026-11-16"
+}

@@ -1,0 +1,34 @@
+{
+  "id": "glob-legacy",
+  "ecosystem": "npm",
+  "packages": [
+    "glob"
+  ],
+  "versions": "<12",
+  "status": "deprecated",
+  "severity": "block",
+  "summary": "npm flags every glob version before 12 as unsupported, citing 'widely publicized security vulnerabilities'. Use current glob, or node:fs glob on Node 22+.",
+  "replacements": [
+    {
+      "name": "glob@latest",
+      "kind": "package",
+      "install": "npm install glob"
+    },
+    {
+      "name": "fs.glob",
+      "kind": "native",
+      "when": "Node 22+: for await (const f of fs.promises.glob('**/*.js'))"
+    },
+    {
+      "name": "tinyglobby",
+      "kind": "package",
+      "install": "npm install tinyglobby",
+      "when": "small, fast alternative"
+    }
+  ],
+  "tags": [
+    "fs"
+  ],
+  "source": "https://www.npmjs.com/package/glob",
+  "last_verified": "2026-11-16"
+}

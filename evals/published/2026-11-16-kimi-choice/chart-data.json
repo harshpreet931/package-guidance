@@ -1,0 +1,249 @@
+{
+  "schema": "package-guidance-evals/chart-data@1",
+  "runId": "choice-multi-1",
+  "runDate": "2026-11-16",
+  "scoredAt": "2026-11-17T05:46:14.085Z",
+  "cooldownDays": 7,
+  "results": 186,
+  "prompts": 31,
+  "comparisons": [
+    {
+      "agent": "kimi-latest",
+      "arm": "guided",
+      "vs": "baseline",
+      "metrics": [
+        {
+          "key": "issueDeps",
+          "label": "Direct deps with any issue",
+          "unit": "deps/run",
+          "better": "lower",
+          "isRate": false,
+          "baseline": 1.1129,
+          "guided": 0.069,
+          "delta": -1.0439,
+          "relative": -0.938,
+          "ci95": [
+            -1.5,
+            -0.6833
+          ],
+          "significant": true
+        },
+        {
+          "key": "clean",
+          "label": "Runs with zero dependency issues",
+          "unit": "% of runs",
+          "better": "higher",
+          "isRate": true,
+          "baseline": 0.4194,
+          "guided": 0.9655,
+          "delta": 0.5462,
+          "relative": 1.3024,
+          "ci95": [
+            0.3976,
+            0.7333
+          ],
+          "significant": true
+        },
+        {
+          "key": "notFound",
+          "label": "Hallucinated packages (registry 404)",
+          "unit": "deps/run",
+          "better": "lower",
+          "isRate": false,
+          "baseline": 0,
+          "guided": 0,
+          "delta": 0,
+          "relative": null,
+          "ci95": [
+            0,
+            0
+          ],
+          "significant": false
+        },
+        {
+          "key": "deprecated",
+          "label": "Deprecated deps (registry flag / yanked / inactive)",
+          "unit": "deps/run",
+          "better": "lower",
+          "isRate": false,
+          "baseline": 0.0484,
+          "guided": 0,
+          "delta": -0.0484,
+          "relative": -1,
+          "ci95": [
+            -0.1333,
+            0
+          ],
+          "significant": false
+        },
+        {
+          "key": "outdated",
+          "label": "Deps behind the current major",
+          "unit": "deps/run",
+          "better": "lower",
+          "isRate": false,
+          "baseline": 0.2903,
+          "guided": 0.069,
+          "delta": -0.2214,
+          "relative": -0.7625,
+          "ci95": [
+            -0.431,
+            -0.0655
+          ],
+          "significant": true
+        },
+        {
+          "key": "fresh",
+          "label": "Fresh-version exposure (<7d old at run time)",
+          "unit": "deps/run",
+          "better": "lower",
+          "isRate": false,
+          "baseline": 0.7903,
+          "guided": 0,
+          "delta": -0.7903,
+          "relative": -1,
+          "ci95": [
+            -1.2167,
+            -0.4667
+          ],
+          "significant": true
+        },
+        {
+          "key": "vulnerable",
+          "label": "Deps with a known advisory (OSV)",
+          "unit": "deps/run",
+          "better": "lower",
+          "isRate": false,
+          "baseline": 0.0806,
+          "guided": 0,
+          "delta": -0.0806,
+          "relative": -1,
+          "ci95": [
+            -0.1833,
+            0
+          ],
+          "significant": false
+        }
+      ]
+    },
+    {
+      "agent": "kimi-latest",
+      "arm": "registry",
+      "vs": "baseline",
+      "metrics": [
+        {
+          "key": "issueDeps",
+          "label": "Direct deps with any issue",
+          "unit": "deps/run",
+          "better": "lower",
+          "isRate": false,
+          "baseline": 1.1129,
+          "guided": 1.0484,
+          "delta": -0.0645,
+          "relative": -0.058,
+          "ci95": [
+            -0.2581,
+            0.0968
+          ],
+          "significant": false
+        },
+        {
+          "key": "clean",
+          "label": "Runs with zero dependency issues",
+          "unit": "% of runs",
+          "better": "higher",
+          "isRate": true,
+          "baseline": 0.4194,
+          "guided": 0.4032,
+          "delta": -0.0161,
+          "relative": -0.0385,
+          "ci95": [
+            -0.0806,
+            0.0484
+          ],
+          "significant": false
+        },
+        {
+          "key": "notFound",
+          "label": "Hallucinated packages (registry 404)",
+          "unit": "deps/run",
+          "better": "lower",
+          "isRate": false,
+          "baseline": 0,
+          "guided": 0,
+          "delta": 0,
+          "relative": null,
+          "ci95": [
+            0,
+            0
+          ],
+          "significant": false
+        },
+        {
+          "key": "deprecated",
+          "label": "Deprecated deps (registry flag / yanked / inactive)",
+          "unit": "deps/run",
+          "better": "lower",
+          "isRate": false,
+          "baseline": 0.0484,
+          "guided": 0,
+          "delta": -0.0484,
+          "relative": -1,
+          "ci95": [
+            -0.129,
+            0
+          ],
+          "significant": false
+        },
+        {
+          "key": "outdated",
+          "label": "Deps behind the current major",
+          "unit": "deps/run",
+          "better": "lower",
+          "isRate": false,
+          "baseline": 0.2903,
+          "guided": 0.2742,
+          "delta": -0.0161,
+          "relative": -0.0556,
+          "ci95": [
+            -0.1774,
+            0.129
+          ],
+          "significant": false
+        },
+        {
+          "key": "fresh",
+          "label": "Fresh-version exposure (<7d old at run time)",
+          "unit": "deps/run",
+          "better": "lower",
+          "isRate": false,
+          "baseline": 0.7903,
+          "guided": 0.7742,
+          "delta": -0.0161,
+          "relative": -0.0204,
+          "ci95": [
+            -0.1613,
+            0.129
+          ],
+          "significant": false
+        },
+        {
+          "key": "vulnerable",
+          "label": "Deps with a known advisory (OSV)",
+          "unit": "deps/run",
+          "better": "lower",
+          "isRate": false,
+          "baseline": 0.0806,
+          "guided": 0.0161,
+          "delta": -0.0645,
+          "relative": -0.8,
+          "ci95": [
+            -0.1452,
+            0
+          ],
+          "significant": false
+        }
+      ]
+    }
+  ]
+}

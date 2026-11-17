@@ -1,0 +1,30 @@
+{
+  "id": "toml",
+  "ecosystem": "pypi",
+  "packages": [
+    "toml"
+  ],
+  "versions": "*",
+  "status": "prefer-native",
+  "severity": "info",
+  "summary": "`toml` has had no release since 2020 and only supports TOML 0.5. Python 3.11+ reads TOML with the standard-library tomllib. Use tomli-w to write TOML.",
+  "replacements": [
+    {
+      "name": "tomllib",
+      "kind": "native",
+      "when": "import tomllib; tomllib.load(f) with f opened 'rb'"
+    },
+    {
+      "name": "tomli-w",
+      "kind": "package",
+      "install": "uv add tomli-w",
+      "when": "writing TOML"
+    }
+  ],
+  "tags": [
+    "config",
+    "native"
+  ],
+  "source": "https://docs.python.org/3/library/tomllib.html",
+  "last_verified": "2026-11-16"
+}

@@ -1,0 +1,27 @@
+{
+  "id": "node-uuid",
+  "ecosystem": "npm",
+  "packages": [
+    "node-uuid"
+  ],
+  "versions": "*",
+  "status": "deprecated",
+  "severity": "block",
+  "summary": "node-uuid is deprecated ('Use uuid module instead') and has had no release since 2017.",
+  "replacements": [
+    {
+      "name": "crypto.randomUUID",
+      "kind": "native"
+    },
+    {
+      "name": "uuid",
+      "kind": "package",
+      "install": "npm install uuid"
+    }
+  ],
+  "tags": [
+    "id"
+  ],
+  "source": "https://www.npmjs.com/package/node-uuid",
+  "last_verified": "2026-11-16"
+}

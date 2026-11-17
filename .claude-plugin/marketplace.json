@@ -1,0 +1,15 @@
+{
+  "name": "package-guidance",
+  "description": "Dependency guidance for coding agents: the right package, the newest settled version, no hallucinated or vulnerable installs.",
+  "owner": {
+    "name": "Harshpreet Singh",
+    "url": "https://github.com/harshpreet931"
+  },
+  "plugins": [
+    {
+      "name": "package-guidance",
+      "source": "./",
+      "description": "Pick the right package and the newest settled version; block hallucinated, deprecated and vulnerable installs."
+    }
+  ]
+}

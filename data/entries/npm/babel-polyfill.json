@@ -1,0 +1,25 @@
+{
+  "id": "babel-polyfill",
+  "ecosystem": "npm",
+  "packages": [
+    "@babel/polyfill"
+  ],
+  "versions": "*",
+  "status": "deprecated",
+  "severity": "block",
+  "summary": "@babel/polyfill is deprecated in favor of including core-js/stable (and regenerator-runtime only when needed) separately.",
+  "replacements": [
+    {
+      "name": "core-js",
+      "kind": "package",
+      "install": "npm install core-js",
+      "when": "with @babel/preset-env useBuiltIns: 'usage'"
+    }
+  ],
+  "tags": [
+    "babel",
+    "polyfill"
+  ],
+  "source": "https://babeljs.io/docs/babel-polyfill",
+  "last_verified": "2026-11-16"
+}

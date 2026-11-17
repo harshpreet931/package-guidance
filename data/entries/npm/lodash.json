@@ -1,0 +1,30 @@
+{
+  "id": "lodash",
+  "ecosystem": "npm",
+  "packages": [
+    "lodash"
+  ],
+  "versions": "*",
+  "status": "caution",
+  "severity": "info",
+  "summary": "lodash is maintained, but much of it is native now (structuredClone, Object.groupBy, Array.prototype.flat/at/findLast, ??=). Prefer native code in new code. If you keep it, use >= 4.18.0, which fixes prototype pollution in _.unset and _.omit (GHSA-f23m-r3pf-42rh).",
+  "replacements": [
+    {
+      "name": "structuredClone, Object.groupBy, Array methods",
+      "kind": "native",
+      "when": "structuredClone, Object.groupBy, Array methods"
+    },
+    {
+      "name": "es-toolkit",
+      "kind": "package",
+      "install": "npm install es-toolkit",
+      "when": "modern lodash-compatible utilities"
+    }
+  ],
+  "tags": [
+    "utility",
+    "native"
+  ],
+  "source": "https://github.com/lodash/lodash/releases/tag/4.18.0",
+  "last_verified": "2026-11-16"
+}

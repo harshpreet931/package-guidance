@@ -1,0 +1,26 @@
+{
+  "id": "node-fetch",
+  "ecosystem": "npm",
+  "packages": [
+    "node-fetch",
+    "@types/node-fetch"
+  ],
+  "versions": "*",
+  "status": "prefer-native",
+  "severity": "info",
+  "summary": "Global fetch has been unflagged since Node 18 and stable since Node 21. Every supported Node line (22, 24, 26) has it. node-fetch v3 is ESM-only and has had no release since 2023.",
+  "replacements": [
+    {
+      "name": "fetch",
+      "kind": "native",
+      "when": "Node 18+ / browsers / Deno / Bun"
+    }
+  ],
+  "guide": "request-to-fetch",
+  "tags": [
+    "http",
+    "native"
+  ],
+  "source": "https://nodejs.org/api/globals.html#fetch",
+  "last_verified": "2026-11-16"
+}

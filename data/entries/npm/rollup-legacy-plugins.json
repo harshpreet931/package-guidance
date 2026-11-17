@@ -1,0 +1,35 @@
+{
+  "id": "rollup-legacy-plugins",
+  "ecosystem": "npm",
+  "packages": [
+    "rollup-plugin-terser",
+    "rollup-plugin-babel",
+    "uglify-es"
+  ],
+  "versions": "*",
+  "status": "deprecated",
+  "severity": "block",
+  "summary": "All of these are deprecated: rollup-plugin-terser becomes @rollup/plugin-terser, rollup-plugin-babel becomes @rollup/plugin-babel, and uglify-es is superseded by uglify-js / terser.",
+  "replacements": [
+    {
+      "name": "@rollup/plugin-terser",
+      "kind": "package",
+      "install": "npm install -D @rollup/plugin-terser"
+    },
+    {
+      "name": "@rollup/plugin-babel",
+      "kind": "package",
+      "install": "npm install -D @rollup/plugin-babel"
+    },
+    {
+      "name": "terser",
+      "kind": "package",
+      "install": "npm install -D terser"
+    }
+  ],
+  "tags": [
+    "build"
+  ],
+  "source": "https://www.npmjs.com/package/rollup-plugin-terser",
+  "last_verified": "2026-11-16"
+}

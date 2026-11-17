@@ -1,0 +1,26 @@
+{
+  "id": "poetry",
+  "ecosystem": "pypi",
+  "packages": [
+    "poetry"
+  ],
+  "versions": "*",
+  "status": "caution",
+  "severity": "info",
+  "summary": "Poetry is maintained (2.5.x) and since 2.4.0 supports a cooldown (solver.min-release-age). Keep it in Poetry repos. For new projects, uv is usually faster and simpler, and `uvx migrate-to-uv` converts existing projects.",
+  "replacements": [
+    {
+      "name": "uv",
+      "kind": "tool",
+      "install": "uvx migrate-to-uv",
+      "when": "migrating a Poetry project"
+    }
+  ],
+  "guide": "uv",
+  "tags": [
+    "packaging",
+    "tooling"
+  ],
+  "source": "https://python-poetry.org/docs/configuration/#solvermin-release-age",
+  "last_verified": "2026-11-16"
+}

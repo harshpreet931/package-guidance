@@ -1,0 +1,26 @@
+{
+  "id": "next-font-package",
+  "ecosystem": "npm",
+  "packages": [
+    "@next/font"
+  ],
+  "versions": "*",
+  "status": "deprecated",
+  "severity": "warn",
+  "summary": "@next/font was fully removed in Next.js 14 in favor of the built-in `next/font`. A codemod exists (built-in-next-font).",
+  "replacements": [
+    {
+      "name": "next/font",
+      "kind": "native",
+      "install": "npx @next/codemod@latest built-in-next-font .",
+      "when": "import from 'next/font/google' or 'next/font/local'"
+    }
+  ],
+  "tags": [
+    "next",
+    "react",
+    "fonts"
+  ],
+  "source": "https://nextjs.org/docs/app/guides/upgrading/version-14",
+  "last_verified": "2026-11-16"
+}

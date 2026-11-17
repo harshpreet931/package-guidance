@@ -1,0 +1,32 @@
+{
+  "id": "babel-eslint",
+  "ecosystem": "npm",
+  "packages": [
+    "babel-eslint"
+  ],
+  "versions": "*",
+  "status": "deprecated",
+  "severity": "block",
+  "summary": "Deprecated: 'babel-eslint is now @babel/eslint-parser. This package will no longer receive updates.'",
+  "replacements": [
+    {
+      "name": "@babel/eslint-parser",
+      "kind": "package",
+      "install": "npm install -D @babel/eslint-parser",
+      "when": "Babel-specific syntax"
+    },
+    {
+      "name": "typescript-eslint",
+      "kind": "package",
+      "install": "npm install -D typescript-eslint",
+      "when": "TypeScript projects"
+    }
+  ],
+  "guide": "eslint-flat-config",
+  "tags": [
+    "lint",
+    "babel"
+  ],
+  "source": "https://www.npmjs.com/package/babel-eslint",
+  "last_verified": "2026-11-16"
+}

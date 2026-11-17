@@ -1,0 +1,23 @@
+{
+  "id": "nose",
+  "ecosystem": "pypi",
+  "packages": [
+    "nose"
+  ],
+  "versions": "*",
+  "status": "sunset",
+  "severity": "block",
+  "summary": "nose has had no release since 1.3.7 (2015). Its own docs say it is in maintenance mode and will likely cease, and that new projects should use pytest, nose2 or unittest.",
+  "replacements": [
+    {
+      "name": "pytest",
+      "kind": "package",
+      "install": "uv add --dev pytest"
+    }
+  ],
+  "tags": [
+    "test"
+  ],
+  "source": "https://nose.readthedocs.io/en/latest/",
+  "last_verified": "2026-11-16"
+}

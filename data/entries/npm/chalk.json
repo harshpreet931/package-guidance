@@ -1,0 +1,32 @@
+{
+  "id": "chalk",
+  "ecosystem": "npm",
+  "packages": [
+    "chalk"
+  ],
+  "versions": "*",
+  "status": "prefer-native",
+  "severity": "info",
+  "summary": "For simple terminal colors, node:util.styleText (added 20.12, stable since 22.13 / 23.5, respects NO_COLOR and TTY) removes the dependency. chalk itself is fine. Note that chalk 5.6.1 was briefly malicious on 2025-09-08 (GHSA-2v46-p5h4-248w), so pin your versions.",
+  "replacements": [
+    {
+      "name": "util.styleText",
+      "kind": "native",
+      "when": "import { styleText } from 'node:util'; styleText('red', 'error')"
+    },
+    {
+      "name": "picocolors",
+      "kind": "package",
+      "install": "npm install picocolors",
+      "when": "older Node or browser-like targets"
+    }
+  ],
+  "guide": "supply-chain-cooldown",
+  "tags": [
+    "cli",
+    "color",
+    "native"
+  ],
+  "source": "https://nodejs.org/api/util.html#utilstyletextformat-text-options",
+  "last_verified": "2026-11-16"
+}

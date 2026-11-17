@@ -1,0 +1,14 @@
+{
+  "name": "package-guidance-evals",
+  "private": true,
+  "type": "module",
+  "description": "With-vs-without uplift benchmark for the package-guidance skill. Zero dependencies.",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "plan": "node run.mjs --dry-run",
+    "pilot": "node run.mjs --agents claude --arms baseline,guided --prompts 5 --seeds 1 --concurrency 2",
+    "test": "node --test test/*.test.mjs",
+    "selftest": "node score.mjs test-fixtures/selftest --out results/selftest && node report.mjs results/selftest",
+    "plumbing": "node run.mjs --agents mock --arms baseline,guided --prompts 3 --run-id mock-plumbing --force && node score.mjs results/mock-plumbing && node report.mjs results/mock-plumbing"
+  }
+}

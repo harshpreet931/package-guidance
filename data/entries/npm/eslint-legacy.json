@@ -1,0 +1,32 @@
+{
+  "id": "eslint-legacy",
+  "ecosystem": "npm",
+  "packages": [
+    "eslint"
+  ],
+  "versions": "<10",
+  "status": "outdated-major",
+  "severity": "warn",
+  "summary": "ESLint v10 (2026-02-06) is the only supported major. v9 reached EOL on 2026-08-06, and v8 and below are EOL and flagged deprecated on npm. v10 removed eslintrc completely: .eslintrc.*, .eslintignore, ESLINT_USE_FLAT_CONFIG, --env and /* eslint-env */ no longer work. Use eslint.config.js (flat config).",
+  "replacements": [
+    {
+      "name": "eslint@10",
+      "kind": "package",
+      "install": "npm init @eslint/config@latest",
+      "when": "new setup"
+    },
+    {
+      "name": "eslint.config.js",
+      "kind": "config",
+      "install": "npx @eslint/migrate-config .eslintrc.json",
+      "when": "converting an existing .eslintrc"
+    }
+  ],
+  "guide": "eslint-flat-config",
+  "tags": [
+    "lint",
+    "eslint"
+  ],
+  "source": "https://eslint.org/version-support/",
+  "last_verified": "2026-11-16"
+}

@@ -1,0 +1,26 @@
+{
+  "id": "enzyme",
+  "ecosystem": "npm",
+  "packages": [
+    "enzyme",
+    "enzyme-adapter-react-16"
+  ],
+  "versions": "*",
+  "status": "sunset",
+  "severity": "warn",
+  "summary": "Enzyme's last release is 3.11.0 (Dec 2019). The newest official adapter is for React 16, and there is none for React 17, 18 or 19. It cannot test modern React.",
+  "replacements": [
+    {
+      "name": "@testing-library/react",
+      "kind": "package",
+      "install": "npm install -D @testing-library/react @testing-library/dom",
+      "when": "component tests"
+    }
+  ],
+  "tags": [
+    "react",
+    "test"
+  ],
+  "source": "https://github.com/enzymejs/enzyme",
+  "last_verified": "2026-11-16"
+}

@@ -1,0 +1,21 @@
+{
+  "name": "package-guidance",
+  "version": "0.1.0",
+  "description": "Stops your coding agent from installing hallucinated, deprecated, vulnerable or hours-old packages. A skill for choosing dependencies plus a hook that checks every npm/pnpm/yarn/bun/pip/uv install.",
+  "author": {
+    "name": "Harshpreet Singh",
+    "url": "https://github.com/harshpreet931"
+  },
+  "homepage": "https://harshpreet931.github.io/package-guidance/",
+  "repository": "https://github.com/harshpreet931/package-guidance",
+  "license": "MIT",
+  "keywords": [
+    "dependencies",
+    "supply-chain",
+    "npm",
+    "pypi",
+    "security",
+    "slopsquatting",
+    "cooldown"
+  ]
+}

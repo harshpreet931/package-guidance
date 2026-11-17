@@ -1,0 +1,30 @@
+{
+  "id": "pytz",
+  "ecosystem": "pypi",
+  "packages": [
+    "pytz"
+  ],
+  "versions": "*",
+  "status": "prefer-native",
+  "severity": "info",
+  "summary": "The standard-library zoneinfo (Python 3.9+) replaces pytz and avoids its localize()/normalize() pitfalls. Add the tzdata package where the OS has no IANA database (Windows).",
+  "replacements": [
+    {
+      "name": "zoneinfo",
+      "kind": "native",
+      "when": "from zoneinfo import ZoneInfo"
+    },
+    {
+      "name": "tzdata",
+      "kind": "package",
+      "install": "uv add tzdata",
+      "when": "Windows / slim containers"
+    }
+  ],
+  "tags": [
+    "time",
+    "native"
+  ],
+  "source": "https://docs.python.org/3/library/zoneinfo.html",
+  "last_verified": "2026-11-16"
+}

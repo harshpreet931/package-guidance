@@ -1,0 +1,31 @@
+{
+  "id": "openai-python-v0",
+  "ecosystem": "pypi",
+  "packages": [
+    "openai"
+  ],
+  "versions": "<1",
+  "status": "outdated-major",
+  "severity": "warn",
+  "summary": "openai 0.x APIs (openai.ChatCompletion.create, openai.Completion, module-level api_key) were removed in 1.0 (Nov 2023). The SDK is now 3.x: client = OpenAI(); client.responses.create(...) / client.chat.completions.create(...). 3.0 switched the HTTP client to HTTPX2.",
+  "replacements": [
+    {
+      "name": "openai@latest",
+      "kind": "package",
+      "install": "uv add openai"
+    },
+    {
+      "name": "openai migrate",
+      "kind": "tool",
+      "install": "openai migrate",
+      "when": "grit-based codemod from the v1 migration guide (commit first, review the diff)"
+    }
+  ],
+  "guide": "openai-sdk",
+  "tags": [
+    "ai",
+    "sdk"
+  ],
+  "source": "https://github.com/openai/openai-python/discussions/742",
+  "last_verified": "2026-11-16"
+}

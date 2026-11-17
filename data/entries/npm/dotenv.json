@@ -1,0 +1,25 @@
+{
+  "id": "dotenv",
+  "ecosystem": "npm",
+  "packages": [
+    "dotenv"
+  ],
+  "versions": "*",
+  "status": "prefer-native",
+  "severity": "info",
+  "summary": "Node loads .env files natively: `node --env-file=.env app.js` (stable since 24.10 / 22.21), --env-file-if-exists, and process.loadEnvFile(). dotenv is fine for older Node or for its extra features.",
+  "replacements": [
+    {
+      "name": "--env-file",
+      "kind": "native",
+      "install": "node --env-file=.env app.js",
+      "when": "Node 22.21+ / 24.10+"
+    }
+  ],
+  "tags": [
+    "config",
+    "native"
+  ],
+  "source": "https://nodejs.org/api/cli.html#--env-filefile",
+  "last_verified": "2026-11-16"
+}

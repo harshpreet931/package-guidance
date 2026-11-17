@@ -1,0 +1,29 @@
+{
+  "id": "types-stubs",
+  "ecosystem": "npm",
+  "packages": [
+    "@types/axios",
+    "@types/uuid",
+    "@types/dotenv",
+    "@types/chalk",
+    "@types/rimraf",
+    "@types/glob"
+  ],
+  "versions": "*",
+  "status": "deprecated",
+  "severity": "block",
+  "summary": "These @types packages are deprecated stubs ('This is a stub types definition. X provides its own type definitions'). Installing them adds nothing and can shadow the real types.",
+  "replacements": [
+    {
+      "name": "bundled types",
+      "kind": "native",
+      "when": "remove the @types package; the library ships its own .d.ts"
+    }
+  ],
+  "tags": [
+    "typescript",
+    "types"
+  ],
+  "source": "https://www.npmjs.com/package/@types/axios",
+  "last_verified": "2026-11-16"
+}

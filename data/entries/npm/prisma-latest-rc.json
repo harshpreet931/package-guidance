@@ -1,0 +1,26 @@
+{
+  "id": "prisma-latest-rc",
+  "ecosystem": "npm",
+  "packages": [
+    "prisma"
+  ],
+  "versions": "*",
+  "status": "caution",
+  "severity": "warn",
+  "summary": "Trap: on 2026-11-16 the `latest` dist-tag of the `prisma` CLI points to 8.0.0-rc.33, a pre-release that GitHub marks prerelease, while @prisma/client latest is 7.10.1. `npm i -D prisma` therefore installs an RC that does not match the client. Pin prisma and @prisma/client to the same stable 7.x.",
+  "replacements": [
+    {
+      "name": "prisma@7",
+      "kind": "package",
+      "install": "npm install -D prisma@7.10.1 && npm install @prisma/client@7.10.1",
+      "when": "until 8.0.0 is stable"
+    }
+  ],
+  "tags": [
+    "orm",
+    "database",
+    "dist-tag"
+  ],
+  "source": "https://github.com/prisma/prisma/releases",
+  "last_verified": "2026-11-16"
+}

@@ -1,0 +1,5 @@
+{
+  "runId": "selftest",
+  "note": "Hand-made result fixtures for validating score.mjs / report.mjs without running any AI. 'baseline' = deliberately bad dependency choices, 'guided' = deliberately good ones. Agent name 'fixture' is not a real agent.",
+  "createdAt": "2026-11-16T08:45:00Z"
+}

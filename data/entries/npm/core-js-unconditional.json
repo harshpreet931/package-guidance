@@ -1,0 +1,24 @@
+{
+  "id": "core-js-unconditional",
+  "ecosystem": "npm",
+  "packages": [
+    "core-js"
+  ],
+  "versions": "*",
+  "status": "caution",
+  "severity": "info",
+  "summary": "Do not `import 'core-js'` unconditionally in apps that target modern browsers or Node. It ships polyfills you don't need. Let @babel/preset-env (useBuiltIns: 'usage' with targets) or your bundler inject only what your targets need, or drop it.",
+  "replacements": [
+    {
+      "name": "@babel/preset-env",
+      "kind": "config",
+      "when": "useBuiltIns: 'usage', corejs: '3.51'"
+    }
+  ],
+  "tags": [
+    "polyfill",
+    "bundle-size"
+  ],
+  "source": "https://babeljs.io/docs/babel-preset-env#usebuiltins",
+  "last_verified": "2026-11-16"
+}

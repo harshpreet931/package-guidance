@@ -1,0 +1,24 @@
+{
+  "id": "sklearn",
+  "ecosystem": "pypi",
+  "packages": [
+    "sklearn"
+  ],
+  "versions": "*",
+  "status": "deprecated",
+  "severity": "block",
+  "summary": "The `sklearn` PyPI package is deprecated and its install fails on purpose. The real package is scikit-learn (import name stays sklearn).",
+  "replacements": [
+    {
+      "name": "scikit-learn",
+      "kind": "package",
+      "install": "uv add scikit-learn"
+    }
+  ],
+  "tags": [
+    "ml",
+    "typosquat"
+  ],
+  "source": "https://github.com/scikit-learn/sklearn-pypi-package",
+  "last_verified": "2026-11-16"
+}

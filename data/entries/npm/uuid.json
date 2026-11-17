@@ -1,0 +1,29 @@
+{
+  "id": "uuid",
+  "ecosystem": "npm",
+  "packages": [
+    "uuid"
+  ],
+  "versions": ">=11",
+  "status": "prefer-native",
+  "severity": "info",
+  "summary": "For random v4 IDs, crypto.randomUUID() is built into Node (14.17+) and browsers. Node 26.1+ also has crypto.randomUUIDv7(). Keep uuid for other versions, for v7 on older runtimes, or for validate() and parse().",
+  "replacements": [
+    {
+      "name": "crypto.randomUUID",
+      "kind": "native",
+      "when": "v4 IDs"
+    },
+    {
+      "name": "crypto.randomUUIDv7",
+      "kind": "native",
+      "when": "v7 IDs on Node 26.1+"
+    }
+  ],
+  "tags": [
+    "id",
+    "native"
+  ],
+  "source": "https://nodejs.org/api/crypto.html#cryptorandomuuidoptions",
+  "last_verified": "2026-11-16"
+}

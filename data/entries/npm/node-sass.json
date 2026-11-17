@@ -1,0 +1,32 @@
+{
+  "id": "node-sass",
+  "ecosystem": "npm",
+  "packages": [
+    "node-sass"
+  ],
+  "versions": "*",
+  "status": "deprecated",
+  "severity": "block",
+  "summary": "node-sass (LibSass) is deprecated: 'Node Sass is no longer supported.' Its repository is archived. Dart Sass is the only maintained implementation.",
+  "replacements": [
+    {
+      "name": "sass",
+      "kind": "package",
+      "install": "npm install -D sass",
+      "when": "the default choice"
+    },
+    {
+      "name": "sass-embedded",
+      "kind": "package",
+      "install": "npm install -D sass-embedded",
+      "when": "faster builds; Vite and webpack sass-loader support it"
+    }
+  ],
+  "guide": "node-sass-to-sass",
+  "tags": [
+    "css",
+    "sass"
+  ],
+  "source": "https://sass-lang.com/blog/libsass-is-deprecated/",
+  "last_verified": "2026-11-16"
+}

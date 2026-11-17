@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>package-guidance: teach your agent to wait</title>
+<meta name="description" content="An agent skill, CLI and Claude Code hook that stops coding agents from installing outdated, deprecated, hallucinated, vulnerable or dangerously fresh packages. It pins the newest settled version: at least 7 days old, no known advisories.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#EEF0F2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#090C14" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://harshpreet931.github.io/package-guidance/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="package-guidance">
+<meta property="og:title" content="package-guidance: teach your agent to wait">
+<meta property="og:description" content="Agents install fresh versions within hours of release. So do worms. package-guidance pins the newest settled version and blocks hallucinated, deprecated and vulnerable installs.">
+<meta property="og:url" content="https://harshpreet931.github.io/package-guidance/">
+<meta property="og:image" content="https://harshpreet931.github.io/package-guidance/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A dot-matrix release board: next 16.4.6 holding at 6 days, next 16.4.5 cleared at 12 days, reqeusts-pro not found. Headline: Agents install fresh versions within hours of release. So do worms.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="package-guidance: teach your agent to wait">
+<meta name="twitter:description" content="Agents install fresh versions within hours of release. So do worms.">
+<meta name="twitter:image" content="https://harshpreet931.github.io/package-guidance/og.png">
+<meta name="twitter:image:alt" content="A dot-matrix release board showing fresh versions held for 7 days and settled versions cleared.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Doto:ROND,wght@100,700;100,900&family=Funnel+Display:wght@500;600&family=Funnel+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&text=%E2%9C%93%E2%9C%97%E2%86%92%E2%80%A6%C2%B7%E2%80%BA&display=swap">
+<link rel="stylesheet" href="styles.css">
+<script>(function(d){try{var t=localStorage.getItem('pg-theme');if(t==='light'||t==='dark')d.dataset.theme=t}catch(e){}d.classList.add('js');try{if(d.dataset.theme==='dark'||(!d.dataset.theme&&matchMedia('(prefers-color-scheme: dark)').matches))d.setAttribute('data-dark','')}catch(e){}if(window.matchMedia&&!matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('motion')})(document.documentElement)</script>
+<script src="main.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top" aria-label="package-guidance, back to top">
+      <svg class="brand-mark" viewBox="3.25 3 25.75 26.25" aria-hidden="true"><path d="M8 24V10a5 5 0 0 1 5-5h9a5 5 0 0 1 0 10h-9a5 5 0 0 1-5-5" fill="none" stroke="var(--mark)" stroke-width="4"/><circle cx="8" cy="24.5" r="4.75" fill="currentColor"/></svg>
+      <span class="brand-name" translate="no">package-guidance</span>
+    </a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#latest">Why wait</a>
+      <a href="#evals">Evals</a>
+      <a href="#install">Install</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="icon-btn" href="https://github.com/harshpreet931/package-guidance" aria-label="package-guidance on GitHub">
+        <svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+      </a>
+      <button class="icon-btn theme-btn" type="button" aria-label="Switch to dark theme" data-theme-toggle>
+        <svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- Hero -->
+<section class="hero" id="top" aria-labelledby="hero-h">
+  <div class="hero-field" aria-hidden="true"></div>
+  <div class="wrap hero-grid">
+    <h1 id="hero-h" class="hero-h">Agents install fresh versions within hours of release. So&nbsp;do&nbsp;worms.</h1>
+
+    <div class="hero-copy">
+      <p class="hero-lede">package-guidance is an agent skill, a CLI and a Claude Code hook. Before your agent adds a dependency, it checks the live registry, pins the newest <em>settled</em> version (7+ days old, no known advisories), refuses names that don’t exist, and points to the migration when a package is dead.</p>
+
+      <div translate="no" class="cmd cmd-hero">
+        <code><span class="cmd-p" aria-hidden="true">$</span> npx skills add harshpreet931/package-guidance</code>
+        <button class="copy" type="button" data-copy="npx skills add harshpreet931/package-guidance" aria-label="Copy install command">
+          <svg class="i-copy" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="8.5" y="8.5" width="11" height="11" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M15.5 8.5V6A2.5 2.5 0 0 0 13 3.5H6A2.5 2.5 0 0 0 3.5 6v7A2.5 2.5 0 0 0 6 15.5h2.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+          <svg class="i-check" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      <p class="hero-alt">On Claude Code, the <a href="#install">plugin</a> also adds an install hook. Works with Cursor, Codex and anything that reads <code>AGENTS.md</code>.</p>
+    </div>
+
+    <figure class="board" translate="no" aria-labelledby="board-cap">
+      <div class="board-head">
+        <span class="board-title">release board</span>
+        <span class="board-meta">npm · cooldown 7d</span>
+      </div>
+      <div class="board-cols" aria-hidden="true">
+        <span>package</span><span>version</span><span class="c-age">age</span><span>status</span>
+      </div>
+      <ol class="board-rows">
+        <li class="row is-hold"><span class="b-pkg" data-flip>next</span><span class="b-ver" data-flip>16.4.6</span><span class="b-age"><span class="age-bar" style="--a:.4286"></span><span class="age-n" data-flip>6d</span></span><span class="b-st"><i class="lamp" aria-hidden="true"></i><span data-flip>hold 1d</span></span></li>
+        <li class="row is-ok"><span class="b-pkg" data-flip>next</span><span class="b-ver" data-flip>16.4.5</span><span class="b-age"><span class="age-bar" style="--a:.8571"></span><span class="age-n" data-flip>12d</span></span><span class="b-st"><i class="lamp" aria-hidden="true"></i><span data-flip>cleared</span></span></li>
+        <li class="row is-hold"><span class="b-pkg" data-flip>sass</span><span class="b-ver" data-flip>1.108.2</span><span class="b-age"><span class="age-bar" style="--a:.3571"></span><span class="age-n" data-flip>5d</span></span><span class="b-st"><i class="lamp" aria-hidden="true"></i><span data-flip>hold 2d</span></span></li>
+        <li class="row is-ok"><span class="b-pkg" data-flip>sass</span><span class="b-ver" data-flip>1.108.1</span><span class="b-age"><span class="age-bar" style="--a:.6429"></span><span class="age-n" data-flip>9d</span></span><span class="b-st"><i class="lamp" aria-hidden="true"></i><span data-flip>cleared</span></span></li>
+        <li class="row is-ok"><span class="b-pkg" data-flip>date-fns</span><span class="b-ver" data-flip>4.4.0</span><span class="b-age"><span class="age-bar is-over" style="--a:1"></span><span class="age-n" data-flip>170d</span></span><span class="b-st"><i class="lamp" aria-hidden="true"></i><span data-flip>cleared</span></span></li>
+        <li class="row is-bad"><span class="b-pkg" data-flip>lodash</span><span class="b-ver" data-flip>4.17.20</span><span class="b-age b-note" data-flip>2 high/crit</span><span class="b-st"><i class="lamp" aria-hidden="true"></i><span data-flip>use 4.18.1</span></span></li>
+        <li class="row is-bad"><span class="b-pkg" data-flip>reqeusts-pro</span><span class="b-ver">—</span><span class="b-age b-note" data-flip>not on npm</span><span class="b-st"><i class="lamp" aria-hidden="true"></i><span data-flip>not found</span></span></li>
+        <li class="row is-bad"><span class="b-pkg" data-flip>request</span><span class="b-ver">—</span><span class="b-age b-note" data-flip>since 2020</span><span class="b-st"><i class="lamp" aria-hidden="true"></i><span data-flip>deprecated</span></span></li>
+      </ol>
+      <div class="board-scale" aria-hidden="true"><span class="bs"><span>0</span><span class="mid">7d</span><span>14d</span></span></div>
+      <figcaption id="board-cap" class="board-cap">Verdicts from <code>package-guidance check</code> on 2026-11-16. A release younger than 7 days is held; the agent installs the newest one that has settled.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- Before / after -->
+<section class="sec" id="demo" aria-labelledby="demo-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="demo-h">Same request. One agent checks first.</h2>
+      <p class="sec-lede">Asked to add an HTTP client, date handling and Sass, an agent types what it remembers. With package-guidance it asks the registry, swaps the dead packages, and pins what has settled.</p>
+    </div>
+
+    <div class="duo" data-typer>
+      <figure class="term term-before" aria-labelledby="t1-cap">
+        <div class="term-bar"><span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term-name">agent, unguided</span><span class="term-flag flag-bad"><span aria-hidden="true">✗</span> 15 vulnerabilities</span></div>
+        <div class="term-scroll" tabindex="0" role="region" aria-label="Unguided agent terminal output">
+<pre class="term-body" translate="no"><span class="t-say">agent › Adding an HTTP client, date handling and Sass.</span>
+<span class="t-cmd"><span class="t-p">$</span> npm i request moment node-sass</span>
+<span class="t-dim">npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory…</span>
+<span class="t-dim">npm warn deprecated har-validator@5.1.5: this library is no longer supported</span>
+<span class="t-dim">npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities…</span>
+<span class="t-dim">npm warn deprecated request@2.88.2: request has been deprecated, see https://github.com/request/request/issues/3142</span>
+<span class="t-dim">npm warn deprecated tar@6.2.1: Old versions of tar are not supported, and contain widely publicized security vulnerabilities…</span>
+<span class="t-dim">npm warn deprecated node-sass@9.0.0: Node Sass is no longer supported. Please use `sass` or `sass-embedded` instead.</span>
+<span class="t-note"># 9 more deprecation warnings</span>
+
+added 247 packages, and audited 248 packages in 6s
+
+<span class="t-bad">15 vulnerabilities (2 low, 3 moderate, 7 high, 3 critical)</span></pre>
+        </div>
+      </figure>
+
+      <figure class="term term-after" aria-labelledby="t2-cap">
+        <div class="term-bar"><span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term-name">agent + package-guidance</span><span class="term-flag flag-ok"><span aria-hidden="true">✓</span> 0 vulnerabilities</span></div>
+        <div class="term-scroll" tabindex="0" role="region" aria-label="Guided agent terminal output">
+<pre class="term-body" translate="no"><span class="t-say">agent › Checking these before I add anything.</span>
+<span class="t-cmd"><span class="t-p">$</span> npx package-guidance check request moment node-sass</span>
+
+  <span class="t-b">package-guidance</span>  <span class="t-dim">npm · cooldown 7d</span>
+
+  <span class="t-bad"><span class="g">✗</span> request  </span>  <span class="t-bad">deprecated</span>   request has been deprecated since Feb 2020…
+                            <span class="t-dim">use fetch (native), ky, ofetch · guide: request-to-fetch</span>
+  <span class="t-hold"><span class="g">→</span> moment   </span>  <span class="t-hold">replace   </span>   Moment is a legacy project in maintenance mode (status update…
+                            <span class="t-dim">use date-fns, Temporal (native), dayjs · guide: moment-to-date-fns</span>
+  <span class="t-bad"><span class="g">✗</span> node-sass</span>  <span class="t-bad">deprecated</span>   node-sass (LibSass) is deprecated: 'Node Sass is no longer…
+                            <span class="t-dim">use sass, sass-embedded · guide: node-sass-to-sass</span>
+
+  <span class="t-b">Blocked</span>  request, node-sass  <span class="t-dim">do not install; use the alternatives above</span>
+
+<span class="t-say">agent › Native fetch instead of request. Checking date-fns and sass.</span>
+<span class="t-cmd"><span class="t-p">$</span> npx package-guidance check date-fns sass</span>
+
+  <span class="t-b">package-guidance</span>  <span class="t-dim">npm · cooldown 7d</span>
+
+  <span class="t-ok"><span class="g">✓</span> date-fns</span>  <span class="t-ok">ok</span>   4.4.0 · settled 170d
+  <span class="t-ok"><span class="g">✓</span> sass    </span>  <span class="t-ok">ok</span>   1.108.1 · settled 9d
+                   <span class="t-hold">1.108.2 was published 5d ago; holding at 1.108.1 until it settles (7d…</span>
+
+  <span class="t-b">Install</span>  npm install date-fns@4.4.0 sass@1.108.1
+
+<span class="t-cmd"><span class="t-p">$</span> npm install date-fns@4.4.0 sass@1.108.1</span>
+
+added 13 packages, and audited 14 packages in 2s
+
+<span class="t-ok">found 0 vulnerabilities</span></pre>
+        </div>
+      </figure>
+    </div>
+    <div class="duo-foot">
+      <p class="fine" id="t1-cap">Every <code>$</code> command and its output is a real capture from 2026-11-16, trimmed where marked. <span id="t2-cap">“agent ›” lines are narration. The unguided install ran with <code>--ignore-scripts</code>, so node-sass skipped its native build.</span></p>
+      <div class="typer-ctl" hidden>
+        <button class="btn-ghost" type="button" data-typer-skip>Skip animation</button>
+        <button class="btn-ghost" type="button" data-typer-replay hidden>Replay</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Problem -->
+<section class="sec" id="problem" aria-labelledby="problem-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="problem-h">Agents guess. The registry doesn’t.</h2>
+      <p class="sec-lede">Models learn package names and versions from a frozen snapshot of the internet, then type them into your terminal as if they were current.</p>
+    </div>
+    <ol class="stats">
+      <li class="stat">
+        <p class="stat-n"><span class="dotnum">27.76%</span></p>
+        <div class="grid100" aria-hidden="true" style="--lit:28"></div>
+        <p class="stat-t">of GPT-5’s dependency upgrade recommendations pointed to <strong>versions that don’t exist</strong>. Across 36,870 recommendations on Maven Central, npm, PyPI and NuGet, that was more than 10,000 hallucinated releases.</p>
+        <p class="src"><a href="https://www.sonatype.com/state-of-the-software-supply-chain/2026/ai-agents">Sonatype, State of the Software Supply Chain 2026</a></p>
+      </li>
+      <li class="stat">
+        <p class="stat-n"><span class="dotnum">21.7%</span></p>
+        <div class="pair" aria-hidden="true">
+          <span class="pair-row"><span class="pair-k">open models</span><span class="pair-bar"><i style="--w:21.7%"></i></span><span class="pair-v">21.7%</span></span>
+          <span class="pair-row"><span class="pair-k">commercial</span><span class="pair-bar"><i style="--w:5.2%"></i></span><span class="pair-v">5.2%</span></span>
+        </div>
+        <p class="stat-t">of packages suggested by open-source models <strong>don’t exist</strong>, and at least 5.2% for commercial models, across 576,000 generated code samples from 16 models. Anyone can register a hallucinated name and wait for an agent to install it. That is slopsquatting.</p>
+        <p class="src"><a href="https://www.usenix.org/conference/usenixsecurity25/presentation/spracklen">Spracklen et al., USENIX Security 2025</a></p>
+      </li>
+      <li class="stat">
+        <p class="stat-n"><span class="dotnum">2.46%</span><span class="vs">vs 1.64%</span></p>
+        <div class="pair" aria-hidden="true">
+          <span class="pair-row"><span class="pair-k">agents</span><span class="pair-bar"><i style="--w:100%"></i></span><span class="pair-v">2.46%</span></span>
+          <span class="pair-row"><span class="pair-k">humans</span><span class="pair-bar"><i style="--w:66.7%"></i></span><span class="pair-v">1.64%</span></span>
+        </div>
+        <p class="stat-t">of dependency changes picked a <strong>known-vulnerable version</strong>: AI agents versus humans, across 117,062 changes in 2,807 GitHub repositories. In most cases a patched version already existed.</p>
+        <p class="src"><a href="https://arxiv.org/abs/2601.00205">arXiv:2601.00205, Understanding Security Risks of AI Agents’ Dependency Updates</a></p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- Latest isn't safe -->
+<section class="sec sec-latest" id="latest" aria-labelledby="latest-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="latest-h">Latest isn’t safe. Settled is.</h2>
+      <p class="sec-lede">Compromised releases are published <em>as</em> the latest version and usually get pulled within hours. An agent that installs <code>@latest</code> the minute it ships is exactly who those hours are for. A 7-day cooldown skips the whole window.</p>
+    </div>
+
+    <figure class="ruler-fig" aria-labelledby="ruler-cap">
+      <div class="ruler" data-ruler>
+        <div class="cooldown" aria-hidden="true"><span>cooldown 7d · held</span></div>
+        <div class="scrub-line" aria-hidden="true"><span class="scrub-flag" data-scrub-flag>7d</span></div>
+        <div class="lane lane-events">
+          <span class="lane-k">known compromise</span>
+          <div class="track">
+            <span class="worm" style="--x:0;--w:.00833" title="chalk, debug and other packages: live about 2 hours"></span>
+            <span class="worm-tag"><span class="g" aria-hidden="true">✗</span> chalk, debug + others · Sep 8, 2025 · live ≈2h</span>
+          </div>
+        </div>
+        <div class="lane lane-swarm">
+          <span class="lane-k">plain agent</span>
+          <div class="track swarm">
+            <p class="vh">39 dots between 15 hours and 6.99 days old. Youngest: nodemailer 10.6.0 at 15 hours. Most common: vite 8.3.8, installed 5 times at 5.3 days. Oldest: vite 7.3.8 at 6.99 days.</p>
+            <span class="dot" style="--x:0.0620;--y:0" title="nodemailer 10.6.0, 15h old"></span>
+            <span class="dot" style="--x:0.0620;--y:1" title="nodemailer 10.6.0, 15h old"></span>
+            <span class="dot" style="--x:0.0990;--y:0" title="fastapi 0.163.1, 24h old"></span>
+            <span class="dot" style="--x:0.1030;--y:1" title="fastapi 0.163.1, 1d old"></span>
+            <span class="dot" style="--x:0.1890;--y:0" title="dompurify 3.4.18, 1.9d old"></span>
+            <span class="dot" style="--x:0.1900;--y:1" title="dompurify 3.4.18, 1.9d old"></span>
+            <span class="dot" style="--x:0.2070;--y:0" title="better-sqlite3 13.2.0, 2.1d old"></span>
+            <span class="dot" style="--x:0.2600;--y:0" title="@aws-sdk/client-s3 3.1169.0, 2.6d old"></span>
+            <span class="dot" style="--x:0.2600;--y:1" title="@aws-sdk/client-s3 3.1169.0, 2.6d old"></span>
+            <span class="dot" style="--x:0.2750;--y:0" title="vue-router 5.5.1, 2.8d old"></span>
+            <span class="dot" style="--x:0.2750;--y:1" title="vue-router 5.5.1, 2.8d old"></span>
+            <span class="dot" style="--x:0.2930;--y:0" title="pydantic-settings 2.16.3, 2.9d old"></span>
+            <span class="dot" style="--x:0.2970;--y:1" title="pydantic-settings 2.16.3, 3d old"></span>
+            <span class="dot" style="--x:0.3030;--y:2" title="pydantic-settings 2.16.3, 3d old"></span>
+            <span class="dot" style="--x:0.3030;--y:3" title="pydantic-settings 2.16.3, 3d old"></span>
+            <span class="dot" style="--x:0.3550;--y:0" title="ws 8.23.0, 3.5d old"></span>
+            <span class="dot" style="--x:0.3560;--y:1" title="ws 8.23.0, 3.6d old"></span>
+            <span class="dot" style="--x:0.3760;--y:0" title="ruff 0.17.5, 3.8d old"></span>
+            <span class="dot" style="--x:0.3760;--y:1" title="ruff 0.17.5, 3.8d old"></span>
+            <span class="dot" style="--x:0.4070;--y:0" title="@vitejs/plugin-vue 6.0.11, 4.1d old"></span>
+            <span class="dot" style="--x:0.4070;--y:1" title="@vitejs/plugin-vue 6.0.11, 4.1d old"></span>
+            <span class="dot" style="--x:0.4110;--y:2" title="prettier 3.10.1, 4.1d old"></span>
+            <span class="dot" style="--x:0.4150;--y:3" title="prettier 3.10.1, 4.2d old"></span>
+            <span class="dot" style="--x:0.5280;--y:0" title="vite 8.3.8, 5.3d old"></span>
+            <span class="dot" style="--x:0.5290;--y:1" title="vite 8.3.8, 5.3d old"></span>
+            <span class="dot" style="--x:0.5320;--y:2" title="vite 8.3.8, 5.3d old"></span>
+            <span class="dot" style="--x:0.5330;--y:3" title="vite 8.3.8, 5.3d old"></span>
+            <span class="dot" style="--x:0.5330;--y:4" title="vite 8.3.8, 5.3d old"></span>
+            <span class="dot" style="--x:0.6490;--y:0" title="marked 18.2.0, 6.5d old"></span>
+            <span class="dot" style="--x:0.6490;--y:1" title="marked 18.2.0, 6.5d old"></span>
+            <span class="dot" style="--x:0.6520;--y:2" title="express-rate-limit 8.7.4, 6.5d old"></span>
+            <span class="dot" style="--x:0.6530;--y:3" title="marked 18.2.0, 6.5d old"></span>
+            <span class="dot" style="--x:0.6540;--y:4" title="marked 18.2.0, 6.5d old"></span>
+            <span class="dot" style="--x:0.6560;--y:5" title="express-rate-limit 8.7.4, 6.6d old"></span>
+            <span class="dot" style="--x:0.6690;--y:0" title="typescript-eslint 8.72.2, 6.7d old"></span>
+            <span class="dot" style="--x:0.6730;--y:1" title="typescript-eslint 8.72.2, 6.7d old"></span>
+            <span class="dot" style="--x:0.6770;--y:2" title="axios 1.21.1, 6.8d old"></span>
+            <span class="dot" style="--x:0.6770;--y:3" title="axios 1.21.1, 6.8d old"></span>
+            <span class="dot" style="--x:0.6990;--y:0" title="vite 7.3.8, 7d old"></span>
+            <span class="swarm-tag" style="--x:.062">nodemailer 10.6.0 · 15h</span>
+            <span class="swarm-tag tag-r" style="--x:.699">vite 7.3.8 · 6.99d</span>
+          </div>
+        </div>
+        <div class="lane lane-guided">
+          <span class="lane-k">with package-guidance</span>
+          <div class="track guided-empty"><span class="zero">0 versions under 7 days</span></div>
+        </div>
+        <div class="scale">
+          <div class="ticks" aria-hidden="true"></div>
+          <div class="days" aria-hidden="true"><span style="--x:0">publish</span><span style="--x:.1">1d</span><span style="--x:.2">2d</span><span style="--x:.3">3d</span><span style="--x:.5">5d</span><span style="--x:.7" class="d7">7d</span><span style="--x:1">10d</span></div>
+          <label class="vh" for="scrub">Install a version this old (hours since publish)</label>
+          <input id="scrub" class="scrub" type="range" min="0" max="240" step="1" value="168" aria-describedby="scrub-out" aria-valuetext="7 days after publish">
+        </div>
+      </div>
+      <output id="scrub-out" class="readout" for="scrub" aria-live="polite">
+        <span class="ro-age">Installing at 7d</span>
+        <span class="ro-msg"><b class="ro-st st-ok">settled</b> Past the cooldown. This is the version package-guidance pins, unless a newer release fixes an advisory.</span>
+      </output>
+      <figcaption id="ruler-cap" class="fine">Release age on a linear scale. <b>Red:</b> the hijacked <code>chalk</code>/<code>debug</code> releases were live from about 13:16 to 15:15 UTC on September 8, 2025, per <a href="https://www.wiz.io/blog/widespread-npm-supply-chain-attack-breaking-down-impact-scope-across-debug-chalk">Wiz</a>. <b>Dots:</b> each of the 39 versions younger than 7 days that a plain Claude Sonnet agent added in our <a href="#evals">eval</a>, placed at its real age at install time. The Nov 2025 <a href="https://www.wiz.io/blog/shai-hulud-2-0-ongoing-supply-chain-attack">Shai-Hulud 2.0</a> worm pushed malicious versions of hundreds of packages; exposure varied by package, so it isn’t plotted. Drag the handle, or use the arrow keys.</figcaption>
+    </figure>
+
+    <p class="latest-foot">pnpm, npm, yarn, bun and uv can enforce a release-age cooldown themselves. <code>package-guidance harden</code> sets it up for your repo, and the hook respects it.</p>
+  </div>
+</section>
+
+<!-- Procedure -->
+<section class="sec" id="procedure" aria-labelledby="procedure-h">
+  <div class="wrap split">
+    <div class="split-aside">
+      <h2 id="procedure-h">Seven checks before any install</h2>
+      <p class="sec-lede">The skill gives your agent one procedure to run before it adds a dependency. The CLI does the lookups against live registry data, so the agent never relies on memory.</p>
+      <div class="week" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><span>7 days, then pin</span></div>
+    </div>
+    <ol class="plan">
+      <li class="step"><span class="step-n">1</span><div class="step-b"><h3>Need it?</h3><p>Prefer the platform: <code>fetch</code>, <code>crypto.randomUUID()</code>, <code>structuredClone</code>, <code>node --env-file</code>, <code>zoneinfo</code>. Fewer dependencies, fewer attack surfaces.</p></div><span class="chips"><span class="chip c-hold">replace</span></span></li>
+      <li class="step"><span class="step-n">2</span><div class="step-b"><h3>Right package?</h3><p>Not deprecated, sunset or superseded. Curated entries plus the <a href="https://github.com/es-tooling/module-replacements">e18e module-replacements</a> dataset and the registry’s own flag.</p></div><span class="chips"><span class="chip c-bad">deprecated</span><span class="chip c-hold">outdated</span></span></li>
+      <li class="step"><span class="step-n">3</span><div class="step-b"><h3>Real package?</h3><p>A registry 404 means a hallucination. Never install it, and never guess a similar name.</p></div><span class="chips"><span class="chip c-bad">not-found</span><span class="chip c-hold">unproven</span></span></li>
+      <li class="step"><span class="step-n">4</span><div class="step-b"><h3>Settled version</h3><p>The newest release at least 7 days old. A newer one only if it fixes an advisory on the older one.</p></div><span class="chips"><span class="chip c-hold">young</span><span class="chip c-ok">ok</span></span></li>
+      <li class="step"><span class="step-n">5</span><div class="step-b"><h3>No known advisories</h3><p>The pinned version is checked against <a href="https://osv.dev">OSV.dev</a>, which includes malicious-package reports.</p></div><span class="chips"><span class="chip c-bad">vulnerable</span><span class="chip c-bad">malicious</span></span></li>
+      <li class="step"><span class="step-n">6</span><div class="step-b"><h3>Respect project policy</h3><p>If the repo configures a release-age cooldown, keep it. Never lower, remove or bypass it to make an install succeed.</p></div></li>
+      <li class="step"><span class="step-n">7</span><div class="step-b"><h3>Pin exactly</h3><p>Install <code>pkg@1.2.3</code> or <code>pkg==1.2.3</code> and commit the lockfile.</p></div><span class="chips"><span class="chip c-ok">install</span></span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- Evals -->
+<section class="sec sec-evals" id="evals" aria-labelledby="evals-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="evals-h">62 sessions without it. 62 with it.</h2>
+      <p class="sec-lede">31 real tasks (add auth, modernize a CRA app, set up linting, add a database…), each run twice per arm in Claude Code with Claude Sonnet. An independent scorer graded every dependency using public npm, PyPI and OSV data only, never package-guidance itself.</p>
+    </div>
+
+    <div class="ledger" role="table" aria-label="Eval results, dependencies the agent added or changed">
+      <div class="ledger-h" role="row">
+        <span role="columnheader">Dependencies the agent added or changed, 62 sessions per arm</span>
+        <span role="columnheader" class="lh-arm">plain agent</span>
+        <span role="columnheader" class="lh-arm">with package-guidance</span>
+      </div>
+
+      <div class="lrow" role="row">
+        <span class="l-k" role="rowheader">Versions published less than 7 days earlier</span>
+        <span class="l-cell" role="cell"><span class="l-n dotnum t-holdc">39</span><span class="pips" aria-hidden="true" style="--n:39"></span></span>
+        <span class="l-cell" role="cell"><span class="l-n dotnum t-okc">0</span><span class="pips pips-empty" aria-hidden="true"></span></span>
+      </div>
+      <div class="lrow" role="row">
+        <span class="l-k" role="rowheader">Versions with a known advisory <small>(2 high/critical)</small></span>
+        <span class="l-cell" role="cell"><span class="l-n dotnum t-badc">7</span><span class="pips pips-bad" aria-hidden="true" style="--n:7;--crit:2"></span></span>
+        <span class="l-cell" role="cell"><span class="l-n dotnum t-okc">0</span><span class="pips pips-empty" aria-hidden="true"></span></span>
+      </div>
+      <div class="lrow" role="row">
+        <span class="l-k" role="rowheader">Sessions with zero dependency problems</span>
+        <span class="l-cell" role="cell"><span class="l-n dotnum">47%</span><span class="meter" aria-hidden="true"><i style="--w:46.77%"></i></span></span>
+        <span class="l-cell" role="cell"><span class="l-n dotnum t-okc">92%</span><span class="meter meter-ok" aria-hidden="true"><i style="--w:91.94%"></i></span></span>
+      </div>
+      <div class="lrow" role="row">
+        <span class="l-k" role="rowheader">Problem dependencies per session</span>
+        <span class="l-cell" role="cell"><span class="l-n dotnum">1.08</span><span class="meter" aria-hidden="true"><i style="--w:72%"></i></span></span>
+        <span class="l-cell" role="cell"><span class="l-n dotnum t-okc">0.15</span><span class="meter meter-ok" aria-hidden="true"><i style="--w:10%"></i></span></span>
+      </div>
+    </div>
+
+    <div class="evals-more">
+      <dl class="mini">
+        <div><dt>Whole repo, every direct dependency: problem dependencies per session</dt><dd><span class="tab">3.16</span> → <b class="tab">2.11</b></dd></div>
+        <div><dt>Whole repo: sessions with zero issues</dt><dd><span class="tab">27%</span> → <b class="tab">45%</b></dd></div>
+        <div><dt>Direct dependencies pinned exactly</dt><dd><span class="tab">13%</span> → <b class="tab">77%</b></dd></div>
+        <div><dt>Hallucinated packages (registry 404)</dt><dd><span class="tab">0</span> → <b class="tab">0</b></dd></div>
+        <div><dt>Agent cost per session</dt><dd><span class="tab">$0.15</span> → <b class="tab">$0.18</b></dd></div>
+      </dl>
+      <div class="evals-notes">
+        <p>Whole-repo numbers include dependencies the task fixtures already had, such as an old <code>next</code> or <code>eslint</code> the agent wasn’t asked to touch. No session in either arm installed a hallucinated package on these tasks, so we make no claim about hallucinations here. Each delta has a 95% bootstrap interval in the <a href="https://github.com/harshpreet931/package-guidance/blob/main/evals/published/2026-11-16-claude-sonnet/report.md">full report</a>; the <a href="https://github.com/harshpreet931/package-guidance/blob/main/evals/README.md">method and threats to validity</a> are in the repo.</p>
+        <ul class="runs" aria-label="Eval runs by model">
+          <li class="run run-done"><span class="run-lamp" aria-hidden="true"></span><span class="run-m">Claude Sonnet</span><span class="run-s">done · 124 runs</span></li>
+          <li class="run run-done"><span class="run-lamp" aria-hidden="true"></span><span class="run-m">Claude Opus</span><span class="run-s">done · 30 runs · <a href="https://github.com/harshpreet931/package-guidance/blob/main/evals/published/2026-11-16-claude-opus/report.md">12 fresh installs → 0, 100% clean</a></span></li>
+          <li class="run run-done"><span class="run-lamp" aria-hidden="true"></span><span class="run-m">Kimi</span><span class="run-s">done · 182 scored answers · <a href="https://github.com/harshpreet931/package-guidance/blob/main/evals/published/2026-11-16-kimi-choice/report.md">49 fresh pins → 0; a registry tool alone: 48</a></span></li>
+          <li class="run"><span class="run-lamp" aria-hidden="true"></span><span class="run-m">GLM</span><span class="run-s">incomplete · gateway failures, rerun pending</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Install -->
+<section class="sec" id="install" aria-labelledby="install-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="install-h">Install for every agent</h2>
+      <p class="sec-lede">It is one skill file. Use whichever loader your agent already has.</p>
+    </div>
+
+    <div class="tabs" data-tabs>
+      <div class="tablist" role="tablist" aria-label="Install method">
+        <button role="tab" id="tab-skills" aria-controls="panel-skills" aria-selected="true">Skills CLI</button>
+        <button role="tab" id="tab-claude" aria-controls="panel-claude" aria-selected="false" tabindex="-1">Claude Code plugin</button>
+        <button role="tab" id="tab-cursor" aria-controls="panel-cursor" aria-selected="false" tabindex="-1">Cursor / Codex</button>
+        <button role="tab" id="tab-agents" aria-controls="panel-agents" aria-selected="false" tabindex="-1">AGENTS.md</button>
+      </div>
+
+      <div class="panel" role="tabpanel" id="panel-skills" aria-labelledby="tab-skills" tabindex="0">
+        <p>Installs the skill into any agent the skills CLI supports: Claude Code, Codex, Cursor, Copilot, Gemini CLI and more.</p>
+        <div translate="no" class="cmd"><code><span class="cmd-p" aria-hidden="true">$</span> npx skills add harshpreet931/package-guidance</code><button class="copy" type="button" data-copy="npx skills add harshpreet931/package-guidance" aria-label="Copy skills CLI command"><svg class="i-copy" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="8.5" y="8.5" width="11" height="11" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M15.5 8.5V6A2.5 2.5 0 0 0 13 3.5H6A2.5 2.5 0 0 0 3.5 6v7A2.5 2.5 0 0 0 6 15.5h2.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><svg class="i-check" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+      </div>
+
+      <div class="panel" role="tabpanel" id="panel-claude" aria-labelledby="tab-claude" tabindex="0" hidden>
+        <p>The plugin adds the skill and a <code>PreToolUse</code> hook on Bash. The hook denies hallucinated, malicious, deprecated and known-vulnerable installs, and unpinned installs whose latest release is inside the cooldown. It never approves anything, fails open on network errors, and costs about 25&nbsp;ms on commands that install nothing.</p>
+        <div translate="no" class="cmd cmd-multi"><code><span class="cmd-p" aria-hidden="true">›</span> /plugin marketplace add harshpreet931/package-guidance
+<span class="cmd-p" aria-hidden="true">›</span> /plugin install package-guidance@package-guidance</code><button class="copy" type="button" data-copy="/plugin marketplace add harshpreet931/package-guidance&#10;/plugin install package-guidance@package-guidance" aria-label="Copy Claude Code plugin commands"><svg class="i-copy" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="8.5" y="8.5" width="11" height="11" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M15.5 8.5V6A2.5 2.5 0 0 0 13 3.5H6A2.5 2.5 0 0 0 3.5 6v7A2.5 2.5 0 0 0 6 15.5h2.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><svg class="i-check" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+        <p class="fine">Set <code>PACKAGE_GUIDANCE_HOOK=warn</code> to never deny, or <code>off</code> to disable the hook.</p>
+      </div>
+
+      <div class="panel" role="tabpanel" id="panel-cursor" aria-labelledby="tab-cursor" tabindex="0" hidden>
+        <p>The same skills CLI, pointed at one agent.</p>
+        <div translate="no" class="cmd cmd-multi"><code><span class="cmd-p" aria-hidden="true">$</span> npx skills add harshpreet931/package-guidance --agent cursor
+<span class="cmd-p" aria-hidden="true">$</span> npx skills add harshpreet931/package-guidance --agent codex</code><button class="copy" type="button" data-copy="npx skills add harshpreet931/package-guidance --agent cursor" aria-label="Copy Cursor install command"><svg class="i-copy" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="8.5" y="8.5" width="11" height="11" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M15.5 8.5V6A2.5 2.5 0 0 0 13 3.5H6A2.5 2.5 0 0 0 3.5 6v7A2.5 2.5 0 0 0 6 15.5h2.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><svg class="i-check" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+        <p class="fine">Copy copies the Cursor line. Or paste the AGENTS.md snippet into <code>.cursor/rules</code>.</p>
+      </div>
+
+      <div class="panel" role="tabpanel" id="panel-agents" aria-labelledby="tab-agents" tabindex="0" hidden>
+        <p>No loader? Paste this into <code>AGENTS.md</code>, <code>CLAUDE.md</code> or <code>.cursor/rules</code>.</p>
+        <div translate="no" class="cmd cmd-multi cmd-md"><code>## Dependencies
+Before adding or upgrading any npm or PyPI package, run
+`npx -y package-guidance@0.1.0 check &lt;pkg&gt;... --json` (add `--pypi` for Python) and install the
+returned `install` command verbatim. Never install `not-found`, `deprecated`, `malicious` or
+unfixed `vulnerable` packages, never guess a similar name, and never lower a configured
+release-age cooldown.</code><button class="copy" type="button" data-copy-from="next" aria-label="Copy AGENTS.md snippet"><svg class="i-copy" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="8.5" y="8.5" width="11" height="11" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M15.5 8.5V6A2.5 2.5 0 0 0 13 3.5H6A2.5 2.5 0 0 0 3.5 6v7A2.5 2.5 0 0 0 6 15.5h2.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><svg class="i-check" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+        <p class="fine">The snippet pins <code>package-guidance@0.1.0</code> on purpose. We don’t tell agents to run <code>@latest</code> either.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLI -->
+<section class="sec" id="cli" aria-labelledby="cli-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="cli-h">The CLI</h2>
+      <p class="sec-lede">Zero runtime dependencies. The agent calls it, and so can you. It exits with 1 when anything is blocked, so <code>scan</code> works in CI.</p>
+    </div>
+    <div class="cli-grid">
+      <dl class="cmds">
+        <div><dt><code>check &lt;pkg[@range]&gt;…</code></dt><dd>A verdict and a pinned install line for each package. Add <code>--pypi</code> for Python.</dd></div>
+        <div><dt><code>scan [dir]</code></dt><dd>Audits <code>package.json</code>, <code>pyproject.toml</code> or <code>requirements.txt</code>.</dd></div>
+        <div><dt><code>guide [id | query]</code></dt><dd>Curated migrations: CRA to Vite, Tailwind v4, ESLint flat config, moment to date-fns.</dd></div>
+        <div><dt><code>harden [dir] [--write]</code></dt><dd>Sets a release-age cooldown in your package manager’s own config: npm, pnpm, Yarn, Bun or uv.</dd></div>
+        <div><dt><code>hook</code></dt><dd>The Claude Code <code>PreToolUse</code> handler (stdin JSON).</dd></div>
+        <div class="opts"><dt>Options</dt><dd><code>--cooldown &lt;days&gt;</code> <code>--json</code> <code>--cwd &lt;dir&gt;</code> <code>--no-cache</code> <code>-v</code></dd></div>
+      </dl>
+
+      <figure class="term term-cli" aria-label="Real output of package-guidance check for six packages">
+        <div class="term-bar"><span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term-name">terminal</span></div>
+        <div class="term-scroll" tabindex="0" role="region" aria-label="package-guidance check output">
+<pre class="term-body" translate="no"><span class="t-cmd"><span class="t-p">$</span> npx package-guidance check request moment tailwindcss@3 lodash@4.17.20 reqeusts-pro next</span>
+
+  <span class="t-b">package-guidance</span>  <span class="t-dim">npm · cooldown 7d</span>
+
+  <span class="t-bad"><span class="g">✗</span> request       </span>  <span class="t-bad">deprecated</span>   request has been deprecated since Feb 2020…
+                                 <span class="t-dim">use fetch (native), ky, ofetch · guide: request-to-fetch</span>
+  <span class="t-hold"><span class="g">→</span> moment        </span>  <span class="t-hold">replace   </span>   Moment is a legacy project in maintenance mode (status…
+                                 <span class="t-dim">use date-fns, Temporal (native), dayjs · guide: moment-to-date-fns</span>
+  <span class="t-hold">! tailwindcss@3 </span>  <span class="t-hold">outdated  </span>   Tailwind v4 is current (4.3.x).
+                                 <span class="t-dim">use tailwindcss@4, @tailwindcss/postcss, @tailwindcss/upgrade · guide: tailwind-v4</span>
+  <span class="t-bad"><span class="g">✗</span> lodash@4.17.20</span>  <span class="t-bad">vulnerable</span>   Use 4.18.1: 4.17.20 has 2 high/critical advisories.
+                                 <span class="t-dim">high     GHSA-35jh-r3h4-6jhm  Command Injection in lodash</span>
+                                 <span class="t-dim">high     GHSA-r5fr-rjxr-66jc  lodash vulnerable to Code Injection via `_.template` imports…</span>
+                                 <span class="t-dim">+2 more (-v)</span>
+                                 <span class="t-dim">lodash is maintained, but much of it is native now…</span>
+  <span class="t-bad"><span class="g">✗</span> reqeusts-pro  </span>  <span class="t-bad">not-found </span>   Likely hallucinated: not on the npm registry.
+  <span class="t-ok"><span class="g">✓</span> next          </span>  <span class="t-ok">ok        </span>   16.4.5 · settled 12d
+                                 <span class="t-hold">16.4.6 was published 6d ago; holding at 16.4.5 until it…</span>
+
+  <span class="t-b">Install</span>  npm install tailwindcss@4.3.5 lodash@4.18.1 next@16.4.5
+
+  <span class="t-b">Blocked</span>  request, reqeusts-pro  <span class="t-dim">do not install; use the alternatives above</span></pre>
+        </div>
+        <figcaption class="fine">Real output, 2026-11-16, at <code>COLUMNS=96</code>. Versions move daily; that is the point.</figcaption>
+      </figure>
+    </div>
+
+    <div class="verdicts" role="table" aria-label="Verdicts">
+      <div role="row"><span role="cell" class="v-k c-ok">ok</span><span role="cell">Install the pinned version.</span></div>
+      <div role="row"><span role="cell" class="v-k c-hold">caution</span><span role="cell">Installable, with a known risk worth reading.</span></div>
+      <div role="row"><span role="cell" class="v-k c-hold">outdated</span><span role="cell">The requested range is on an old major.</span></div>
+      <div role="row"><span role="cell" class="v-k c-hold">replace</span><span role="cell">Use one of the alternatives, native APIs first.</span></div>
+      <div role="row"><span role="cell" class="v-k c-bad">deprecated</span><span role="cell">Deprecated on the registry or sunset by its maintainers.</span></div>
+      <div role="row"><span role="cell" class="v-k c-bad">vulnerable</span><span role="cell">High/critical advisories; <code>fixedIn</code> is the settled fix.</span></div>
+      <div role="row"><span role="cell" class="v-k c-bad">malicious</span><span role="cell">OSV reports this release as malware.</span></div>
+      <div role="row"><span role="cell" class="v-k c-bad">not-found</span><span role="cell">The package or version doesn’t exist. Almost always a hallucination.</span></div>
+      <div role="row"><span role="cell" class="v-k c-hold">young · unproven</span><span role="cell">Brand-new or barely downloaded. Confirm it’s the real one.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec" id="faq" aria-labelledby="faq-h">
+  <div class="wrap faq">
+    <div class="faq-aside">
+      <h2 id="faq-h">Questions</h2>
+      <p class="sec-lede">Something wrong or missing? <a href="https://github.com/harshpreet931/package-guidance/issues">Open an issue</a>.</p>
+    </div>
+    <div class="faq-list">
+      <details>
+        <summary>Isn’t this what Socket, Snyk and Dependabot do?</summary>
+        <div class="faq-a"><p>They are excellent, and they run <em>after</em> the choice: in CI, on a PR, or on a package the agent already picked. package-guidance runs at the moment of choice, inside the agent, and tells it what to pick instead. Use both.</p></div>
+      </details>
+      <details>
+        <summary>Doesn’t “latest” mean “safest”?</summary>
+        <div class="faq-a"><p>No. <code>@latest</code> is exactly where compromised releases appear first, and they are usually pulled within hours. The hijacked chalk and debug releases were live for about two hours. Waiting 7 days skips that window; the only exception is a newer release that fixes an advisory on the version you would otherwise pin.</p></div>
+      </details>
+      <details>
+        <summary>Do you follow your own advice?</summary>
+        <div class="faq-a"><p>Yes. The skill and the hook run an exact pinned version of this tool (<code>package-guidance@0.1.0</code>), never <code>@latest</code>. Our GitHub Actions are pinned to commit SHAs and respect the cooldown too.</p></div>
+      </details>
+      <details>
+        <summary>Does it send telemetry?</summary>
+        <div class="faq-a"><p>No. The only network calls are public lookups: deps.dev, the npm and PyPI registries, OSV.dev and npm download counts. No API keys. Responses are cached for an hour in <code>~/.cache/package-guidance</code>.</p></div>
+      </details>
+      <details>
+        <summary>Will it slow my agent down?</summary>
+        <div class="faq-a"><p>A <code>check</code> takes about a second cold and is near-instant from cache. The hook does nothing unless a command installs packages, and costs about 25&nbsp;ms when it doesn’t.</p></div>
+      </details>
+      <details>
+        <summary>What if the registry is down, or I use a private one?</summary>
+        <div class="faq-a"><p>The hook fails open: a network error or timeout never blocks you. It never denies a 404 on a private registry.</p></div>
+      </details>
+      <details>
+        <summary>Python?</summary>
+        <div class="faq-a"><p>Yes. Add <code>--pypi</code>: <code>npx package-guidance check --pypi "pydantic&lt;2" fastapi</code>. The hook understands pip, uv and poetry.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <p class="foot-big" aria-hidden="true"><span class="dotnum">wait 7d.</span></p>
+    <div class="foot-row">
+      <p class="foot-note">package-guidance is MIT licensed. Curated entries cite a primary source and a last-verified date.</p>
+      <ul class="foot-links">
+        <li><a href="https://github.com/harshpreet931/package-guidance">GitHub</a></li>
+        <li><a href="https://github.com/harshpreet931/package-guidance/blob/main/LICENSE">MIT License</a></li>
+        <li><a href="https://github.com/harshpreet931/package-guidance/issues/new?title=Bad%20recommendation%3A%20">Report a bad recommendation</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

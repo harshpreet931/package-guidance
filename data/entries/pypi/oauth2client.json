@@ -1,0 +1,31 @@
+{
+  "id": "oauth2client",
+  "ecosystem": "pypi",
+  "packages": [
+    "oauth2client"
+  ],
+  "versions": "*",
+  "status": "deprecated",
+  "severity": "block",
+  "summary": "oauth2client is deprecated ('the core team is turning down support'). Its last release is 4.1.3 (2018), and its classifier is Inactive.",
+  "replacements": [
+    {
+      "name": "google-auth",
+      "kind": "package",
+      "install": "uv add google-auth",
+      "when": "Google APIs"
+    },
+    {
+      "name": "oauthlib",
+      "kind": "package",
+      "install": "uv add oauthlib",
+      "when": "generic OAuth"
+    }
+  ],
+  "tags": [
+    "auth",
+    "google"
+  ],
+  "source": "https://pypi.org/project/oauth2client/",
+  "last_verified": "2026-11-16"
+}

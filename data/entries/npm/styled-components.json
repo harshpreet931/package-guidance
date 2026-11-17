@@ -1,0 +1,29 @@
+{
+  "id": "styled-components",
+  "ecosystem": "npm",
+  "packages": [
+    "styled-components"
+  ],
+  "versions": "*",
+  "status": "caution",
+  "severity": "info",
+  "summary": "styled-components has been in maintenance mode since 2025-03-17. The maintainer does not recommend it or most CSS-in-JS for new projects, because runtime CSS-in-JS conflicts with React Server Components. Existing users get occasional bug fixes.",
+  "replacements": [
+    {
+      "name": "tailwindcss",
+      "kind": "package",
+      "install": "npm install tailwindcss @tailwindcss/vite"
+    },
+    {
+      "name": "CSS Modules",
+      "kind": "native",
+      "when": "built into Vite and Next.js"
+    }
+  ],
+  "tags": [
+    "css",
+    "react"
+  ],
+  "source": "https://opencollective.com/styled-components/updates/thank-you",
+  "last_verified": "2026-11-16"
+}

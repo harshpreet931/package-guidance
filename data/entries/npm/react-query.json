@@ -1,0 +1,25 @@
+{
+  "id": "react-query",
+  "ecosystem": "npm",
+  "packages": [
+    "react-query"
+  ],
+  "versions": "*",
+  "status": "superseded",
+  "severity": "warn",
+  "summary": "`react-query` stopped at v3 (2023). Since v4 the library ships as @tanstack/react-query, and v5 is current.",
+  "replacements": [
+    {
+      "name": "@tanstack/react-query",
+      "kind": "package",
+      "install": "npm install @tanstack/react-query"
+    }
+  ],
+  "guide": "tanstack-query",
+  "tags": [
+    "react",
+    "data-fetching"
+  ],
+  "source": "https://tanstack.com/query/latest/docs/framework/react/guides/migrating-to-v5",
+  "last_verified": "2026-11-16"
+}

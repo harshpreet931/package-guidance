@@ -1,0 +1,24 @@
+{
+  "id": "left-pad",
+  "ecosystem": "npm",
+  "packages": [
+    "left-pad"
+  ],
+  "versions": "*",
+  "status": "deprecated",
+  "severity": "block",
+  "summary": "Deprecated: 'use String.prototype.padStart()'. It became the classic example of a fragile micro-dependency after the 2016 unpublish.",
+  "replacements": [
+    {
+      "name": "String.prototype.padStart",
+      "kind": "native",
+      "when": "'5'.padStart(3, '0')"
+    }
+  ],
+  "tags": [
+    "micro-dep",
+    "native"
+  ],
+  "source": "https://www.npmjs.com/package/left-pad",
+  "last_verified": "2026-11-16"
+}

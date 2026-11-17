@@ -1,0 +1,43 @@
+{
+  "id": "moment",
+  "ecosystem": "npm",
+  "packages": [
+    "moment"
+  ],
+  "versions": "*",
+  "status": "superseded",
+  "severity": "warn",
+  "summary": "Moment is a legacy project in maintenance mode (status update 2026-08-17): security fixes only, no new features, mutable API kept. Do not add it to new code.",
+  "replacements": [
+    {
+      "name": "date-fns",
+      "kind": "package",
+      "install": "npm install date-fns",
+      "when": "functional, tree-shakeable"
+    },
+    {
+      "name": "Temporal",
+      "kind": "native",
+      "when": "Stage 4; shipped in Chrome 144, Firefox 139 and Node 26. Use temporal-polyfill elsewhere."
+    },
+    {
+      "name": "dayjs",
+      "kind": "package",
+      "install": "npm install dayjs",
+      "when": "Moment-like chainable API, small"
+    },
+    {
+      "name": "luxon",
+      "kind": "package",
+      "install": "npm install luxon",
+      "when": "time zones through Intl"
+    }
+  ],
+  "guide": "moment-to-date-fns",
+  "tags": [
+    "date",
+    "time"
+  ],
+  "source": "https://momentjs.com/news/",
+  "last_verified": "2026-11-16"
+}

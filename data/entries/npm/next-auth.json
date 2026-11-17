@@ -1,0 +1,30 @@
+{
+  "id": "next-auth",
+  "ecosystem": "npm",
+  "packages": [
+    "next-auth"
+  ],
+  "versions": "*",
+  "status": "caution",
+  "severity": "info",
+  "summary": "next-auth `latest` is still v4 (4.24.x), and v5 never left beta (5.0.0-beta.x). Since 2025-09-22 Auth.js/NextAuth is maintained by the Better Auth team, which gives security fixes only and recommends Better Auth for new projects. Do not install next-auth@beta for new work.",
+  "replacements": [
+    {
+      "name": "better-auth",
+      "kind": "package",
+      "install": "npm install better-auth",
+      "when": "new projects"
+    },
+    {
+      "name": "next-auth@4",
+      "kind": "package",
+      "when": "existing apps; keep patched"
+    }
+  ],
+  "tags": [
+    "auth",
+    "next"
+  ],
+  "source": "https://better-auth.com/blog/authjs-joins-better-auth",
+  "last_verified": "2026-11-16"
+}

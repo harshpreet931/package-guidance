@@ -1,0 +1,30 @@
+{
+  "id": "distutils",
+  "ecosystem": "pypi",
+  "packages": [
+    "distutils"
+  ],
+  "versions": "*",
+  "status": "deprecated",
+  "severity": "block",
+  "summary": "distutils was removed from the standard library in Python 3.12 (PEP 632). The PyPI project named `distutils` is an ancient placeholder upload (version 1.0, description 'UNKNOWN'), not a replacement. Never install it.",
+  "replacements": [
+    {
+      "name": "setuptools",
+      "kind": "package",
+      "install": "uv add --dev setuptools",
+      "when": "build backend / setup() APIs"
+    },
+    {
+      "name": "sysconfig / shutil",
+      "kind": "native",
+      "when": "for paths and file helpers that distutils provided"
+    }
+  ],
+  "tags": [
+    "packaging",
+    "stdlib"
+  ],
+  "source": "https://peps.python.org/pep-0632/",
+  "last_verified": "2026-11-16"
+}

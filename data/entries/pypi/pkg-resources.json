@@ -1,0 +1,32 @@
+{
+  "id": "pkg-resources",
+  "ecosystem": "pypi",
+  "packages": [
+    "pkg_resources",
+    "pkg-resources"
+  ],
+  "not_on_registry": true,
+  "versions": "*",
+  "status": "deprecated",
+  "severity": "block",
+  "summary": "pkg_resources was never a PyPI project (a 404 means hallucination). It shipped inside setuptools, which removed it in setuptools 82.0.0. Use importlib.metadata and importlib.resources.",
+  "replacements": [
+    {
+      "name": "importlib.metadata",
+      "kind": "native",
+      "when": "versions, entry points, distribution metadata"
+    },
+    {
+      "name": "importlib.resources",
+      "kind": "native",
+      "when": "package data files"
+    }
+  ],
+  "tags": [
+    "packaging",
+    "stdlib",
+    "hallucination"
+  ],
+  "source": "https://setuptools.pypa.io/en/latest/history.html",
+  "last_verified": "2026-11-16"
+}

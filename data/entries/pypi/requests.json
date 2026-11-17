@@ -1,0 +1,30 @@
+{
+  "id": "requests",
+  "ecosystem": "pypi",
+  "packages": [
+    "requests"
+  ],
+  "versions": "*",
+  "status": "caution",
+  "severity": "info",
+  "summary": "requests is maintained (2.34.x) and fine for synchronous HTTP. Do not replace it out of habit. For async code or HTTP/2, use httpx or aiohttp.",
+  "replacements": [
+    {
+      "name": "httpx",
+      "kind": "package",
+      "install": "uv add httpx",
+      "when": "async or HTTP/2"
+    },
+    {
+      "name": "aiohttp",
+      "kind": "package",
+      "install": "uv add aiohttp",
+      "when": "asyncio-native client/server"
+    }
+  ],
+  "tags": [
+    "http"
+  ],
+  "source": "https://pypi.org/project/requests/",
+  "last_verified": "2026-11-16"
+}

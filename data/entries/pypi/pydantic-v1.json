@@ -1,0 +1,36 @@
+{
+  "id": "pydantic-v1",
+  "ecosystem": "pypi",
+  "packages": [
+    "pydantic"
+  ],
+  "versions": "<2",
+  "status": "outdated-major",
+  "severity": "warn",
+  "summary": "Pydantic v2 is current (2.14.x). v1 patterns (.dict(), .json(), parse_obj, @validator, @root_validator, class Config, orm_mode, BaseSettings from pydantic) are wrong in new code. Use bump-pydantic for existing code, and pydantic.v1 only as a temporary shim.",
+  "replacements": [
+    {
+      "name": "pydantic>=2",
+      "kind": "package",
+      "install": "uv add pydantic"
+    },
+    {
+      "name": "pydantic-settings",
+      "kind": "package",
+      "install": "uv add pydantic-settings",
+      "when": "BaseSettings moved here"
+    },
+    {
+      "name": "bump-pydantic",
+      "kind": "tool",
+      "install": "uvx bump-pydantic my_package",
+      "when": "automated v1 to v2 rewrite (beta)"
+    }
+  ],
+  "guide": "pydantic-v2",
+  "tags": [
+    "validation"
+  ],
+  "source": "https://pydantic.dev/docs/validation/latest/get-started/migration/",
+  "last_verified": "2026-11-16"
+}

@@ -1,0 +1,24 @@
+{
+  "id": "mock",
+  "ecosystem": "pypi",
+  "packages": [
+    "mock"
+  ],
+  "versions": "*",
+  "status": "prefer-native",
+  "severity": "info",
+  "summary": "`mock` is a rolling backport of unittest.mock, which has been in the standard library since Python 3.3. Import unittest.mock instead.",
+  "replacements": [
+    {
+      "name": "unittest.mock",
+      "kind": "native",
+      "when": "from unittest import mock"
+    }
+  ],
+  "tags": [
+    "test",
+    "native"
+  ],
+  "source": "https://pypi.org/project/mock/",
+  "last_verified": "2026-11-16"
+}

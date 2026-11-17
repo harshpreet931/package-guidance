@@ -1,0 +1,27 @@
+{
+  "id": "jest-in-vite",
+  "ecosystem": "npm",
+  "packages": [
+    "jest",
+    "ts-jest",
+    "babel-jest"
+  ],
+  "versions": "*",
+  "status": "caution",
+  "severity": "info",
+  "summary": "Jest is maintained (30.x) and fine for existing suites. In a Vite project, prefer Vitest: it reuses vite.config, handles ESM and TS natively, and its API is Jest-compatible. Not a reason to rewrite a working non-Vite Jest suite.",
+  "replacements": [
+    {
+      "name": "vitest",
+      "kind": "package",
+      "install": "npm install -D vitest",
+      "when": "Vite-based projects (Vitest 5 needs Vite >= 6.4 and Node >= 22.12)"
+    }
+  ],
+  "guide": "jest-to-vitest",
+  "tags": [
+    "test"
+  ],
+  "source": "https://vitest.dev/guide/migration/jest",
+  "last_verified": "2026-11-16"
+}
