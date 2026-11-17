@@ -177,6 +177,9 @@ function pypiPrivate(cwd: string): boolean {
     process.env.PIP_CONFIG_FILE, process.env.UV_CONFIG_FILE, process.env.VIRTUAL_ENV && join(process.env.VIRTUAL_ENV, 'pip.conf'),
     join(config, 'pip', 'pip.conf'), join(home, '.pip', 'pip.conf'), join(home, 'Library', 'Application Support', 'pip', 'pip.conf'),
     join(config, 'uv', 'uv.toml'), '/etc/pip.conf', '/etc/uv/uv.toml',
+    // Windows: pip reads pip.ini (per user, per venv, legacy ~/pip), uv reads %APPDATA%\\uv\\uv.toml.
+    ...allUp(cwd, 'pip.ini'), process.env.VIRTUAL_ENV && join(process.env.VIRTUAL_ENV, 'pip.ini'), join(home, 'pip', 'pip.ini'),
+    process.env.APPDATA && join(process.env.APPDATA, 'pip', 'pip.ini'), process.env.APPDATA && join(process.env.APPDATA, 'uv', 'uv.toml'),
   ];
   return files.some((f) => {
     const text = read(f || undefined);

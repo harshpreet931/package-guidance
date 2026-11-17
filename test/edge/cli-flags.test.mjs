@@ -63,7 +63,7 @@ test('help documents the exit codes', () => {
   assert.match(cli(['--help']).out, /Exit codes[\s\S]*4 could not verify/);
 });
 
-test('EPIPE (output piped into a closed reader) exits quietly', () => {
+test('EPIPE (output piped into a closed reader) exits quietly', { skip: process.platform === 'win32' && 'needs /bin/sh' }, () => {
   // More output than a pipe buffers, so the writer really hits the closed pipe.
   const names = Array.from({ length: 1500 }, (_, i) => `nope-zz9-${i}`).join(' ');
   const fx = join(mkdtempSync(join(tmpdir(), 'pg-fx-')), 'fake.json');

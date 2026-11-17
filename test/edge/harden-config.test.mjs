@@ -105,7 +105,7 @@ test('--cooldown 0 or nonsense is rejected', () => {
   }
 });
 
-test('read-only config: a clean message, no stack trace', { skip: process.getuid?.() === 0 }, () => {
+test('read-only config: a clean message, no stack trace', { skip: process.platform === 'win32' ? 'POSIX file permissions' : process.getuid?.() === 0 }, () => {
   const d = repo({ '.npmrc': 'registry=https://r\n', 'package.json': '{}' });
   chmodSync(join(d, '.npmrc'), 0o444);
   const r = harden(d, '--write');

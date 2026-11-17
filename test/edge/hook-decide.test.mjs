@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, mkdirSync, writeFileSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
@@ -40,10 +40,11 @@ test('poetry and uvx @-constraints become PEP 440 ranges', () => {
 // Private-registry detection reads config files; HOME points at a scratch dir so the machine's own config is ignored.
 function withHome(fn) {
   const home = mkdtempSync(join(tmpdir(), 'pg-home-'));
-  const saved = { HOME: process.env.HOME, XDG_CONFIG_HOME: process.env.XDG_CONFIG_HOME };
+  const saved = { HOME: process.env.HOME, USERPROFILE: process.env.USERPROFILE, XDG_CONFIG_HOME: process.env.XDG_CONFIG_HOME };
   process.env.HOME = home;
+  process.env.USERPROFILE = home; // os.homedir() reads USERPROFILE on Windows
   delete process.env.XDG_CONFIG_HOME;
-  try { return fn(home); } finally { Object.assign(process.env, saved); if (saved.XDG_CONFIG_HOME === undefined) delete process.env.XDG_CONFIG_HOME; }
+  try { return fn(home); } finally { for (const [k, v] of Object.entries(saved)) { if (v === undefined) delete process.env[k]; else process.env[k] = v; } }
 }
 const project = (home, files) => {
   const dir = join(home, 'proj');
@@ -95,6 +96,15 @@ test('uv, poetry and pip index config', () => withHome((home) => {
   mkdirSync(join(home, '.config', 'pip'), { recursive: true });
   writeFileSync(join(home, '.config', 'pip', 'pip.conf'), '[global]\nindex-url = https://pypi.corp.example/simple\n');
   assert.equal(isPrivate(plain, 'pip install internal-lib'), true);
+  const appdata = join(home, 'AppData');
+  mkdirSync(join(appdata, 'pip'), { recursive: true });
+  rmSync(join(home, '.config'), { recursive: true });
+  writeFileSync(join(appdata, 'pip', 'pip.ini'), '[global]\nindex-url = https://pypi.corp.example/simple\n');
+  const savedAppdata = process.env.APPDATA;
+  try {
+    process.env.APPDATA = appdata;
+    assert.equal(isPrivate(plain, 'pip install internal-lib'), true);
+  } finally { if (savedAppdata === undefined) delete process.env.APPDATA; else process.env.APPDATA = savedAppdata; }
 }));
 
 test('registry variables in the hook process environment count, the public registry does not', () => withHome((home) => {
