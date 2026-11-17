@@ -1,4 +1,4 @@
-****<picture>
+<picture>
   <source media="(prefers-color-scheme: dark)" srcset="brand/readme-banner-dark.svg">
   <img alt="package-guidance: Stop your coding agent from installing 2023." src="brand/readme-banner-light.svg" width="100%">
 </picture>
